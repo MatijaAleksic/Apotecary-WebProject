@@ -10,18 +10,28 @@ public class DermathologistService {
     public static Dermatologist dermBaza = new Dermatologist("Pera", "Peric", "pera", "peric");
     public static ArrayList<Dermatologist> bazaDermatologa = new ArrayList<Dermatologist>();
 
-
-    public boolean registerDermathologist(String firstName,String lastName, String username, String password)
-    {
+    public DermathologistService() {
         bazaDermatologa.add(dermBaza);
+    }
+
+    public boolean registerDermathologist(String firstName, String lastName, String username, String password)
+    {
         Dermatologist newDerm = new Dermatologist(firstName, lastName, username, password);
 
-        bazaDermatologa.add(newDerm);
-
+        boolean flag = true;
         for(Dermatologist d : bazaDermatologa)
         {
-            System.out.println(d);
+            if (username.equalsIgnoreCase(d.getUserName())) {
+                flag = false;
+                break;
+            }
         }
-        return true;
+
+        if(flag)
+        {
+            bazaDermatologa.add(newDerm);
+            return flag;
+        }
+        return flag;
     }
 }

@@ -11,11 +11,14 @@ public class DermatologistContoller {
     DermathologistService dermathologistService = new DermathologistService();
 
     @PostMapping("/register-new")
-    public String register_dermathologist(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName,
-                                          @RequestParam("username") String username,@RequestParam("password") String password)
+    public String register_dermathologist(@RequestBody RegisterDermatologistRequest rdr)
     {
-        dermathologistService.registerDermathologist(firstName,lastName,username,password);
-        return "Uspesno registrovan dermatolog!";
+        if(dermathologistService.registerDermathologist(rdr.getName(), rdr.getLastName(), rdr.getUsername(), rdr.getPassword())) {
+            return "Uspesno registrovan dermatolog!";
+        }
+        else{
+            return "Vec postoji!";
+        }
     }
 
     @PostMapping("/changePassword")

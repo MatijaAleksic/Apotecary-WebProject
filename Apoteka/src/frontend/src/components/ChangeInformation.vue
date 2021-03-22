@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Change Password</h1>
+    <h1>Change Information</h1>
     <form >
       <fieldset>
         <div>
