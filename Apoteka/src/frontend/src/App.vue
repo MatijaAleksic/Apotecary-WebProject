@@ -4,7 +4,7 @@
 
     <button v-on:click="component ='register-dermatologist'">Register Dermathologist</button>
     <button v-on:click="component ='change-password'">Change Password</button>
-    <button>3.Komponenta</button>
+    <button v-on:click="component ='change-information'">Change Information</button>
 
 
   </div>
@@ -17,6 +17,7 @@
 //import HelloWorld from './components/HelloWorld.vue'
 import RegisterDermatologist from './components/RegisterDermatologist.vue'
 import changePassword from "@/components/changePassword";
+import ChangeInformation from "@/components/ChangeInformation";
 
 export default {
   name: 'App',
@@ -24,7 +25,8 @@ export default {
   components: {
     //HelloWorld
     'register-dermatologist' : RegisterDermatologist,
-    'change-password': changePassword
+    'change-password': changePassword,
+    'change-information': ChangeInformation
   },
 
   data(){
