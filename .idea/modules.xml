@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MRS-ISA-T21.iml" filepath="$PROJECT_DIR$/.idea/MRS-ISA-T21.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Apoteka/fsjava.iml" filepath="$PROJECT_DIR$/Apoteka/fsjava.iml" />
     </modules>
   </component>
 </project>

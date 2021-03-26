@@ -24,7 +24,6 @@ public class DermatologistContoller {
     @PostMapping("/changePassword")
     public String changePassword(@RequestBody ChangePasswordRequest cpr){
         Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456");
-        System.out.print("Jhaafasf");
         if(cpr.oldPassword.equalsIgnoreCase(derm.getPassword())){
             derm.setPassword(cpr.newPassword);
             return "Uspesno promenjena sifra";
