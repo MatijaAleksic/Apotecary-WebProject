@@ -1,6 +1,6 @@
-package Services;
+package dev.danvega.Services;
 
-import Model.Pacijent;
+import dev.danvega.Model.Pacijent;
 
 public class ChangeInformation {
     Pacijent p = new Pacijent("Uros","Stojanovic", "uros.stojanovic99@gmail.com", "ustojanovic", "12345", "njegoseva 14", "12864918246");

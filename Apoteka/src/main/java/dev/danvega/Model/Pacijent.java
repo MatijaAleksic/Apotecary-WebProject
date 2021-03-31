@@ -1,4 +1,4 @@
-package Model;
+package dev.danvega.Model;
 
 public class Pacijent {
     String name;

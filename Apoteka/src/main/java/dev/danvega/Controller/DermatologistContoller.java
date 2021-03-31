@@ -1,8 +1,8 @@
-package dev.danvega.Controllers;
+package dev.danvega.Controller;
 
-import Model.Dermatologist;
+import dev.danvega.Model.Dermatologist;
 import org.springframework.web.bind.annotation.*;
-import Services.DermathologistService;
+import dev.danvega.Services.DermathologistService;
 
 @RestController
 @RequestMapping("/api/dermatologist")
@@ -23,7 +23,7 @@ public class DermatologistContoller {
 
     @PostMapping("/changePassword")
     public String changePassword(@RequestBody ChangePasswordRequest cpr){
-        Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456");
+        Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456", "");
         System.out.print("Jhaafasf");
         if(cpr.oldPassword.equalsIgnoreCase(derm.getPassword())){
             derm.setPassword(cpr.newPassword);

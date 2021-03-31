@@ -1,7 +1,6 @@
-package dev.danvega.Controllers;
+package dev.danvega.Controller;
 
-import Services.ChangeInformation;
-import Services.DermathologistService;
+import dev.danvega.Services.ChangeInformation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

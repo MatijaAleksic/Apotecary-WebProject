@@ -1,0 +1,1 @@
+INSERT INTO administrators(id, first_name, lastname, username, password, email, adress, city, country, phone) VALUES (1,'b','v','d','e','f','g','h','i','j');

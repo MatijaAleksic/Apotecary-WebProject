@@ -1,4 +1,4 @@
-package dev.danvega.Controllers;
+package dev.danvega.Controller;
 
 public class ChangePasswordRequest {
     String oldPassword;
