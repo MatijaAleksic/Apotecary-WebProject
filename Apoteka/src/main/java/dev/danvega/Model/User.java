@@ -12,7 +12,7 @@ public abstract class User {
     private Long id;
 
     @Column(unique = false, nullable = true)
-    private String firstName;
+    private String firstname;
 
     @Column(unique = false, nullable = true)
     private String lastname;
@@ -38,9 +38,9 @@ public abstract class User {
     @Column(unique = false, nullable = true)
     private String phone;
 
-    public User(Long id, String firstName, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+    public User(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         this.id = id;
-        this.firstName = firstName;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
@@ -52,8 +52,8 @@ public abstract class User {
     }
 
     //IZBRISI KAD DOVRSIMO BACKEND OVO SAMO SLUZI DA SE NE CRVENI KOD ZA PRVI SPRINT STO SMO RADILI
-    public User(String firstName, String lastname, String username, String password, String email) {
-        this.firstName = firstName;
+    public User(String firstname, String lastname, String username, String password, String email) {
+        this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
@@ -61,6 +61,9 @@ public abstract class User {
     }
 
     public User() {
+    }
+
+    public User(String firstname, String lastname) {
     }
 
     public Long getId() {
@@ -71,12 +74,12 @@ public abstract class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
     public String getLastname() {

@@ -11,10 +11,6 @@ import java.util.List;
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Long> {
 
-    Administrator findByFirstName(String name);
+    Administrator findByFirstname(String name);
 
-    Administrator findByFirstNameAndIdNot(String name, Long id);
-
-    //List<Administrator> findByApotecaryId(Long categoryId);
-    //Administrator findByApotecaryIdAndId(Long categoryId, Long id);
 }
