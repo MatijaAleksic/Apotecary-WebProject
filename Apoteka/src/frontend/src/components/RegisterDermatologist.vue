@@ -4,13 +4,13 @@
     <form>
       <fieldset>
         <div>
-          <label for="first_name">First Name</label>
-          <input type="text" name="first_name" id="first_name" v-model="first_name"/>
+          <label for="firstname">First Name</label>
+          <input type="text" name="firstname" id="firstname" v-model="firstname"/>
         </div>
 
         <div>
-          <label for="last_name">Last Name</label>
-          <input type="text" name="last_name" id="last_name" v-model="last_name"/>
+          <label for="lastname">Last Name</label>
+          <input type="text" name="lastname" id="lastname" v-model="lastname"/>
         </div>
 
         <div>
@@ -21,6 +21,31 @@
         <div>
           <label for="password">Password</label>
           <input type="text" name="password" id="password" v-model="password"/>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" v-model="email"/>
+        </div>
+
+        <div>
+          <label for="adress">Address</label>
+          <input type="text" name="adress" id="adress" v-model="adress"/>
+        </div>
+
+        <div>
+          <label for="city">City</label>
+          <input type="text" name="city" id="city" v-model="city"/>
+        </div>
+
+        <div>
+          <label for="country">Country</label>
+          <input type="text" name="country" id="country" v-model="country"/>
+        </div>
+
+        <div>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" id="phone" v-model="phone"/>
         </div>
 
         <div class="controls">
@@ -42,15 +67,22 @@ export default {
   data() {
     return {
       msg: '',
-      first_name: '',
-      last_name: '',
+      firstname: '',
+      lastname: '',
       username: '',
       password: '',
+      email: '',
+      adress: '',
+      city: '',
+      country: '',
+      phone: ''
     }
   },
   methods:{
     submit(){
-      axios.post("/api/dermatologist/register-new", {first_name: this.first_name, last_name: this.last_name,username: this.username, password: this.password})
+      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
+      username: this.username, password: this.password, email: this.email, adress : this.adress, city: this.city,
+       country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;
           });

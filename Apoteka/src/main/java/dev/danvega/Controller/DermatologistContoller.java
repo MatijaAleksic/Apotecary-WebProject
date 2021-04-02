@@ -26,11 +26,9 @@ public class DermatologistContoller {
     @RequestMapping(value="search/name={firstname}&lastname={lastname}", method=RequestMethod.GET)
     public ResponseEntity<List<DermatologistSearchDTO>> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
         List<Dermatologist> dermatologists = dermathologistService.searchDermatologist(firstname,lastname);
-
         if(dermatologists == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
         return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
     }
 
@@ -43,7 +41,6 @@ public class DermatologistContoller {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
     }
 

@@ -12,15 +12,10 @@ import java.util.*;
 @Service
 public class DermathologistService {
 
-    public static Dermatologist dermBaza = new Dermatologist("Pera", "Peric", "pera", "peric", "");
-    public static ArrayList<Dermatologist> bazaDermatologa = new ArrayList<Dermatologist>();
-
     @Autowired
     private DermatologistRepository dermatologistRepository;
 
-    public DermathologistService() {
-        bazaDermatologa.add(dermBaza);
-    }
+    public DermathologistService() {}
 
     public List<Dermatologist> searchDermatologist(String firstname, String lastname) {
 
@@ -33,7 +28,6 @@ public class DermathologistService {
 
         }else{
             if (!lastname.isEmpty()) {
-
                 return dermatologistRepository.findByLastname(lastname);
             }else {
                 return dermatologistRepository.findAll();
