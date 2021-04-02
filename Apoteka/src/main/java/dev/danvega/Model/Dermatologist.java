@@ -27,13 +27,16 @@ public class Dermatologist extends User{
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
     }
 
+    public Dermatologist(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+        super(firstname, lastname, username, password, email, adress, city, country, phone);
+    }
+
     public Dermatologist() {
     }
 
-    public Dermatologist(String firstname, String lastname, Apotecary apotecary, List<DermatologistRating> ratings) {
+    public Dermatologist(String firstname, String lastname, Apotecary apotecary) {
         super(firstname, lastname);
         this.apotecary = apotecary;
-        this.ratings = ratings;
     }
 
     //IZBRISI KAD DOVRSIMO BACKEND OVO SAMO SLUZI DA SE NE CRVENI KOD ZA PRVI SPRINT STO SMO RADILI

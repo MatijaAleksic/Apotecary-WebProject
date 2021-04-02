@@ -11,4 +11,11 @@ import java.util.List;
 public interface DermatologistRepository extends JpaRepository<Dermatologist, Long> {
 
     List<Dermatologist> findByFirstnameAndLastname(String firstname, String lastname);
+
+    List<Dermatologist> findByFirstname(String firstname);
+
+    List<Dermatologist> findByLastname(String lastname);
+
+    Dermatologist findByEmail(String email);
+
 }

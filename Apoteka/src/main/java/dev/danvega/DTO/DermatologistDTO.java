@@ -1,42 +1,30 @@
 package dev.danvega.DTO;
 
-import dev.danvega.Model.Apotecary;
-import dev.danvega.Model.DermatologistRating;
-
-import java.util.List;
-
 public class DermatologistDTO {
 
-
-    private Apotecary apotecary;
-    private List<DermatologistRating> ratings;
     private String firstname;
     private String lastname;
+    private String username;
+    private String password;
+    private String email;
+    private String adress;
+    private String city;
+    private String country;
+    private String phone;
 
     public DermatologistDTO() {
     }
 
-    public DermatologistDTO(String firstname, String lastname, Apotecary apotecary, List<DermatologistRating> ratings) {
-        this.apotecary = apotecary;
-        this.ratings = ratings;
+    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
-    }
-
-    public Apotecary getApotecary() {
-        return apotecary;
-    }
-
-    public void setApotecary(Apotecary apotecary) {
-        this.apotecary = apotecary;
-    }
-
-    public List<DermatologistRating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<DermatologistRating> ratings) {
-        this.ratings = ratings;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.adress = adress;
+        this.city = city;
+        this.country = country;
+        this.phone = phone;
     }
 
     public String getFirstname() {
@@ -53,5 +41,61 @@ public class DermatologistDTO {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -1,7 +1,9 @@
 package dev.danvega.Controller;
 
 import dev.danvega.DTO.DermatologistDTO;
+import dev.danvega.DTO.DermatologistSearchDTO;
 import dev.danvega.Mapper.DermatologistMapper;
+import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.Dermatologist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,30 +20,31 @@ public class DermatologistContoller {
 
     @Autowired
     DermathologistService dermathologistService = new DermathologistService();
+    private final DermatologistSearchMapper dermatologistSearchMapper = new DermatologistSearchMapper();
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
 
-    @RequestMapping(value="/name={firstname}?lastname={lastname}", method=RequestMethod.GET)
-    public ResponseEntity<DermatologistDTO> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
+    @RequestMapping(value="search/name={firstname}&lastname={lastname}", method=RequestMethod.GET)
+    public ResponseEntity<List<DermatologistSearchDTO>> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
         List<Dermatologist> dermatologists = dermathologistService.searchDermatologist(firstname,lastname);
 
         if(dermatologists == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
-
-        //return ResponseEntity.ok(toDermatologistDTOList(dermatologists));
+        return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
     }
 
     @PostMapping("/register-new")
-    public String register_dermathologist(@RequestBody RegisterDermatologistRequest rdr)
+    public ResponseEntity<DermatologistDTO> register_dermathologist(@RequestBody DermatologistDTO dermatologistDTO)
     {
-        if(dermathologistService.registerDermathologist(rdr.getName(), rdr.getLastName(), rdr.getUsername(), rdr.getPassword())) {
-            return "Uspesno registrovan dermatolog!";
+        Dermatologist dermatologist;
+        try {
+            dermatologist = dermathologistService.create(dermatologistMapper.toEntity(dermatologistDTO));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        else{
-            return "Vec postoji!";
-        }
+
+        return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
     }
 
     @PostMapping("/changePassword")
@@ -61,6 +64,14 @@ public class DermatologistContoller {
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
         for (Dermatologist dermatologist : dermatologists) {
             dermatologistDTOS.add(dermatologistMapper.toDto(dermatologist));
+        }
+        return dermatologistDTOS;
+    }
+
+    private List<DermatologistSearchDTO> toDermatologistSearchDTOList(List<Dermatologist> dermatologists){
+        List<DermatologistSearchDTO> dermatologistDTOS = new ArrayList<>();
+        for (Dermatologist dermatologist : dermatologists) {
+            dermatologistDTOS.add(dermatologistSearchMapper.toDto(dermatologist));
         }
         return dermatologistDTOS;
     }

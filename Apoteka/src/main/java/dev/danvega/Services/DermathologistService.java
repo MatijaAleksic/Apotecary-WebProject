@@ -7,8 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DermathologistService {
@@ -24,29 +23,28 @@ public class DermathologistService {
     }
 
     public List<Dermatologist> searchDermatologist(String firstname, String lastname) {
-        return dermatologistRepository.findByFirstnameAndLastname(firstname, lastname);
-    }
 
+        if(!firstname.isEmpty()) {
+            if (!lastname.isEmpty()) {
+                return dermatologistRepository.findByFirstnameAndLastname(firstname, lastname);
+            } else {
+                return dermatologistRepository.findByFirstname(firstname);
+            }
 
+        }else{
+            if (!lastname.isEmpty()) {
 
-    public boolean registerDermathologist(String firstName, String lastName, String username, String password)
-    {
-        Dermatologist newDerm = new Dermatologist(firstName, lastName, username, password, "");
-
-        boolean flag = true;
-        for(Dermatologist d : bazaDermatologa)
-        {
-            if (username.equalsIgnoreCase(d.getUsername())) {
-                flag = false;
-                break;
+                return dermatologistRepository.findByLastname(lastname);
+            }else {
+                return dermatologistRepository.findAll();
             }
         }
+    }
 
-        if(flag)
-        {
-            bazaDermatologa.add(newDerm);
-            return flag;
+    public Dermatologist create(Dermatologist entity) throws Exception {
+        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Dermatologist with given name already exists");
         }
-        return flag;
+        return dermatologistRepository.save(entity);
     }
 }
