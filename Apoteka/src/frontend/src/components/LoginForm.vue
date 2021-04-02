@@ -1,0 +1,51 @@
+<template>
+  <div id="container"><div id="container-inner">
+    <form style="width: 300px; position:absolute; top: 200px; left: 600px" >
+      <fieldset>
+        <!-- Your current password -->
+        <h1 style="position: relative; left: 95px">Login</h1>
+        <div>
+          <label for="username">Username</label>
+          <input style=" margin: 10px;" type="text" name="username" id="username" v-model="username"/> <br/>
+        </div>
+
+
+        <!-- Your new password -->
+        <div>
+          <label for="password">Password </label>
+          <input style=" margin: 10px;" type="text" name="password" id="password" v-model="password"/>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <input style="position:relative; margin-top:15px; left:95px; width: 100px;" id="submit" name="submit" type="button" @click="submit" value="Login" />
+        </div>
+        <div>
+          <h1>{{ msg }}</h1>
+        </div>
+      </fieldset>
+    </form>
+
+  </div></div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: 'Login',
+  data() {
+    return {
+      msg: '',
+      oldPassword: '',
+      newPassword: ''
+    }
+  },
+  methods:{
+    submit(){
+      axios.post("/api/unsigned/login", {username: this.username, password: this.password})
+          .then((response) => {
+            this.msg = response.data;
+          });
+    }
+  }}
+</script>
