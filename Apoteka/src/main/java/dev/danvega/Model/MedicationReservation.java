@@ -1,6 +1,7 @@
 package dev.danvega.Model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -12,7 +13,10 @@ public class MedicationReservation {
     private Long id;
 
     @Column(unique = false, nullable = true)
-    private LocalTime reservationEnds;
+    private LocalDate reservationEndDate;
+
+    @Column(unique = false, nullable = true)
+    private LocalTime reservationEndTime;
 
     @Column(unique = false, nullable = true)
     private int quantity;
@@ -40,14 +44,21 @@ public class MedicationReservation {
     @JoinColumn(name = "medication_info_id")
     private MedicationInfo medicationInfo;
 
-    public MedicationReservation(Long id, LocalTime reservationEnds, int quantity, StatusMedication status) {
-        this.id = id;
-        this.reservationEnds = reservationEnds;
-        this.quantity = quantity;
-        this.status = status;
-    }
 
     public MedicationReservation() {
+    }
+
+    public MedicationReservation(Long id, LocalDate reservationEndDate, LocalTime reservationEndTime, int quantity, StatusMedication status, Consultation consultation, Visit visit, Apotecary apotecary, Patient patient, MedicationInfo medicationInfo) {
+        this.id = id;
+        this.reservationEndDate = reservationEndDate;
+        this.reservationEndTime = reservationEndTime;
+        this.quantity = quantity;
+        this.status = status;
+        this.consultation = consultation;
+        this.visit = visit;
+        this.apotecary = apotecary;
+        this.patient = patient;
+        this.medicationInfo = medicationInfo;
     }
 
     public Long getId() {
@@ -56,14 +67,6 @@ public class MedicationReservation {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalTime getReservationEnds() {
-        return reservationEnds;
-    }
-
-    public void setReservationEnds(LocalTime reservationEnds) {
-        this.reservationEnds = reservationEnds;
     }
 
     public int getQuantity() {
@@ -120,5 +123,21 @@ public class MedicationReservation {
 
     public void setMedicationInfo(MedicationInfo medicationInfo) {
         this.medicationInfo = medicationInfo;
+    }
+
+    public LocalDate getReservationEndDate() {
+        return reservationEndDate;
+    }
+
+    public void setReservationEndDate(LocalDate reservationEndDate) {
+        this.reservationEndDate = reservationEndDate;
+    }
+
+    public LocalTime getReservationEndTime() {
+        return reservationEndTime;
+    }
+
+    public void setReservationEndTime(LocalTime reservationEndTime) {
+        this.reservationEndTime = reservationEndTime;
     }
 }

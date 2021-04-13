@@ -1,5 +1,3 @@
-
-
 package dev.danvega.Repository;
 
 import dev.danvega.Model.Administrator;
@@ -11,6 +9,8 @@ import java.util.List;
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Long> {
 
-    Administrator findByFirstname(String name);
+    Administrator findByEmail(String email);
+
+    Administrator findByUsername(String username);
 
 }

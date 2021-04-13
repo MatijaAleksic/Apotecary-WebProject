@@ -1,6 +1,7 @@
 package dev.danvega.Model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,7 +16,10 @@ public class MedicationInfo {
     private double price;
 
     @Column(unique = false, nullable = true)
-    private LocalTime priceDurationEnds;
+    private LocalDate priceDurationEndDate;
+
+    @Column(unique = false, nullable = true)
+    private LocalTime priceDurationEndTime;
 
     @Column(unique = false, nullable = true)
     private int inStorage;
@@ -31,24 +35,20 @@ public class MedicationInfo {
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    public MedicationInfo(Long id, double price, LocalTime priceDurationEnds, int inStorage) {
-        this.id = id;
-        this.price = price;
-        this.priceDurationEnds = priceDurationEnds;
-        this.inStorage = inStorage;
+
+
+    public MedicationInfo() {
     }
 
-    public MedicationInfo(Long id, double price, LocalTime priceDurationEnds, int inStorage, MedicationReservation medicationReservation, Medication medication, Apotecary apotecary) {
+    public MedicationInfo(Long id, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, MedicationReservation medicationReservation, Medication medication, Apotecary apotecary) {
         this.id = id;
         this.price = price;
-        this.priceDurationEnds = priceDurationEnds;
+        this.priceDurationEndDate = priceDurationEndDate;
+        this.priceDurationEndTime = priceDurationEndTime;
         this.inStorage = inStorage;
         this.medicationReservation = medicationReservation;
         this.medication = medication;
         this.apotecary = apotecary;
-    }
-
-    public MedicationInfo() {
     }
 
     public Long getId() {
@@ -65,14 +65,6 @@ public class MedicationInfo {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public LocalTime getPriceDurationEnds() {
-        return priceDurationEnds;
-    }
-
-    public void setPriceDurationEnds(LocalTime priceDurationEnds) {
-        this.priceDurationEnds = priceDurationEnds;
     }
 
     public int getInStorage() {
@@ -105,5 +97,21 @@ public class MedicationInfo {
 
     public void setApotecary(Apotecary apotecary) {
         this.apotecary = apotecary;
+    }
+
+    public LocalDate getPriceDurationEndDate() {
+        return priceDurationEndDate;
+    }
+
+    public void setPriceDurationEndDate(LocalDate priceDurationEndDate) {
+        this.priceDurationEndDate = priceDurationEndDate;
+    }
+
+    public LocalTime getPriceDurationEndTime() {
+        return priceDurationEndTime;
+    }
+
+    public void setPriceDurationEndTime(LocalTime priceDurationEndTime) {
+        this.priceDurationEndTime = priceDurationEndTime;
     }
 }

@@ -8,6 +8,9 @@ public class MedicationSpecification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = false, nullable = true)
     private String contradictions;
 
     @Column(unique = false, nullable = true)
