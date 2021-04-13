@@ -20,6 +20,26 @@ public class MedicationReservation {
     @Column(unique = false, nullable = true)
     private StatusMedication status;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "consultation_id")
+    private Consultation consultation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "visit_id")
+    private Visit visit;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "apotecary_id")
+    private Apotecary apotecary;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medication_info_id")
+    private MedicationInfo medicationInfo;
+
     public MedicationReservation(Long id, LocalTime reservationEnds, int quantity, StatusMedication status) {
         this.id = id;
         this.reservationEnds = reservationEnds;
@@ -60,5 +80,45 @@ public class MedicationReservation {
 
     public void setStatus(StatusMedication status) {
         this.status = status;
+    }
+
+    public Consultation getConsultation() {
+        return consultation;
+    }
+
+    public void setConsultation(Consultation consultation) {
+        this.consultation = consultation;
+    }
+
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
+
+    public Apotecary getApotecary() {
+        return apotecary;
+    }
+
+    public void setApotecary(Apotecary apotecary) {
+        this.apotecary = apotecary;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public MedicationInfo getMedicationInfo() {
+        return medicationInfo;
+    }
+
+    public void setMedicationInfo(MedicationInfo medicationInfo) {
+        this.medicationInfo = medicationInfo;
     }
 }

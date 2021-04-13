@@ -19,11 +19,23 @@ public class MedicationSpecification {
     @Column(unique = false, nullable = true)
     private String replacementDrugs;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medication_id")
+    private Medication medication;
+
     public MedicationSpecification(String contradictions, String composition, String dailyIntake, String replacementDrugs) {
         this.contradictions = contradictions;
         this.composition = composition;
         this.dailyIntake = dailyIntake;
         this.replacementDrugs = replacementDrugs;
+    }
+
+    public MedicationSpecification(String contradictions, String composition, String dailyIntake, String replacementDrugs, Medication medication) {
+        this.contradictions = contradictions;
+        this.composition = composition;
+        this.dailyIntake = dailyIntake;
+        this.replacementDrugs = replacementDrugs;
+        this.medication = medication;
     }
 
     public MedicationSpecification() {
@@ -59,5 +71,13 @@ public class MedicationSpecification {
 
     public void setReplacementDrugs(String replacementDrugs) {
         this.replacementDrugs = replacementDrugs;
+    }
+
+    public Medication getMedication() {
+        return medication;
+    }
+
+    public void setMedication(Medication medication) {
+        this.medication = medication;
     }
 }

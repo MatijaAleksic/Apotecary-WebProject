@@ -23,6 +23,9 @@ public class Dermatologist extends User{
     @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL)
     private List<DermatologistRating> ratings;
 
+    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL)
+    private List<Visit> visits;
+
     public Dermatologist(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
     }
@@ -74,5 +77,13 @@ public class Dermatologist extends User{
 
     public void setRatings(List<DermatologistRating> ratings) {
         this.ratings = ratings;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 }

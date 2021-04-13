@@ -21,7 +21,7 @@ public class DermatologistRating {
     @JoinColumn(name = "dermatologist_id")
     private Dermatologist dermatologist;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
@@ -61,5 +61,13 @@ public class DermatologistRating {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
