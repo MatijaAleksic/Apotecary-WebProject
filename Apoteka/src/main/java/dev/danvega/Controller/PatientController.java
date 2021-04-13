@@ -1,5 +1,6 @@
 package dev.danvega.Controller;
 
+import dev.danvega.DTO.ChangeInformationRequest;
 import dev.danvega.Services.ChangeInformation;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,10 @@ public class PatientController {
     @PostMapping("/change-information")
     public String change_information(@RequestBody ChangeInformationRequest cir)
     {
-        change.changeInfo(cir.name, cir.lastName, cir.username, cir.address, cir.phoneNumber);
-        return "Uspesno promenjeno ime iz Uros u " + cir.name + "\n Uspesno promenjeno prezime iz Stojanovic u " + cir.lastName
-                + "\n Uspesno promenjen username iz ustojanovic u " + cir.username + "\n Uspesno promenjena adresa iz njegoseva 14 u "
-                + cir.address + "\n Uspesno promenjen broj telefona iz 12864918246 u " + cir.phoneNumber;
+        change.changeInfo(cir.getName(), cir.getLastName(), cir.getUsername(), cir.getAddress(), cir.getPhoneNumber());
+        return "Uspesno promenjeno ime iz Uros u " + cir.getName() + "\n Uspesno promenjeno prezime iz Stojanovic u " + cir.getLastName()
+                + "\n Uspesno promenjen username iz ustojanovic u " + cir.getUsername() + "\n Uspesno promenjena adresa iz njegoseva 14 u "
+                + cir.getAddress() + "\n Uspesno promenjen broj telefona iz 12864918246 u " + cir.getPhoneNumber();
     }
 }
 

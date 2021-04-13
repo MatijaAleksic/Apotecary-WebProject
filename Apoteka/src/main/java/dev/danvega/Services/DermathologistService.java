@@ -3,14 +3,12 @@ package dev.danvega.Services;
 import dev.danvega.Model.Dermatologist;
 import dev.danvega.Repository.DermatologistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class DermathologistService {
+public class DermathologistService implements ServiceInterface<Dermatologist> {
 
     @Autowired
     private DermatologistRepository dermatologistRepository;
@@ -35,10 +33,30 @@ public class DermathologistService {
         }
     }
 
+    @Override
+    public List<Dermatologist> findAll() {
+        return null;
+    }
+
+    @Override
+    public Dermatologist findOne(Long id) {
+        return null;
+    }
+
     public Dermatologist create(Dermatologist entity) throws Exception {
         if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
             throw new Exception("Dermatologist with given name already exists");
         }
         return dermatologistRepository.save(entity);
+    }
+
+    @Override
+    public Dermatologist update(Dermatologist entity, Long id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) throws Exception {
+
     }
 }

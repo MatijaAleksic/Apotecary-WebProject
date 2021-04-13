@@ -1,4 +1,4 @@
-package dev.danvega.Controller;
+package dev.danvega.DTO;
 
 public class RegisterDermatologistRequest {
     String name;

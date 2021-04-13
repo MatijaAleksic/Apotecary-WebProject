@@ -1,5 +1,6 @@
 package dev.danvega.Controller;
 
+import dev.danvega.DTO.ChangePasswordRequest;
 import dev.danvega.DTO.DermatologistDTO;
 import dev.danvega.DTO.DermatologistSearchDTO;
 import dev.danvega.Mapper.DermatologistMapper;
@@ -48,8 +49,8 @@ public class DermatologistContoller {
     public String changePassword(@RequestBody ChangePasswordRequest cpr){
         Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456", "");
         System.out.print("Jhaafasf");
-        if(cpr.oldPassword.equalsIgnoreCase(derm.getPassword())){
-            derm.setPassword(cpr.newPassword);
+        if(cpr.getOldPassword().equalsIgnoreCase(derm.getPassword())){
+            derm.setPassword(cpr.getNewPassword());
             return "Uspesno promenjena sifra";
         }
         else{
