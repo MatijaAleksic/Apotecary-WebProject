@@ -33,7 +33,7 @@ public class AdministratorService implements ServiceInterface<Administrator>{
     @Override
     public Administrator create(Administrator entity) throws Exception {
         if(administratorRepository.findByEmail(entity.getEmail()) != null){
-            throw new Exception("Administrator with given name already exists");
+            throw new Exception("Administrator with given email already exists");
         }
         return administratorRepository.save(entity);
     }
@@ -54,7 +54,7 @@ public class AdministratorService implements ServiceInterface<Administrator>{
         existingAdministrator.setPhone(entity.getPhone());
 
         if(administratorRepository.findByUsername(existingAdministrator.getUsername()) != null){
-            throw new Exception("Administrator with given name already exists");
+            throw new Exception("Administrator with given username already exists");
         }
         return administratorRepository.save(existingAdministrator);
     }

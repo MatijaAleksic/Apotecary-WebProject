@@ -1,8 +1,13 @@
 package dev.danvega.Services;
 
+import dev.danvega.Model.Administrator;
+import dev.danvega.Model.Apotecary;
+import dev.danvega.Model.Consultation;
 import dev.danvega.Model.Dermatologist;
 import dev.danvega.Repository.DermatologistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,7 +18,61 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
     @Autowired
     private DermatologistRepository dermatologistRepository;
 
-    public DermathologistService() {}
+    @Override
+    public List<Dermatologist> findAll() {
+        return dermatologistRepository.findAll();
+    }
+
+    public Page<Dermatologist> findAll(Pageable pageable) {
+        return dermatologistRepository.findAll(pageable);
+    }
+
+    @Override
+    public Dermatologist findOne(Long id) {
+        return dermatologistRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Dermatologist create(Dermatologist entity) throws Exception {
+        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Dermatologist with given email already exists");
+        }
+        return dermatologistRepository.save(entity);
+    }
+
+    @Override
+    public Dermatologist update(Dermatologist entity, Long id) throws Exception {
+        Dermatologist existingDermatologist =  dermatologistRepository.findById(id).orElse(null);
+        if(existingDermatologist == null){
+            throw new Exception("Dermatologist with given id doesn't exist");
+        }
+        existingDermatologist.setUsername(entity.getUsername());
+        existingDermatologist.setPassword(entity.getPassword());
+        existingDermatologist.setFirstname(entity.getFirstname());
+        existingDermatologist.setLastname(entity.getLastname());
+        existingDermatologist.setAdress(entity.getAdress());
+        existingDermatologist.setCity(entity.getCity());
+        existingDermatologist.setCountry(entity.getCountry());
+        existingDermatologist.setPhone(entity.getPhone());
+        existingDermatologist.setStartHours(entity.getStartHours());
+        existingDermatologist.setEndHours(entity.getEndHours());
+
+
+        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Dermatologist with given email already exists");
+        }
+        return dermatologistRepository.save(existingDermatologist);
+    }
+
+    @Override
+    public void delete(Long id) throws Exception {
+        Dermatologist existingDermatologist = dermatologistRepository.findById(id).orElse(null);
+        if(existingDermatologist == null){
+            throw new Exception("Dermatologist with given id doesn't exist");
+        }
+        dermatologistRepository.delete(existingDermatologist);
+
+    }
 
     public List<Dermatologist> searchDermatologist(String firstname, String lastname) {
 
@@ -33,30 +92,4 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
         }
     }
 
-    @Override
-    public List<Dermatologist> findAll() {
-        return null;
-    }
-
-    @Override
-    public Dermatologist findOne(Long id) {
-        return null;
-    }
-
-    public Dermatologist create(Dermatologist entity) throws Exception {
-        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
-            throw new Exception("Dermatologist with given name already exists");
-        }
-        return dermatologistRepository.save(entity);
-    }
-
-    @Override
-    public Dermatologist update(Dermatologist entity, Long id) throws Exception {
-        return null;
-    }
-
-    @Override
-    public void delete(Long id) throws Exception {
-
-    }
 }

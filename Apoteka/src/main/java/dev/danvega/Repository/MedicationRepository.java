@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MedicationRepository extends JpaRepository<Medication, Long> {
+
+    Medication findByName(String name);
 }
