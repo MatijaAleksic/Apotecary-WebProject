@@ -2,6 +2,8 @@ package dev.danvega.Controller;
 
 import dev.danvega.DTO.ChangeInformationRequest;
 import dev.danvega.Services.ChangeInformation;
+import dev.danvega.Services.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 public class PatientController {
+
+    @Autowired
+    PatientService patientService = new PatientService();
+
 
     ChangeInformation change = new ChangeInformation();
 
