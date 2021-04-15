@@ -22,10 +22,10 @@ INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (1,5, 1,
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (2,4, 1,2);
 
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-                        (1, 20, 100.00, 'Report', '13/04/2021','07:00', 1, 1,1,1);
+                        (1, 20, 100.00, 'Report', '12/04/2021','07:00', 1, 1,1,1);
 
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-                    (1, 20, 100.00, 'Report', '13/04/2021','07:00', 1, 1,1,1);
+                    (1, 20, 100.00, 'Report', '12/04/2021','07:00', 1, 1,1,1);
 
 INSERT INTO medications(id,type,name,specification) VALUES (1,1,'Antibiotik1', 'Specifikacija1');
 INSERT INTO medications(id,type,name,specification) VALUES (2,1,'Antibiotik2', 'Specifikacija2');
@@ -38,10 +38,10 @@ INSERT INTO alergies(id,medication_id,patient_id) VALUES (2,2,1);
 INSERT INTO alergies(id,medication_id,patient_id) VALUES (3,3,2);
 INSERT INTO alergies(id,medication_id,patient_id) VALUES (4,4,2);
 
-INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (1,100,1500,'13/08/2021','07:00', 1, 1);
-INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (2,50,1000,'15/09/2021','07:00', 1, 2);
-INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (3,75,500,'12/07/2021','07:00', 1, 3);
-INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (4,150,750,'23/06/2021','07:00', 1, 4);
+INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (1,100,1500,'12/08/2021','07:00', 1, 1);
+INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (2,50,1000,'11/09/2021','07:00', 1, 2);
+INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (3,75,500,'10/07/2021','07:00', 1, 3);
+INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (4,150,750,'03/06/2021','07:00', 1, 4);
 
 INSERT INTO medication_ratings(id,rating,medication_id,patient_id) VALUES (1,4, 1,1);
 INSERT INTO medication_ratings(id,rating,medication_id,patient_id) VALUES (2,5, 1,2);
@@ -49,7 +49,7 @@ INSERT INTO medication_ratings(id,rating,medication_id,patient_id) VALUES (3,2.5
 INSERT INTO medication_ratings(id,rating,medication_id,patient_id) VALUES (4,3.7,2,2);
 
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
-VALUES (1,7,'15/09/2021','07:00',1,1,null,1,1,null);
+VALUES (1,7,'10/09/2021','07:00',1,1,null,1,1,null);
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
 VALUES (2,10,'12/09/2021','08:00',1,1,1,2,1,null);
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
