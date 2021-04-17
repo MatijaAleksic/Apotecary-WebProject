@@ -47,6 +47,9 @@ public class Dermatologist extends User{
         super(firstname, lastname, username, password, email);
     }
 
+    public Dermatologist(String name, String lastName, String city, String address, String phone, String country) {
+    }
+
     public Time getStartHours() {
         return startHours;
     }

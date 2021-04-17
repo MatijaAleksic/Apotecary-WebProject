@@ -47,12 +47,20 @@ public class Patient extends User {
         this.alergies = alergies;
     }
 
+    public Patient(Long id, String firstname, String lastname, String city, String adress, String phone, String country)
+    {
+        super(firstname, lastname,city,adress,phone, country);
+    }
+
     public Patient(Long id, String firstName, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         super(id, firstName, lastname, username, password, email, adress, city, country, phone);
     }
 
     public Patient(String firstName, String lastname, String username, String password, String email) {
         super(firstName, lastname, username, password, email);
+    }
+
+    public Patient(String name, String lastName, String city, String address, String phone, String country) {
     }
 
     public DermatologistRating getDermatologistRating() {

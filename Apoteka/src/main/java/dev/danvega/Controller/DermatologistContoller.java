@@ -3,9 +3,14 @@ package dev.danvega.Controller;
 import dev.danvega.DTO.ChangePasswordRequest;
 import dev.danvega.DTO.DermatologistDTO;
 import dev.danvega.DTO.DermatologistSearchDTO;
+import dev.danvega.DTO.PatientDTO;
 import dev.danvega.Mapper.DermatologistMapper;
+import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.Dermatologist;
+import dev.danvega.Model.Patient;
+import dev.danvega.Model.Visit;
+import dev.danvega.Services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +26,10 @@ public class DermatologistContoller {
 
     @Autowired
     DermathologistService dermathologistService = new DermathologistService();
+    VisitService visitService = new VisitService();
     private final DermatologistSearchMapper dermatologistSearchMapper = new DermatologistSearchMapper();
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
+    private final DermatologistPatientsMapper dermatologistPatientsMapper = new DermatologistPatientsMapper();
 
     @RequestMapping(value="search/name={firstname}&lastname={lastname}", method=RequestMethod.GET)
     public ResponseEntity<List<DermatologistSearchDTO>> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
@@ -31,6 +38,16 @@ public class DermatologistContoller {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
+    }
+
+    @PostMapping("/view-patitents")
+    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody Long id)
+    {
+        List<Patient> patients = visitService.viewPatients(id);
+        if(patients == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(toPatientDTOList(patients));
     }
 
     @PostMapping("/register-new")
@@ -72,5 +89,13 @@ public class DermatologistContoller {
             dermatologistDTOS.add(dermatologistSearchMapper.toDto(dermatologist));
         }
         return dermatologistDTOS;
+    }
+
+    private List<PatientDTO> toPatientDTOList(List<Patient> patients){
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (Patient patient : patients) {
+            patientDTOS.add(dermatologistPatientsMapper.toDto(patient));
+        }
+        return patientDTOS;
     }
 }

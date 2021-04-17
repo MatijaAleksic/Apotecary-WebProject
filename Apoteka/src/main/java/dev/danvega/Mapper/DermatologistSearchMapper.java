@@ -15,4 +15,6 @@ public class DermatologistSearchMapper implements MapperInterface<Dermatologist,
     public DermatologistSearchDTO toDto(Dermatologist entity) {
         return new DermatologistSearchDTO(entity.getFirstname(), entity.getFirstname(),entity.getApotecary(), entity.getRatings());
     }
+
+
 }

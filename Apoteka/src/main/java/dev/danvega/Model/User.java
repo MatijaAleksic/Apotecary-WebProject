@@ -79,6 +79,9 @@ public abstract class User {
     public User(String firstname, String lastname) {
     }
 
+    public User(String firstname, String lastname, String city, String adress, String phone, String country) {
+    }
+
     public Long getId() {
         return id;
     }

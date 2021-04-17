@@ -35,6 +35,9 @@ public class Pharmacist extends User{
     public Pharmacist() {
     }
 
+    public Pharmacist(String name, String lastName, String city, String address, String phone, String country) {
+    }
+
     public Apotecary getApotecary() {
         return apotecary;
     }

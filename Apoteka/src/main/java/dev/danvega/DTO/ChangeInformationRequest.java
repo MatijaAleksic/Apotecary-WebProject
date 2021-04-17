@@ -3,7 +3,6 @@ package dev.danvega.DTO;
 public class ChangeInformationRequest {
     String name;
     String lastName;
-    String email;
     String username;
     String password;
     String address;
@@ -12,7 +11,6 @@ public class ChangeInformationRequest {
     public ChangeInformationRequest(String name, String lastName, String email, String username, String password, String address, String phoneNumber) {
         this.name = name;
         this.lastName = lastName;
-        this.email = email;
         this.username = username;
         this.password = password;
         this.address = address;
@@ -35,13 +33,6 @@ public class ChangeInformationRequest {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getUsername() {
         return username;
