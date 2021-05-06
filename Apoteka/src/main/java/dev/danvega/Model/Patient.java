@@ -35,6 +35,11 @@ public class Patient extends User {
     public Patient() {
     }
 
+    public Patient(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+        super(firstname, lastname, username, password, email, adress, city, country, phone);
+    }
+
+
     public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, PharmacistRating pharmacistRating, ApotecaryRating apotecaryRating, MedicationRating medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
         this.dermatologistRating = dermatologistRating;

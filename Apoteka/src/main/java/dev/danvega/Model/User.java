@@ -9,6 +9,8 @@ public abstract class User {
     @Id
 //    @SequenceGenerator(name="userSeq", sequenceName ="userSeqGen", initialValue = 1, allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeq")
+    //@GeneratedValue
+    @GeneratedValue (strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(unique = false, nullable = true)

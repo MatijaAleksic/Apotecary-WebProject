@@ -33,8 +33,8 @@ public class PatientService  implements ServiceInterface<Patient>{
 
     @Override
     public Patient create(Patient entity) throws Exception {
-        if(patientRepository.findByEmail(entity.getEmail()) != null){
-            throw new Exception("Patient with given email already exists");
+        if(patientRepository.findByUsernameAndEmail(entity.getUsername(), entity.getEmail()) != null){
+            throw new Exception("Patient with given credentials already exists");
         }
         return patientRepository.save(entity);
     }

@@ -5,7 +5,7 @@
       <div>
         <h1 style="font-family: sans-serif; color: white; position:absolute; left: 40px;">A p o t e k a</h1>
         <button v-on:click="component ='login'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:110px">Login</button>
-        <button type="submit" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:10px">Register</button>
+        <button v-on:click="component ='register'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Register</button>
       </div>
     </div>
     <component v-bind:is="component"> </component>
@@ -20,6 +20,7 @@ import changePassword from "@/components/changePassword.vue";
 import ChangeInformation from "@/components/ChangeInformation.vue";
 import SearchDermatologist from "@/components/SearchDermatologist.vue";
 import LoginForm from "@/components/LoginForm";
+import RegisterForm from "@/components/RegisterForm";
 
 export default {
   name: 'App',
@@ -30,7 +31,8 @@ export default {
     'change-password': changePassword,
     'change-information': ChangeInformation,
     'search-dermatologist': SearchDermatologist,
-    'login': LoginForm
+    'login': LoginForm,
+    'register' : RegisterForm,
   },
 
   data(){
