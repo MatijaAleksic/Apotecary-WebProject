@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.Administrator;
+import dev.danvega.Model.User;
 import dev.danvega.Repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

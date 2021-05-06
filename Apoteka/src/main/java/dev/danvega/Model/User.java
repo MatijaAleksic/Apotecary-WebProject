@@ -7,8 +7,8 @@ import javax.persistence.*;
 public abstract class User {
 
     @Id
-    @SequenceGenerator(name="userSeq", sequenceName ="userSeqGen", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeq")
+//    @SequenceGenerator(name="userSeq", sequenceName ="userSeqGen", initialValue = 1, allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mySeq")
     private Long id;
 
     @Column(unique = false, nullable = true)
@@ -17,13 +17,13 @@ public abstract class User {
     @Column(unique = false, nullable = true)
     private String lastname;
 
-    @Column(unique = false, nullable = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(unique = false, nullable = true)
+    @Column(unique = false, nullable = false)
     private String password;
 
-    @Column(unique = false, nullable = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(unique = false, nullable = true)

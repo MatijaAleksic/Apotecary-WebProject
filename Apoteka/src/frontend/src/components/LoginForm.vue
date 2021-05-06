@@ -13,7 +13,7 @@
         <!-- Your new password -->
         <div>
           <label for="password">Password </label>
-          <input style=" margin: 10px;" type="text" name="password" id="password" v-model="password"/>
+          <input style=" margin: 10px;" type="password" name="password" id="password" v-model="password"/>
         </div>
 
         <!-- Controls -->
@@ -21,7 +21,7 @@
           <input style="position:relative; margin-top:15px; left:95px; width: 100px;" id="submit" name="submit" type="button" @click="submit" value="Login" />
         </div>
         <div>
-          <h1>{{ msg }}</h1>
+          <h1>{{ logged_user }}</h1>
         </div>
       </fieldset>
     </form>
@@ -35,7 +35,7 @@ export default {
   name: 'Login',
   data() {
     return {
-      msg: '',
+      logged_user: '',
       oldPassword: '',
       newPassword: ''
     }
@@ -44,7 +44,7 @@ export default {
     submit(){
       axios.post("/api/unsigned/login", {username: this.username, password: this.password})
           .then((response) => {
-            this.msg = response.data;
+            this.logged_user = response.data;
           });
     }
   }}

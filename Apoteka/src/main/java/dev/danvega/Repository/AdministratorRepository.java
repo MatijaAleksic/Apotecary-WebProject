@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator, Long> {
 
+    Administrator findByUsernameAndPassword(String username, String password);
+
     Administrator findByEmail(String email);
 
     Administrator findByUsername(String username);
