@@ -9,6 +9,7 @@
         <button v-if="logged_user != ''" v-on:click="logout" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Logout</button>
       </div>
     </div>
+    <home-page></home-page>
     <component v-bind:is="component"> </component>
 
   </div>
@@ -22,6 +23,7 @@ import ChangeInformation from "@/components/ChangeInformation.vue";
 import SearchDermatologist from "@/components/SearchDermatologist.vue";
 import LoginForm from "@/components/LoginForm";
 import RegisterPatientForm from "@/components/RegisterPatientForm";
+import HomePage from "@/components/Pharmacist/HomePage";
 
 export default {
   name: 'App',
@@ -34,6 +36,7 @@ export default {
     'search-dermatologist': SearchDermatologist,
     'login': LoginForm,
     'register-patient' : RegisterPatientForm,
+    'home-page': HomePage
   },
 
   data(){
