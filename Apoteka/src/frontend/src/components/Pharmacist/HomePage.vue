@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Change Information</h1>
+    <h1>Home Page</h1>
     <form >
       <fieldset>
         <!-- Controls -->
@@ -20,7 +20,7 @@
           <input id="vacation" name="vacation" type="button" @click="vacation" value="Vacation" />
         </div>
         <div class="controls">
-          <input id="profile" name="profile" type="button" @click="profile" value="User Profile" />
+          <input id="profile" type="button" name="profile" @click="component ='pharmacist-profile'" value="User Profile" />
         </div>
         <div class="controls">
           <input id="orderNew" name="orderNew" type="button" @click="orderNew" value="Order New Counselling" />
@@ -32,13 +32,22 @@
     </form>
 
   </div></div>
+  <component v-bind:is="component"> </component>
 </template>
 
 <script>
 import axios from "axios";
-
+import PharmacistProfilPage from "@/components/Pharmacist/PharmacistProfilPage";
 export default {
   name: "HomePage",
+  components: {
+    'pharmacist-profile': PharmacistProfilPage,
+  },
+  data(){
+    return{
+      component:null,
+    }
+  },
   methods:{
     clientList(){
       axios.post("/api/pharmacist/client-list")

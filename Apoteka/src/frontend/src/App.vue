@@ -9,7 +9,7 @@
         <button v-if="logged_user != ''" v-on:click="logout" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Logout</button>
       </div>
     </div>
-    <home-page></home-page>
+    <home-page v-if="logged_user =='pharmacist' && isHidden"></home-page>
     <component v-bind:is="component"> </component>
 
   </div>
@@ -42,7 +42,8 @@ export default {
   data(){
     return{
       component:null,
-      logged_user : 'dermatologist'
+      logged_user : 'pharmacist',
+      isHidden : true
     }
   },
 
