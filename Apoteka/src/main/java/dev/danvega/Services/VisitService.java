@@ -1,5 +1,6 @@
 package dev.danvega.Services;
 import dev.danvega.Model.Consultation;
+import dev.danvega.Model.Patient;
 import dev.danvega.Model.Visit;
 import dev.danvega.Repository.ConsultationRepository;
 import dev.danvega.Repository.VisitRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class VisitService implements ServiceInterface<Visit>{
@@ -64,5 +65,14 @@ public class VisitService implements ServiceInterface<Visit>{
             throw new Exception("Visit with given id doesn't exist");
         }
         visitRepository.delete(existingVisit);
+    }
+
+    public List<Patient> viewPatients(Long id) {
+        List<Visit> visits = visitRepository.findByDermatologist_Id(id);
+        ArrayList<Patient> patients = new ArrayList<Patient>();
+        for(Visit x : visits){
+            patients.add(x.getPatient());
+        }
+        return patients;
     }
 }

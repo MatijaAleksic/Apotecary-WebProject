@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="background-color: cadetblue; height: 20% "></div>
+    <div style="background-color: #5f9ea0; height: 20% "></div>
     <div style="background-color: cadetblue; height: 80px; border-radius: 8px;">
       <div >
         <h1 style="font-family: sans-serif; color: white; position:absolute; left: 40px;">A p o t e k a</h1>
