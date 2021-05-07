@@ -2,10 +2,11 @@
   <div>
     <div style="background-color: cadetblue; height: 20% "></div>
     <div style="background-color: cadetblue; height: 80px; border-radius: 8px;">
-      <div>
+      <div >
         <h1 style="font-family: sans-serif; color: white; position:absolute; left: 40px;">A p o t e k a</h1>
-        <button v-on:click="component ='login'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:110px">Login</button>
-        <button v-on:click="component ='register'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Register</button>
+        <button v-if="logged_user == ''" v-on:click="component ='login'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:110px"  @userlogged="updateUser">Login</button>
+        <button  v-if="logged_user == ''" v-on:click="component ='register-patient'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Register</button>
+        <button v-if="logged_user != ''" v-on:click="logout" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Logout</button>
       </div>
     </div>
     <component v-bind:is="component"> </component>
@@ -20,7 +21,7 @@ import changePassword from "@/components/changePassword.vue";
 import ChangeInformation from "@/components/ChangeInformation.vue";
 import SearchDermatologist from "@/components/SearchDermatologist.vue";
 import LoginForm from "@/components/LoginForm";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterPatientForm from "@/components/RegisterPatientForm";
 
 export default {
   name: 'App',
@@ -32,21 +33,32 @@ export default {
     'change-information': ChangeInformation,
     'search-dermatologist': SearchDermatologist,
     'login': LoginForm,
-    'register' : RegisterForm,
+    'register-patient' : RegisterPatientForm,
   },
 
   data(){
     return{
-      component:null
+      component:null,
+      logged_user : 'dermatologist'
     }
-  }
+  },
 
-  // methods: {
-  //   swapComponents : function(component)
-  //   {
-  //     this.currentComponent = component;
-  //   }
-  // }
+  methods: {
+    // swapComponents : function(component)
+    // {
+    //   this.currentComponent = component;
+    // }
+    updateUser (value) {
+      alert('hello')
+      alert(value); // someValue
+      this.logged_user = value;
+    },
+
+    logout()
+    {
+      this.logged_user = ''
+    }
+  },
 }
 </script>
 
