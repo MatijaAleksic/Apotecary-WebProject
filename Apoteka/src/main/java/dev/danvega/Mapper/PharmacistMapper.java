@@ -15,6 +15,6 @@ public class PharmacistMapper implements MapperInterface<Pharmacist, PhrmacistCh
 
     @Override
     public PhrmacistChangeInfo toDto(Pharmacist entity) {
-        return new PhrmacistChangeInfo(entity.getFirstname(), entity.getLastname(), entity.getUsername(), entity.getPassword(), entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone());
+        return new PhrmacistChangeInfo(entity.getId(), entity.getFirstname(), entity.getLastname(), entity.getUsername(), entity.getPassword(), entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone());
     }
 }

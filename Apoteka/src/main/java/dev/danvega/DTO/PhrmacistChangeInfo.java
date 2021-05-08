@@ -1,6 +1,15 @@
 package dev.danvega.DTO;
 
 public class PhrmacistChangeInfo {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    Long id;
     String name;
     String lastName;
     String address;
@@ -11,7 +20,8 @@ public class PhrmacistChangeInfo {
     public PhrmacistChangeInfo() {
     }
 
-    public PhrmacistChangeInfo(String name, String lastName, String address, String city, String country, String phone) {
+    public PhrmacistChangeInfo(Long id, String name, String lastName, String address, String city, String country, String phone) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -20,7 +30,7 @@ public class PhrmacistChangeInfo {
         this.phone = phone;
     }
 
-    public PhrmacistChangeInfo(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+    public PhrmacistChangeInfo(Long id,String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
     }
 
     public String getName() {

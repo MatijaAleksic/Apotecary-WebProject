@@ -16,14 +16,14 @@ public class Pharmacist extends User{
     @Column(unique = false, nullable = true)
     private Time endHours;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<PharmacistRating> ratings;
 
-    @OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Consultation> consultations;
 
 
@@ -36,6 +36,17 @@ public class Pharmacist extends User{
     }
 
     public Pharmacist(String name, String lastName, String city, String address, String phone, String country) {
+    }
+
+    public Pharmacist(Long id, String name, String lastName, String city, String address, String phone, String country) {
+        super(id,name,lastName,city,address,phone,country);
+    }
+
+    public Pharmacist(String oldPassword, String newPassword) {
+    }
+
+    public Pharmacist(Long id, String newPassword) {
+        super(id,newPassword);
     }
 
     public Apotecary getApotecary() {

@@ -63,9 +63,22 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         }
         return pharmacistRepository.save(existingPharmacist);    }
 
-    @Override
-    public Pharmacist updateInfo(Pharmacist entity, Long id) throws Exception {
-        Pharmacist existingPharmacist=  pharmacistRepository.findById(id).orElse(null);
+    public Pharmacist updatePassword(Pharmacist entity) throws Exception{
+        Pharmacist existingPharmacist=  pharmacistRepository.findById(entity.getId()).orElse(null);
+        if(existingPharmacist == null){
+            throw new Exception("Pharmacist with given id doesn't exist");
+        }
+
+        existingPharmacist.setPassword(entity.getPassword());
+
+        if(pharmacistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Pharmacist with given email already exists");
+        }
+        return pharmacistRepository.save(existingPharmacist);
+    }
+
+    public Pharmacist updateInfo(Pharmacist entity) throws Exception {
+        Pharmacist existingPharmacist=  pharmacistRepository.findById(entity.getId()).orElse(null);
         if(existingPharmacist == null){
             throw new Exception("Pharmacist with given id doesn't exist");
         }
@@ -80,7 +93,9 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         if(pharmacistRepository.findByEmail(entity.getEmail()) != null){
             throw new Exception("Pharmacist with given email already exists");
         }
-        return pharmacistRepository.save(existingPharmacist);    }
+        return pharmacistRepository.save(existingPharmacist);
+    }
+
     @Override
     public void delete(Long id) throws Exception {
         Pharmacist existingPharmacist= pharmacistRepository.findById(id).orElse(null);

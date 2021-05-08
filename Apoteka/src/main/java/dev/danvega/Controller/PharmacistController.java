@@ -1,5 +1,6 @@
 package dev.danvega.Controller;
 
+import dev.danvega.DTO.ChangePasswordRequest;
 import dev.danvega.DTO.PhrmacistChangeInfo;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.PharmacistMapper;
@@ -23,13 +24,32 @@ public class PharmacistController {
 
 
     @PostMapping("/change-information")
-    public ResponseEntity<PhrmacistChangeInfo> changeInformation(@RequestBody PhrmacistChangeInfo pci){
-        Pharmacist pharmacist;
+    public ResponseEntity<String> changeInformation(@RequestBody PhrmacistChangeInfo pci){
+        Pharmacist pharmacist = new Pharmacist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
+
         try{
-            pharmacist = pharmacistService.updateInfo(pharmacistMapper.toEntity(pci));
+            pharmacist = pharmacistService.updateInfo(pharmacist);
         } catch (Exception e) {
+            e.printStackTrace();
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
-        return new ResponseEntity<String>(pharmacistMapper.toDto(pharmacist), HttpStatus.OK);
+        return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
     }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
+        System.out.println(cpr.getId());
+        Pharmacist pharmacist = new Pharmacist(cpr.getId(), cpr.getNewPassword());
+        try{
+            System.out.println(pharmacist.getId());
+            pharmacist = pharmacistService.updatePassword(pharmacist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
+
 }

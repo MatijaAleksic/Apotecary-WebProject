@@ -84,6 +84,21 @@ public abstract class User {
     public User(String firstname, String lastname, String city, String adress, String phone, String country) {
     }
 
+    public User(Long id, String name, String lastName, String city, String address, String phone, String country) {
+        this.id = id;
+        this.firstname = name;
+        this.lastname = lastName;
+        this.city = city;
+        this.adress= address;
+        this.phone = phone;
+        this.country = country;
+    }
+
+    public User(Long id,  String newPassword) {
+        this.id = id;
+        this.password = newPassword;
+    }
+
     public Long getId() {
         return id;
     }

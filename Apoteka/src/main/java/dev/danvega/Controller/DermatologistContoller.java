@@ -62,7 +62,7 @@ public class DermatologistContoller {
         return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
     }
 
-    @PostMapping("/changePassword")
+    /*@PostMapping("/changePassword")
     public String changePassword(@RequestBody ChangePasswordRequest cpr){
         Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456", "");
         System.out.print("Jhaafasf");
@@ -73,7 +73,7 @@ public class DermatologistContoller {
         else{
             return "Nije promenjena sifra";
         }
-    }
+    }*/
 
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();

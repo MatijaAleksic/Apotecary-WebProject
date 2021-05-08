@@ -5,14 +5,13 @@
       <fieldset>
         <!-- Your current password -->
         <div>
-          <label for="password_current">Your current password</label>
-          <input type="text" name="password_current" id="password_current" v-model="oldPassword"/>
+          <label for="id">Id</label>
+          <input type="number" name="id" id="id" v-model="id"/>
         </div>
-
         <!-- Your new password -->
         <div>
-          <label for="password_new">Your new password</label>
-          <input type="text" name="password_new" id="password_new" v-model="newPassword"/>
+          <label for="newPassword">Your new password</label>
+          <input type="text" name="newPassword" id="newPassword" v-model="newPassword"/>
         </div>
 
         <!-- Controls -->
@@ -35,13 +34,12 @@ export default {
   data() {
     return {
       msg: '',
-      oldPassword: '',
       newPassword: ''
     }
   },
   methods:{
     submit(){
-      axios.post("/api/dermatologist/changePassword", {oldPassword: this.oldPassword, newPassword: this.newPassword})
+      axios.post("/api/pharmacist/change-password", {id : this.id, newPassword: this.newPassword})
           .then((response) => {
             this.msg = response.data;
           });

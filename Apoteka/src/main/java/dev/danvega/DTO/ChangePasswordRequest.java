@@ -1,20 +1,20 @@
 package dev.danvega.DTO;
 
 public class ChangePasswordRequest {
-    String oldPassword;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    Long id;
     String newPassword;
 
-    public ChangePasswordRequest(String oldPassword, String newPassword) {
-        this.oldPassword = oldPassword;
+    public ChangePasswordRequest(Long id, String newPassword) {
+        this.id = id;
         this.newPassword = newPassword;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
     }
 
     public String getNewPassword() {
