@@ -94,6 +94,16 @@ public abstract class User {
         this.country = country;
     }
 
+    public User(String username, String name, String lastName, String city, String address, String phone, String country) {
+        this.username = username;
+        this.firstname = name;
+        this.lastname = lastName;
+        this.city = city;
+        this.adress= address;
+        this.phone = phone;
+        this.country = country;
+    }
+
     public User(Long id,  String newPassword) {
         this.id = id;
         this.password = newPassword;

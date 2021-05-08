@@ -10,8 +10,8 @@ public class Patient extends User {
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private DermatologistRating dermatologistRating;
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
-    private PharmacistRating pharmacistRating;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PharmacistRating> pharmacistRating;
 
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ApotecaryRating apotecaryRating;
@@ -40,7 +40,7 @@ public class Patient extends User {
     }
 
 
-    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, PharmacistRating pharmacistRating, ApotecaryRating apotecaryRating, MedicationRating medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
+    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, List<PharmacistRating> pharmacistRating, ApotecaryRating apotecaryRating, MedicationRating medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
         this.dermatologistRating = dermatologistRating;
         this.pharmacistRating = pharmacistRating;
@@ -76,11 +76,11 @@ public class Patient extends User {
         this.dermatologistRating = dermatologistRating;
     }
 
-    public PharmacistRating getPharmacistRating() {
+    public List<PharmacistRating> getPharmacistRating() {
         return pharmacistRating;
     }
 
-    public void setPharmacistRating(PharmacistRating pharmacistRating) {
+    public void setPharmacistRating(List<PharmacistRating> pharmacistRating) {
         this.pharmacistRating = pharmacistRating;
     }
 

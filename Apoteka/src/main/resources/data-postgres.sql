@@ -1,6 +1,6 @@
 INSERT INTO apotecaries(id,adress,description,name) values (1, 'neka adresa', 'deskripcija', 'Apoteka1');
 
-INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id) VALUES (1,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',1);
+INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id) VALUES (15,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',1);
 
 INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (2,'b','v','derma1','derma1','f','g','h','i','j','07:00','15:00',1);
 INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (3,'asdf','asdfv','derma2','derma2','asdff','asdfg','asdfh','asdfi','asdfj','08:00','13:00',1);
@@ -15,8 +15,8 @@ INSERT INTO patients(id, firstname, lastname, username, password, email, adress,
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (1,3.5,2,6);
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (2,5,3,7);
 
-INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (1,4, 5,6);
-INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (2,5, 5,7);
+INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (10,4, 5,6);
+INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (11,5, 5,7);
 
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (1,5, 1,6);
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (2,4, 1,7);

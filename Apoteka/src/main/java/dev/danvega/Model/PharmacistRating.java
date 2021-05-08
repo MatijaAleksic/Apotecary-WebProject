@@ -17,7 +17,7 @@ public class PharmacistRating {
     @JoinColumn(name = "pharmacist_id")
     private Pharmacist pharmacist;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 

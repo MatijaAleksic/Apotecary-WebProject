@@ -3,12 +3,7 @@
     <h1>Change Password</h1>
     <form >
       <fieldset>
-        <!-- Your current password -->
-        <div>
-          <label for="id">Id</label>
-          <input type="number" name="id" id="id" v-model="id"/>
-        </div>
-        <!-- Your new password -->
+
         <div>
           <label for="newPassword">Your new password</label>
           <input type="text" name="newPassword" id="newPassword" v-model="newPassword"/>
@@ -35,7 +30,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'Change Password',
+  name: 'ChangeAdminPassword',
   data() {
     return {
       msg: '',
@@ -45,14 +40,14 @@ export default {
   },
   methods:{
     submit(){
-      if(this.reNewPassword == this.newPassword){
-        axios.post("/api/pharmacist/change-password", {id : this.id, newPassword: this.newPassword})
-            .then((response) => {
-              this.msg = response.data;
-            });
-      }else{
+        if(this.reNewPassword == this.newPassword){
+            axios.post("/api/administrator/change-password", {id : 15, newPassword: this.newPassword})
+                .then((response) => {
+                    this.msg = response.data;
+                });
+        }else{
             alert("Passwords dont match!")
-      }
+        }
     }
   }}
 </script>

@@ -10,6 +10,7 @@
       </div>
     </div>
     <home-page v-if="logged_user =='pharmacist' && isHidden"></home-page>
+    <admin-homepage v-if="logged_user == 'administrator'"> </admin-homepage>
     <component v-bind:is="component"> </component>
 
   </div>
@@ -24,6 +25,7 @@ import SearchDermatologist from "@/components/SearchDermatologist.vue";
 import LoginForm from "@/components/LoginForm";
 import RegisterPatientForm from "@/components/RegisterPatientForm";
 import HomePage from "@/components/Pharmacist/HomePage";
+import AdminHomePage from "@/components/Administrator/AdminHomePage";
 
 export default {
   name: 'App',
@@ -36,13 +38,14 @@ export default {
     'search-dermatologist': SearchDermatologist,
     'login': LoginForm,
     'register-patient' : RegisterPatientForm,
-    'home-page': HomePage
+    'home-page': HomePage,
+    'admin-homepage': AdminHomePage
   },
 
   data(){
     return{
       component:null,
-      logged_user : 'pharmacist',
+      logged_user : 'administrator',
       isHidden : true
     }
   },

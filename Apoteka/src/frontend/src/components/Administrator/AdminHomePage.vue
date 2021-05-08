@@ -1,0 +1,38 @@
+<template>
+  <div>
+      <div >
+        <h1>Admin homepage</h1>
+        <button v-on:click="component ='change-information'">Change Personal Information</button>
+        <button v-on:click="component ='change-password'">Change Password</button>
+      </div>
+      <component v-bind:is="component"> </component>
+    </div>
+    
+</template>
+
+<script>
+//import axios from "axios";
+
+import ChangePersonalInformation from './ChangeInformationAdministrator.vue'
+import ChangePassword from './ChangePassword.vue'
+
+export default {
+  name: "AdminHomePage",
+
+components:{
+  'change-information' : ChangePersonalInformation,
+  'change-password': ChangePassword
+},
+
+ data(){
+    return{
+      component:null,
+    }
+  },
+
+}
+</script>
+
+<style scoped>
+
+</style>

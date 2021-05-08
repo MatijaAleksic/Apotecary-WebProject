@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.Administrator;
+import dev.danvega.Model.Pharmacist;
 import dev.danvega.Model.User;
 import dev.danvega.Repository.AdministratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,6 @@ public class AdministratorService implements ServiceInterface<Administrator>{
         if(existingAdministrator == null){
             throw new Exception("Administrator with given id doesn't exist");
         }
-        existingAdministrator.setUsername(entity.getUsername());
-        existingAdministrator.setPassword(entity.getPassword());
         existingAdministrator.setFirstname(entity.getFirstname());
         existingAdministrator.setLastname(entity.getLastname());
         existingAdministrator.setAdress(entity.getAdress());
@@ -54,9 +53,35 @@ public class AdministratorService implements ServiceInterface<Administrator>{
         existingAdministrator.setCountry(entity.getCountry());
         existingAdministrator.setPhone(entity.getPhone());
 
-        if(administratorRepository.findByUsername(existingAdministrator.getUsername()) != null){
-            throw new Exception("Administrator with given username already exists");
+        return administratorRepository.save(existingAdministrator);
+    }
+
+    public Administrator update_info(Administrator entity) throws Exception {
+        System.out.println(entity.getId());
+        Administrator existingAdministrator =  administratorRepository.findById(entity.getId()).orElse(null);
+
+        if(existingAdministrator == null){
+            throw new Exception("Administrator with given id doesn't exist");
         }
+
+        existingAdministrator.setFirstname(entity.getFirstname());
+        existingAdministrator.setLastname(entity.getLastname());
+        existingAdministrator.setAdress(entity.getAdress());
+        existingAdministrator.setCity(entity.getCity());
+        existingAdministrator.setCountry(entity.getCountry());
+        existingAdministrator.setPhone(entity.getPhone());
+
+        return administratorRepository.save(existingAdministrator);
+    }
+
+    public Administrator updatePassword(Administrator entity) throws Exception{
+        Administrator existingAdministrator =  administratorRepository.findById(entity.getId()).orElse(null);
+        if(existingAdministrator == null){
+            throw new Exception("Administrator with given id doesn't exist");
+        }
+
+        existingAdministrator.setPassword(entity.getPassword());
+
         return administratorRepository.save(existingAdministrator);
     }
 
