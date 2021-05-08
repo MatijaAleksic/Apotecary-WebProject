@@ -1,9 +1,6 @@
 package dev.danvega.Services;
 
-import dev.danvega.Model.Administrator;
-import dev.danvega.Model.Apotecary;
-import dev.danvega.Model.Consultation;
-import dev.danvega.Model.Dermatologist;
+import dev.danvega.Model.*;
 import dev.danvega.Repository.DermatologistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -63,7 +60,38 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
         }
         return dermatologistRepository.save(existingDermatologist);
     }
+    public Dermatologist updatePassword(Dermatologist entity) throws Exception{
+        Dermatologist existingDermatologist=  dermatologistRepository.findById(entity.getId()).orElse(null);
+        if(existingDermatologist == null){
+            throw new Exception("Pharmacist with given id doesn't exist");
+        }
 
+        existingDermatologist.setPassword(entity.getPassword());
+
+        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Pharmacist with given email already exists");
+        }
+        return dermatologistRepository.save(existingDermatologist);
+    }
+
+    public Dermatologist updateInfo(Dermatologist entity) throws Exception {
+        Dermatologist existingDermatologist=  dermatologistRepository.findById(entity.getId()).orElse(null);
+        if(existingDermatologist == null){
+            throw new Exception("Pharmacist with given id doesn't exist");
+        }
+        existingDermatologist.setFirstname(entity.getFirstname());
+        existingDermatologist.setLastname(entity.getLastname());
+        existingDermatologist.setAdress(entity.getAdress());
+        existingDermatologist.setCity(entity.getCity());
+        existingDermatologist.setCountry(entity.getCountry());
+        existingDermatologist.setPhone(entity.getPhone());
+
+
+        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Pharmacist with given email already exists");
+        }
+        return dermatologistRepository.save(existingDermatologist);
+    }
     @Override
     public void delete(Long id) throws Exception {
         Dermatologist existingDermatologist = dermatologistRepository.findById(id).orElse(null);

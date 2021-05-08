@@ -1,14 +1,12 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.ChangePasswordRequest;
-import dev.danvega.DTO.DermatologistDTO;
-import dev.danvega.DTO.DermatologistSearchDTO;
-import dev.danvega.DTO.PatientDTO;
+import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.Dermatologist;
 import dev.danvega.Model.Patient;
+import dev.danvega.Model.Pharmacist;
 import dev.danvega.Model.Visit;
 import dev.danvega.Services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,18 +60,34 @@ public class DermatologistContoller {
         return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
     }
 
-    /*@PostMapping("/changePassword")
-    public String changePassword(@RequestBody ChangePasswordRequest cpr){
-        Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456", "");
-        System.out.print("Jhaafasf");
-        if(cpr.getOldPassword().equalsIgnoreCase(derm.getPassword())){
-            derm.setPassword(cpr.getNewPassword());
-            return "Uspesno promenjena sifra";
+    @PostMapping("/change-information")
+    public ResponseEntity<String> changeInformation(@RequestBody PhrmacistChangeInfo pci){ //Ovde treba promeniti DTO
+        Dermatologist dermatologist = new Dermatologist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
+
+        try{
+            dermatologist = dermathologistService.updateInfo(dermatologist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         }
-        else{
-            return "Nije promenjena sifra";
+        return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
+        System.out.println(cpr.getId());
+        Dermatologist dermatologist = new Dermatologist(cpr.getId(), cpr.getNewPassword());
+        try{
+            System.out.println(dermatologist.getId());
+            dermatologist = dermathologistService.updatePassword(dermatologist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         }
-    }*/
+        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
 
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
