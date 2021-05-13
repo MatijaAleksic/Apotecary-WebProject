@@ -20,16 +20,16 @@ public class Medication {
     @Column(unique = false, nullable = true)
     private String specification;
 
-    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Alergies> alergies;
 
-    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicationInfo medicationInfo;
 
-    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicationSpecification medicationSpecification;
 
-    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationRating> ratings;
 
     public Medication(Long id, String name, MedicationType type, String specification) {

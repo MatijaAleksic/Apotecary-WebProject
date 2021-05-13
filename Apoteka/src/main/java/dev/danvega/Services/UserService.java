@@ -44,8 +44,6 @@ public class UserService implements ServiceInterface<User> {
             found_user = pharmacistRepository.findByUsernameAndPassword(username, password);
         }
 
-        System.out.println(found_user);
-
         if(found_user == null){
             throw new Exception("User with given username and password doesn't exists");
         }

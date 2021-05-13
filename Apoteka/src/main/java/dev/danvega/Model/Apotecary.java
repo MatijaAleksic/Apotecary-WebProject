@@ -21,29 +21,29 @@ public class Apotecary {
     private String description;
 
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Dermatologist> dermatologists;
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Administrator> administrators;
 
-    @OneToOne(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Pharmacist pharmacist;
 
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Consultation> consultations;
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Visit> visits;
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApotecaryRating> apotecaryRatings;
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationReservation> medicationReservations;
 
-    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationInfo> medicationInfos;
 
 //INSERT INTO dermatologists(id, first_name, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (2,'c','dasdf','dasdf','ae','ff','g','h','i','j','8:00:00','16:00:00',1);
