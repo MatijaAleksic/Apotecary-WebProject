@@ -16,14 +16,14 @@ public class Dermatologist extends User{
     @Column(unique = false, nullable = true)
     private Time endHours;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DermatologistRating> ratings;
 
-    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Visit> visits;
 
     public Dermatologist(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {

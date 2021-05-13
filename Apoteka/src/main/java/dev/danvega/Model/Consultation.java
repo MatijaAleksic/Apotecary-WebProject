@@ -30,19 +30,19 @@ public class Consultation {
     @Column(unique = false, nullable = true)
     private String report;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "pharmacist_id")
     private Pharmacist pharmacist;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToOne(mappedBy = "consultation", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicationReservation medicationReservation;
 
     public Consultation() {

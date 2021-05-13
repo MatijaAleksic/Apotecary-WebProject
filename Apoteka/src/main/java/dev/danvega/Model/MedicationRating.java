@@ -13,11 +13,11 @@ public class MedicationRating {
     @Column(unique = false, nullable = true)
     private double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
     private Medication medication;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
