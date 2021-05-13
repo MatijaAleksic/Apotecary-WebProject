@@ -20,9 +20,6 @@
         <div class="controls">
           <input style="position:relative; margin-top:15px; left:95px; width: 100px;" id="login" name="login" type="button" @click="loggin_event" value="Login" />
         </div>
-        <div>
-          <h1>{{ logged_user }}</h1>
-        </div>
       </fieldset>
     </form>
 
@@ -35,9 +32,8 @@ export default {
   name: 'Login',
   data() {
     return {
-      logged_user: '',
-      oldPassword: '',
-      newPassword: ''
+      username: '',
+      password: ''
     }
   },
   methods:{
@@ -45,14 +41,11 @@ export default {
       axios.post("/api/unsigned/login", {username: this.username, password: this.password})
           .then((response) => //{this.logged_user = response.data;this.$emit('userlogged', this.logged_user);}
           { 
-            this.logged_user = response.data;
-            //self.emit_login(response.data);
+            this.$emit('update-logged-user', response.data);
           }
           );
-    },
-    emit_login : function(value){
-          self.$emit('userlogged', value);
     }
+
   }
 }
 </script>

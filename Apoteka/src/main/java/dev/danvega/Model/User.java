@@ -40,6 +40,9 @@ public abstract class User {
     @Column(unique = false, nullable = true)
     private String phone;
 
+    @Column(unique = false, nullable = true)
+    private Boolean firstTimeLogin;
+
     public User(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         this.id = id;
         this.firstname = firstname;
