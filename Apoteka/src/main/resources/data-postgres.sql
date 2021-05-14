@@ -1,15 +1,15 @@
 INSERT INTO apotecaries(id,adress,description,name) values (1, 'neka adresa', 'deskripcija', 'Apoteka1');
 
-INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id) VALUES (15,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',1);
+INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id, first_time_login) VALUES (15,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',1, false);
 
-INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (2,'b','v','derma1','derma1','f','g','h','i','j','07:00','15:00',1);
-INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (3,'asdf','asdfv','derma2','derma2','asdff','asdfg','asdfh','asdfi','asdfj','08:00','13:00',1);
-INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (4,'sgb','gsv','derma3','derma3','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj','07:00','15:00',1);
+INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (2,'b','v','derma1','derma1','f','g','h','i','j','07:00','15:00',1, false);
+INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (3,'asdf','asdfv','derma2','derma2','asdff','asdfg','asdfh','asdfi','asdfj','08:00','13:00',1, false);
+INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (4,'sgb','gsv','derma3','derma3','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj','07:00','15:00',1, false);
 
-INSERT INTO pharmacists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (5,'hgah','haha','pharma1','pharma1','haha','gsgsg','adgag','yuky','ag','07:00','15:00',1);
+INSERT INTO pharmacists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (5,'hgah','haha','pharma1','pharma1','haha','gsgsg','adgag','yuky','ag','07:00','15:00',1, false);
 
-INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone) VALUES (6,'a','b','pati1','pati1','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj');
-INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone) VALUES (7,'aasdf','pati2','pati2','pati2','ghk','ghk','nghn','gssgi','jswssdf');
+INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone,first_time_login) VALUES (6,'a','b','pati1','pati1','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj', false);
+INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone,first_time_login) VALUES (7,'aasdf','pati2','pati2','pati2','ghk','ghk','nghn','gssgi','jswssdf', false);
 
 
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (1,3.5,2,6);
