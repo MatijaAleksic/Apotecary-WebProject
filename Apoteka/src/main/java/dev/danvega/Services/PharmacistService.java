@@ -104,4 +104,15 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         }
         pharmacistRepository.delete(existingPharmacist);
     }
+
+    public Pharmacist first_login_update_password(String password, Long id) throws Exception {
+        Pharmacist existingPatient=  pharmacistRepository.findById(id).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Pharmacist with given id doesn't exist");
+        }
+        existingPatient.setPassword(password);
+        existingPatient.setFirstTimeLogin(false);
+
+        return pharmacistRepository.save(existingPatient);
+    }
 }

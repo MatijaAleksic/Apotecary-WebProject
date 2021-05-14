@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name="administrators")
 public class Administrator extends User {
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 

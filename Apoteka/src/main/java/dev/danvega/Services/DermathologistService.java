@@ -92,4 +92,14 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
         }
     }
 
+    public Dermatologist first_login_update_password(String password, Long id) throws Exception {
+        Dermatologist existingPatient=  dermatologistRepository.findById(id).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Dermatologist with given id doesn't exist");
+        }
+        existingPatient.setPassword(password);
+        existingPatient.setFirstTimeLogin(false);
+        return dermatologistRepository.save(existingPatient);
+    }
+
 }

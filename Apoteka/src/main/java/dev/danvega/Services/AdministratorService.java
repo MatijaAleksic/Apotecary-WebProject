@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.Administrator;
+import dev.danvega.Model.Patient;
 import dev.danvega.Model.Pharmacist;
 import dev.danvega.Model.User;
 import dev.danvega.Repository.AdministratorRepository;
@@ -17,6 +18,7 @@ public class AdministratorService implements ServiceInterface<Administrator>{
 
     @Autowired
     private AdministratorRepository administratorRepository;
+
 
     @Override
     public List<Administrator> findAll() {
@@ -92,5 +94,16 @@ public class AdministratorService implements ServiceInterface<Administrator>{
             throw new Exception("Administrator with given id doesn't exist");
         }
         administratorRepository.delete(existingAdministrator);
+    }
+
+    public Administrator first_login_update_password(String password, Long id) throws Exception {
+        Administrator existingPatient =  administratorRepository.findById(id).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Administrator with given id doesn't exist");
+        }
+        existingPatient.setPassword(password);
+        existingPatient.setFirstTimeLogin(false);
+;
+        return administratorRepository.save(existingPatient);
     }
 }
