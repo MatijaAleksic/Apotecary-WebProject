@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Register new dermathologist</h1>
+    <h1>Register new administrator</h1>
     <form>
       <fieldset>
         <div>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Register Dermatologist" />
+          <input id="submit" name="submit" type="button" @click="submit" value="Create New Administrator" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -80,7 +80,7 @@ export default {
   },
   methods:{
     submit(){
-      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/administrator/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress, city: this.city,
        country: this.country, phone: this.phone})
           .then((response) => {

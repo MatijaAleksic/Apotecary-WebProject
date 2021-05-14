@@ -191,4 +191,12 @@ public abstract class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public Boolean getFirstTimeLogin() {
+        return firstTimeLogin;
+    }
+
+    public void setFirstTimeLogin(Boolean firstTimeLogin) {
+        this.firstTimeLogin = firstTimeLogin;
+    }
 }
