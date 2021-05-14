@@ -60,6 +60,8 @@ public class PatientService  implements ServiceInterface<Patient>{
         return patientRepository.save(existingPatient);
     }
 
+
+
     @Override
     public void delete(Long id) throws Exception {
         Patient existingPatient = patientRepository.findById(id).orElse(null);
@@ -68,5 +70,15 @@ public class PatientService  implements ServiceInterface<Patient>{
         }
         patientRepository.delete(existingPatient);
 
+    }
+
+    public Patient first_login_update_password(String password, Long id) throws Exception {
+        Patient existingPatient=  patientRepository.findById(id).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Patient with given id doesn't exist");
+        }
+        existingPatient.setPassword(password);
+        existingPatient.setFirstTimeLogin(false);
+        return patientRepository.save(existingPatient);
     }
 }

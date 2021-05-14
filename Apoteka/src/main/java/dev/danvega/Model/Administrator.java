@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name="administrators")
 public class Administrator extends User {
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
@@ -23,6 +23,15 @@ public class Administrator extends User {
 
     public Administrator(Long id, String newPassword) {
         super(id,newPassword);
+    }
+
+    public Administrator(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+        super(firstname, lastname,username,password,email,adress,city,country,phone);
+    }
+
+    public Administrator(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id) {
+        super(firstname, lastname,username,password,email,adress,city,country,phone);
+
     }
 
 

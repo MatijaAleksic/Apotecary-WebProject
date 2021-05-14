@@ -24,14 +24,14 @@ public class MedicationInfo {
     @Column(unique = false, nullable = true)
     private int inStorage;
 
-    @OneToOne(mappedBy = "medicationInfo", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "medicationInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicationReservation medicationReservation;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
     private Medication medication;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 

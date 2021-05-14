@@ -40,6 +40,9 @@ public abstract class User {
     @Column(unique = false, nullable = true)
     private String phone;
 
+    @Column(unique = false, nullable = true)
+    private Boolean firstTimeLogin;
+
     public User(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         this.id = id;
         this.firstname = firstname;
@@ -187,5 +190,13 @@ public abstract class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Boolean getFirstTimeLogin() {
+        return firstTimeLogin;
+    }
+
+    public void setFirstTimeLogin(Boolean firstTimeLogin) {
+        this.firstTimeLogin = firstTimeLogin;
     }
 }
