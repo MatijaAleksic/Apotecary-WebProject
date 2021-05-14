@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Register new administrator</h1>
+    <h1>Register new dermatologist</h1>
     <form>
       <fieldset>
         <div>
@@ -48,8 +48,20 @@
           <input type="number" name="apotecary_id" id="apotecary_id" v-model="apotecary_id"/>
         </div>
 
+        <div>
+          <label for="startTime">StartTime</label>
+          <input type="time" id="startTime" name="startTime" min="00:00" max="24:00"  v-model="startTime" required>
+        </div>
+
+        <div>
+          <label for="endTime">EndTime</label>
+          <input type="time" id="endTime" name="endTime" min="00:00" max="24:00"  v-model="endTime" required>
+        </div>
+
+        
+
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Create New Administrator" />
+          <input id="submit" name="submit" type="button" @click="submit" value="Create New Dermatologist" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -63,7 +75,7 @@
 
 import axios from "axios";
 export default {
-  name: 'AddNewAdministrator',
+  name: 'AddNewDermatologist',
   data() {
     return {
       msg: '',
@@ -76,14 +88,17 @@ export default {
       city: '',
       country: '',
       phone: '',
-      apotecary_id: 0
+      apotecary_id: 0,
+      startTime : '',
+      endTime : ''
     }
   },
   methods:{
     submit(){
-      axios.post("/api/administrator/register-new", {firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
-       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id})
+       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
+       startTime: this.startTime, endTime:this.endTime})
           .then((response) => {
             this.msg = response.data;
           });

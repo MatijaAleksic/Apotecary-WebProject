@@ -1,5 +1,8 @@
 package dev.danvega.DTO;
 
+import javax.persistence.Column;
+import java.sql.Time;
+
 public class DermatologistDTO {
 
     private String firstname;
@@ -11,11 +14,14 @@ public class DermatologistDTO {
     private String city;
     private String country;
     private String phone;
+    private Long apotecary_id;
+    private Time startHours;
+    private Time endHours;
 
     public DermatologistDTO() {
     }
 
-    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, Time startHours, Time endHours) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -25,6 +31,9 @@ public class DermatologistDTO {
         this.city = city;
         this.country = country;
         this.phone = phone;
+        this.apotecary_id = apotecary_id;
+        this.startHours = startHours;
+        this.endHours = endHours;
     }
 
     public String getFirstname() {
@@ -97,5 +106,29 @@ public class DermatologistDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Long getApotecary_id() {
+        return apotecary_id;
+    }
+
+    public void setApotecary_id(Long apotecary_id) {
+        this.apotecary_id = apotecary_id;
+    }
+
+    public Time getStartHours() {
+        return startHours;
+    }
+
+    public void setStartHours(Time startHours) {
+        this.startHours = startHours;
+    }
+
+    public Time getEndHours() {
+        return endHours;
+    }
+
+    public void setEndHours(Time endHours) {
+        this.endHours = endHours;
     }
 }

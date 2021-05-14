@@ -4,9 +4,11 @@ import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
+import dev.danvega.Model.Administrator;
 import dev.danvega.Model.Dermatologist;
 import dev.danvega.Model.Patient;
 import dev.danvega.Model.Visit;
+import dev.danvega.Services.ApotecaryService;
 import dev.danvega.Services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class DermatologistContoller {
 
     @Autowired
     VisitService visitService = new VisitService();
+
+    @Autowired
+    ApotecaryService apotecaryService = new ApotecaryService();
 
     private final DermatologistSearchMapper dermatologistSearchMapper = new DermatologistSearchMapper();
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
@@ -51,17 +56,22 @@ public class DermatologistContoller {
     }
 
     @PostMapping("/register-new")
-    public ResponseEntity<DermatologistDTO> register_dermathologist(@RequestBody DermatologistDTO dermatologistDTO)
+    public ResponseEntity<String> register_dermatologist(@RequestBody DermatologistDTO dermatologistDTO)
     {
-        Dermatologist dermatologist;
+        Dermatologist derma = dermatologistMapper.toEntity(dermatologistDTO);
+        derma.setApotecary(apotecaryService.findOne(dermatologistDTO.getApotecary_id()));
+        derma.setFirstTimeLogin(true);
+
         try {
-            dermatologist = dermathologistService.create(dermatologistMapper.toEntity(dermatologistDTO));
+            dermathologistService.create(derma);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
-    }
 
+        return new ResponseEntity<>("Uspesno registrovan dermatolog!", HttpStatus.CREATED);
+    }
+  
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
         for (Dermatologist dermatologist : dermatologists) {
