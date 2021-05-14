@@ -65,9 +65,10 @@ public class AdministratorController {
     @PostMapping("/register-new")
     public ResponseEntity<String> register_administrator(@RequestBody AdministratorDTO administratorDTO)
     {
-        Apotecary apo = apotecaryService.findOne(administratorDTO.getApotecary_id());
+
         Administrator admin = administratorMapper.toEntity(administratorDTO);
-        admin.setApotecary(apo);
+        admin.setApotecary(apotecaryService.findOne(administratorDTO.getApotecary_id()));
+        admin.setFirstTimeLogin(true);
 
         try {
             administratorService.create(admin);
