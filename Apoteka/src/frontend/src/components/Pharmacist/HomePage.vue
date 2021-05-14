@@ -1,32 +1,33 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Home Page</h1>
     <form >
-      <fieldset>
+      <fieldset style="border:white">
         <!-- Controls -->
-        <div class="controls">
-          <input id="clientList" name="clientList" type="button" @click="clientList" value="Client List" />
-        </div>
-        <div class="controls">
-          <input id="counselling" name="counselling" type="button" @click="counselling" value="Counselling" />
-        </div>
-        <div class="controls">
-          <input id="calendar" name="calendar" type="button" @click="calendar" value="Calendar" />
-        </div>
-        <div class="controls">
-          <input id="drugs" name="drugs" type="button" @click="drugs" value="Drugs" />
-        </div>
-        <div class="controls">
-          <input id="vacation" name="vacation" type="button" @click="vacation" value="Vacation" />
-        </div>
-        <div class="controls">
-          <input id="profile" type="button" name="profile" @click="component ='pharmacist-profile'" value="User Profile" />
-        </div>
-        <div class="controls">
-          <input id="orderNew" name="orderNew" type="button" @click="orderNew" value="Order New Counselling" />
-        </div>
-        <div>
-          <h1>{{ msg }}</h1>
+        <div class="btn-group">
+          <div>
+            <input id="clientList" name="clientList" type="button" @click="clientList" value="Client List" />
+          </div>
+          <div>
+            <input id="counselling" name="counselling" type="button" @click="counselling" value="Counselling" />
+          </div>
+          <div >
+            <input id="calendar" name="calendar" type="button" @click="calendar" value="Calendar" />
+          </div>
+          <div>
+            <input id="drugs" name="drugs" type="button" @click="drugs" value="Drugs" />
+          </div>
+          <div>
+            <input id="vacation" name="vacation" type="button" @click="vacation" value="Vacation" />
+          </div>
+          <div>
+            <input id="profile" type="button" name="profile" @click="component ='pharmacist-profile'" value="User Profile" />
+          </div>
+          <div>
+            <input id="orderNew" name="orderNew" type="button" @click="orderNew" value="Order New Counselling" />
+          </div>
+          <div>
+            <h1>{{ msg }}</h1>
+          </div>
         </div>
       </fieldset>
     </form>
@@ -34,7 +35,42 @@
   </div></div>
   <component v-bind:is="component"> </component>
 </template>
+<style>
+  .btn-group{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: white;
 
+  }
+  .btn-group input {
+    background-color: #5f9ea0; /* Green background */
+    border: 1px solid white; /* Green border */
+    color: white; /* White text */
+    padding: 15px 30px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    border-radius: 8px;
+
+  }
+
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #3e8e41;
+  }
+</style>
 <script>
 import axios from "axios";
 import PharmacistProfilPage from "@/components/Pharmacist/PharmacistProfilPage";

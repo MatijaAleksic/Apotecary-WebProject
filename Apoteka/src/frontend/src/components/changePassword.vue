@@ -1,6 +1,5 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Change Password</h1>
     <form >
       <fieldset>
         <!-- Your current password -->

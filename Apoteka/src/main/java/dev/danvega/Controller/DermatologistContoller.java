@@ -45,12 +45,12 @@ public class DermatologistContoller {
         return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
     }
 
-    @PostMapping("/view-patitents")
-    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody Long id)
+    @PostMapping("/view-patients")
+    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
     {
-        List<Patient> patients = visitService.viewPatients(id);
+        List<Patient> patients = visitService.viewPatients(id.getId());
         if(patients == null){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(toPatientDTOList(patients));
     }
@@ -71,7 +71,7 @@ public class DermatologistContoller {
 
         return new ResponseEntity<>("Uspesno registrovan dermatolog!", HttpStatus.CREATED);
     }
-
+  
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
         for (Dermatologist dermatologist : dermatologists) {

@@ -7,28 +7,29 @@ import java.util.List;
 @Table(name="patients")
 public class Patient extends User {
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DermatologistRating> dermatologistRating;
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DermatologistRating dermatologistRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<PharmacistRating> pharmacistRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ApotecaryRating> apotecaryRating;
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private ApotecaryRating apotecaryRating;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationRating> medicationRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Consultation> consultations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Visit> visits;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<MedicationReservation> medicationReservations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Alergies> alergies;
 
     public Patient() {
@@ -39,7 +40,7 @@ public class Patient extends User {
     }
 
 
-    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, List<DermatologistRating> dermatologistRating, List<PharmacistRating> pharmacistRating, List<ApotecaryRating> apotecaryRating, List<MedicationRating> medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
+    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, List<PharmacistRating> pharmacistRating, ApotecaryRating apotecaryRating, List<MedicationRating> medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
         this.dermatologistRating = dermatologistRating;
         this.pharmacistRating = pharmacistRating;
@@ -67,11 +68,11 @@ public class Patient extends User {
     public Patient(String name, String lastName, String city, String address, String phone, String country) {
     }
 
-    public List<DermatologistRating> getDermatologistRating() {
+    public DermatologistRating getDermatologistRating() {
         return dermatologistRating;
     }
 
-    public void setDermatologistRating(List<DermatologistRating> dermatologistRating) {
+    public void setDermatologistRating(DermatologistRating dermatologistRating) {
         this.dermatologistRating = dermatologistRating;
     }
 
@@ -83,11 +84,11 @@ public class Patient extends User {
         this.pharmacistRating = pharmacistRating;
     }
 
-    public List<ApotecaryRating> getApotecaryRating() {
+    public ApotecaryRating getApotecaryRating() {
         return apotecaryRating;
     }
 
-    public void setApotecaryRating(List<ApotecaryRating> apotecaryRating) {
+    public void setApotecaryRating(ApotecaryRating apotecaryRating) {
         this.apotecaryRating = apotecaryRating;
     }
 

@@ -29,8 +29,8 @@ INSERT INTO visits(id, duration, price, report, start_date, start_time, status, 
 
 INSERT INTO medications(id,type,name,specification) VALUES (1,1,'Antibiotik1', 'Specifikacija1');
 INSERT INTO medications(id,type,name,specification) VALUES (2,1,'Antibiotik2', 'Specifikacija2');
-INSERT INTO medications(id,type,name,specification) VALUES (3,2,'Anestetik1', 'Specifikacija3');
-INSERT INTO medications(id,type,name,specification) VALUES (4,2,'Anestetik2', 'Specifikacija4');
+INSERT INTO medications(id,type,name,specification) VALUES (3,0,'Anestetik1', 'Specifikacija3');
+INSERT INTO medications(id,type,name,specification) VALUES (4,0,'Anestetik2', 'Specifikacija4');
 
 
 INSERT INTO alergies(id,medication_id,patient_id) VALUES (1,1,6);

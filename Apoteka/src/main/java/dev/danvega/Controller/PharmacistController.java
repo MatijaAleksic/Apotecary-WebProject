@@ -1,18 +1,23 @@
 package dev.danvega.Controller;
 
 import dev.danvega.DTO.ChangePasswordRequest;
+import dev.danvega.DTO.PatientDTO;
 import dev.danvega.DTO.PhrmacistChangeInfo;
+import dev.danvega.DTO.UserIDDTO;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.PharmacistMapper;
+import dev.danvega.Mapper.PharmacistPatientsMapper;
+import dev.danvega.Model.Patient;
 import dev.danvega.Model.Pharmacist;
+import dev.danvega.Services.ConsultationService;
 import dev.danvega.Services.PharmacistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pharmacist")
@@ -20,8 +25,20 @@ public class PharmacistController {
 
     @Autowired
     PharmacistService pharmacistService = new PharmacistService();
+    @Autowired
+    ConsultationService consultationService = new ConsultationService();
     private final PharmacistMapper pharmacistMapper = new PharmacistMapper();
+    private final PharmacistPatientsMapper pharmacistPatientsMapper = new PharmacistPatientsMapper();
 
+    @PostMapping("/view-patients")
+    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
+    {
+        List<Patient> patients = consultationService.viewPatients(id.getId());
+        if(patients == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(toPatientDTOList(patients));
+    }
 
     @PostMapping("/change-information")
     public ResponseEntity<String> changeInformation(@RequestBody PhrmacistChangeInfo pci){
@@ -52,4 +69,11 @@ public class PharmacistController {
         return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
     }
 
+    private List<PatientDTO> toPatientDTOList(List<Patient> patients){
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (Patient patient : patients) {
+            patientDTOS.add(pharmacistPatientsMapper.toDto(patient));
+        }
+        return patientDTOS;
+    }
 }
