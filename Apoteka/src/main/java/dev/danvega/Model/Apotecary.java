@@ -27,8 +27,8 @@ public class Apotecary {
     @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
     private List<Administrator> administrators;
 
-    @OneToOne(mappedBy = "apotecary", cascade = CascadeType.ALL)
-    private Pharmacist pharmacist;
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
+    private List<Pharmacist> pharmacist;
 
 
     @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL)
@@ -64,7 +64,7 @@ public class Apotecary {
     public Apotecary() {
     }
 
-    public Apotecary(Long id, String name, String adress, String description, List<Dermatologist> dermatologists, List<Administrator> administrators, Pharmacist pharmacist, List<Consultation> consultations, List<Visit> visits, List<ApotecaryRating> apotecaryRatings, List<MedicationReservation> medicationReservations, List<MedicationInfo> medicationInfos) {
+    public Apotecary(Long id, String name, String adress, String description, List<Dermatologist> dermatologists, List<Administrator> administrators, List<Pharmacist> pharmacist, List<Consultation> consultations, List<Visit> visits, List<ApotecaryRating> apotecaryRatings, List<MedicationReservation> medicationReservations, List<MedicationInfo> medicationInfos) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -127,11 +127,11 @@ public class Apotecary {
         this.administrators = administrators;
     }
 
-    public Pharmacist getPharmacist() {
+    public List<Pharmacist> getPharmacist() {
         return pharmacist;
     }
 
-    public void setPharmacist(Pharmacist pharmacist) {
+    public void setPharmacist(List<Pharmacist> pharmacist) {
         this.pharmacist = pharmacist;
     }
 

@@ -1,6 +1,8 @@
 package dev.danvega.Services;
 import dev.danvega.Model.Alergies;
 import dev.danvega.Model.Consultation;
+import dev.danvega.Model.Patient;
+import dev.danvega.Model.Visit;
 import dev.danvega.Repository.AlergiesRepository;
 import dev.danvega.Repository.ConsultationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,5 +68,14 @@ public class ConsultationService implements ServiceInterface<Consultation>{
             throw new Exception("Consultation with given id doesn't exist");
         }
         consultationRepository.delete(existingConsultation);
+    }
+
+    public List<Patient> viewPatients(Long id) {
+        List<Consultation> counsultations = consultationRepository.findByPharmacist_Id(id);
+        ArrayList<Patient> patients = new ArrayList<Patient>();
+        for(Consultation x : counsultations){
+            patients.add(x.getPatient());
+        }
+        return patients;
     }
 }

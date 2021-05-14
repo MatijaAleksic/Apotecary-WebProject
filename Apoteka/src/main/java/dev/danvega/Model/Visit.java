@@ -31,19 +31,19 @@ public class Visit {
     @Column(unique = false, nullable = true)
     private String report;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dermatologist_id")
     private Dermatologist dermatologist;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToOne(mappedBy = "visit", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "visit", fetch = FetchType.LAZY)
     private MedicationReservation medicationReservation;
 
     public Visit(Long id, LocalDate startDate, int duration, double price, StatusCV status) {

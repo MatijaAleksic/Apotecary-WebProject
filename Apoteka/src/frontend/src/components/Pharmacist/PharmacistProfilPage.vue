@@ -1,7 +1,7 @@
 <template>
   <div id="container"><div id="container-inner">
     <form >
-      <fieldset>
+      <fieldset style="border:white">
         <!-- Controls -->
       <change-infomration-pharmacist></change-infomration-pharmacist>
         <change-password-pharmacist></change-password-pharmacist>

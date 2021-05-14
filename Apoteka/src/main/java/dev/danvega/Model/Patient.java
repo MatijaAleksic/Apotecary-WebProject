@@ -7,29 +7,29 @@ import java.util.List;
 @Table(name="patients")
 public class Patient extends User {
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private DermatologistRating dermatologistRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<PharmacistRating> pharmacistRating;
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private ApotecaryRating apotecaryRating;
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
-    private MedicationRating medicationRating;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MedicationRating> medicationRating;
 
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Consultation> consultations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Visit> visits;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<MedicationReservation> medicationReservations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Alergies> alergies;
 
     public Patient() {
@@ -40,7 +40,7 @@ public class Patient extends User {
     }
 
 
-    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, List<PharmacistRating> pharmacistRating, ApotecaryRating apotecaryRating, MedicationRating medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
+    public Patient(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, DermatologistRating dermatologistRating, List<PharmacistRating> pharmacistRating, ApotecaryRating apotecaryRating, List<MedicationRating> medicationRating, List<Consultation> consultations, List<Visit> visits, List<MedicationReservation> medicationReservations, List<Alergies> alergies) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
         this.dermatologistRating = dermatologistRating;
         this.pharmacistRating = pharmacistRating;
@@ -92,11 +92,11 @@ public class Patient extends User {
         this.apotecaryRating = apotecaryRating;
     }
 
-    public MedicationRating getMedicationRating() {
+    public List<MedicationRating> getMedicationRating() {
         return medicationRating;
     }
 
-    public void setMedicationRating(MedicationRating medicationRating) {
+    public void setMedicationRating(List<MedicationRating> medicationRating) {
         this.medicationRating = medicationRating;
     }
 

@@ -45,7 +45,7 @@ export default {
   data(){
     return{
       component:null,
-      logged_user : 'administrator',
+      logged_user : 'pharmacist',
       isHidden : true
     }
   },

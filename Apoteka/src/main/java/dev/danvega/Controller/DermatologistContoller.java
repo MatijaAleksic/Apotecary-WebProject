@@ -1,9 +1,6 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.ChangePasswordRequest;
-import dev.danvega.DTO.DermatologistDTO;
-import dev.danvega.DTO.DermatologistSearchDTO;
-import dev.danvega.DTO.PatientDTO;
+import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
@@ -26,7 +23,10 @@ public class DermatologistContoller {
 
     @Autowired
     DermathologistService dermathologistService = new DermathologistService();
+
+    @Autowired
     VisitService visitService = new VisitService();
+
     private final DermatologistSearchMapper dermatologistSearchMapper = new DermatologistSearchMapper();
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
     private final DermatologistPatientsMapper dermatologistPatientsMapper = new DermatologistPatientsMapper();
@@ -40,12 +40,12 @@ public class DermatologistContoller {
         return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
     }
 
-    @PostMapping("/view-patitents")
-    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody Long id)
+    @PostMapping("/view-patients")
+    public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
     {
-        List<Patient> patients = visitService.viewPatients(id);
+        List<Patient> patients = visitService.viewPatients(id.getId());
         if(patients == null){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(toPatientDTOList(patients));
     }
@@ -61,19 +61,6 @@ public class DermatologistContoller {
         }
         return new ResponseEntity<>(dermatologistMapper.toDto(dermatologist), HttpStatus.CREATED);
     }
-
-    /*@PostMapping("/changePassword")
-    public String changePassword(@RequestBody ChangePasswordRequest cpr){
-        Dermatologist derm = new Dermatologist("Pera","Peric", "peki","123456", "");
-        System.out.print("Jhaafasf");
-        if(cpr.getOldPassword().equalsIgnoreCase(derm.getPassword())){
-            derm.setPassword(cpr.getNewPassword());
-            return "Uspesno promenjena sifra";
-        }
-        else{
-            return "Nije promenjena sifra";
-        }
-    }*/
 
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();

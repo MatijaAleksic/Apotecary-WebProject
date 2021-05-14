@@ -18,7 +18,6 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
     @Autowired
     private PharmacistRepository pharmacistRepository;
 
-
     @Override
     public List<Pharmacist> findAll() {
         return pharmacistRepository.findAll();
