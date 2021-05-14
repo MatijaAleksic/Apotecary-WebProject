@@ -19,11 +19,6 @@
         </div>
 
         <div>
-          <label for="password">Password</label>
-          <input type="text" name="password" id="password" v-model="password"/>
-        </div>
-
-        <div>
           <label for="email">Email</label>
           <input type="text" name="email" id="email" v-model="email"/>
         </div>
@@ -46,6 +41,11 @@
         <div>
           <label for="phone">Phone</label>
           <input type="text" name="phone" id="phone" v-model="phone"/>
+        </div>
+
+        <div>
+          <label for="phone">Apotecary</label>
+          <input type="number" name="apotecary_id" id="apotecary_id" v-model="apotecary_id"/>
         </div>
 
         <div class="controls">
@@ -75,14 +75,15 @@ export default {
       adress: '',
       city: '',
       country: '',
-      phone: ''
+      phone: '',
+      apotecary_id: 0
     }
   },
   methods:{
     submit(){
       axios.post("/api/administrator/register-new", {firstname: this.firstname, lastname: this.lastname,
-      username: this.username, password: this.password, email: this.email, adress : this.adress, city: this.city,
-       country: this.country, phone: this.phone})
+      username: this.username, password: this.password, email: this.email, adress : this.adress,
+       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id})
           .then((response) => {
             this.msg = response.data;
           });
