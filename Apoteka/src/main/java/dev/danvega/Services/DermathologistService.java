@@ -37,6 +37,8 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
         if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
             throw new Exception("Dermatologist with given email already exists");
         }
+        System.out.println(entity.getStartHours());
+        System.out.println(entity.getEndHours());
         return dermatologistRepository.save(entity);
     }
 

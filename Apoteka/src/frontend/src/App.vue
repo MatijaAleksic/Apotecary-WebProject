@@ -9,8 +9,12 @@
         <button v-if="logged_user != ''" v-on:click="logout" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Logout</button>
       </div>
     </div>
+
     <home-page v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></home-page>
     <admin-homepage v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
+    <dermatologist-homepage v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"> </dermatologist-homepage>
+
+    
     <first-login :userInfo ="{ logged_user : this.logged_user, userId : this.user_id }" v-if="logged_user != '' && this.first_time_login == 'true'" v-on:updateinfo="updateInformation"></first-login>
 
     <component v-bind:is="component"  v-on:update-logged-user="updatLoggedUser"> </component>
@@ -28,7 +32,8 @@ import LoginForm from "@/components/LoginForm";
 import RegisterPatientForm from "@/components/RegisterPatientForm";
 import HomePage from "@/components/Pharmacist/HomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
-import FirstLogIn from "./components/FirstLogIn.vue"
+import FirstLogIn from "./components/FirstLogIn.vue";
+import DermatologistHomePage from "@/components/Dermatologist/DermatologistHomePage.vue";
 
 export default {
   name: 'App',
@@ -42,7 +47,8 @@ export default {
     'register-patient' : RegisterPatientForm,
     'home-page': HomePage,
     'admin-homepage': AdminHomePage,
-    'first-login' : FirstLogIn
+    'first-login' : FirstLogIn,
+    'dermatologist-homepage' : DermatologistHomePage
   },
 
   data(){
@@ -64,7 +70,6 @@ export default {
     },
 
     updateInformation(value){
-      alert("Helloooo")
       this.first_time_login = value;
     },
 
