@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.rmi.StubNotFoundException;
 import java.util.List;
 
 @Service
@@ -62,5 +63,22 @@ public class ApotecaryService implements ServiceInterface<Apotecary>{
         }
         apotecaryRepository.delete(existingApotecary);
 
+    }
+
+    public List<Apotecary> searchApothecary(String name, String address){
+
+        if(!name.isEmpty()){
+            if(!address.isEmpty()){
+                return apotecaryRepository.findByNameAndAdress(name, address);
+            } else {
+                return apotecaryRepository.findByName(name);
+            }
+        } else {
+            if(!name.isEmpty()){
+                return apotecaryRepository.findByAdress(address);
+            } else {
+                return apotecaryRepository.findAll();
+            }
+        }
     }
 }

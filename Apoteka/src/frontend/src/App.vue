@@ -13,6 +13,7 @@
     <home-page v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></home-page>
     <admin-homepage v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
     <dermatologist-homepage v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"> </dermatologist-homepage>
+    <patient-homepage v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
 
     
     <first-login :userInfo ="{ logged_user : this.logged_user, userId : this.user_id }" v-if="logged_user != '' && this.first_time_login == 'true'" v-on:updateinfo="updateInformation"></first-login>
@@ -34,6 +35,8 @@ import HomePage from "@/components/Pharmacist/HomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
 import FirstLogIn from "./components/FirstLogIn.vue";
 import DermatologistHomePage from "@/components/Dermatologist/DermatologistHomePage.vue";
+import PatientHomePage from "@/components/Patient/PatientHomePage";
+import PatientProfileCard from "@/components/Patient/PatientProfileCard";
 
 export default {
   name: 'App',
@@ -48,7 +51,9 @@ export default {
     'home-page': HomePage,
     'admin-homepage': AdminHomePage,
     'first-login' : FirstLogIn,
-    'dermatologist-homepage' : DermatologistHomePage
+    'dermatologist-homepage' : DermatologistHomePage,
+    'patient-homepage':PatientHomePage,
+    'patient-profile':PatientProfileCard
   },
 
   data(){
