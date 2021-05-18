@@ -1,67 +1,73 @@
 <template>
-  <div id="container"><div id="container-inner">
-    <form style="width: 300px; position:absolute; top: 200px; left: 600px" >
-      <fieldset>
-        
-        <!-- Your current password -->
-        <h1 style="position: relative; left: 95px">Register</h1>
+  <!-- Default form register -->
+  <form class="text-center border border-light p-5" style="width: 500px; position: sticky; left: 520px;" action="#!">
 
-        <div>
-          <label for="firstname">Firstname</label>
-          <input style=" margin: 10px;" type="text" name="firstname" id="firstname" v-model="firstname"/> <br/>
-        </div>
+    <p class="h4 mb-4">Sign up</p>
 
-        <div>
-          <label for="lastname">Lastname</label>
-          <input style=" margin: 10px;" type="text" name="lastname" id="lastname" v-model="lastname"/> <br/>
-        </div>
+    <div class="form-row mb-4">
+      <div class="col">
+        <!-- First name -->
+        <input type="text" name="firstname" id="firstname" v-model="firstname" class="form-control" placeholder="First name">
+      </div>
+      <div class="col">
+        <!-- Last name -->
+        <input type="text" name="lastname" id="lastname" v-model="lastname" class="form-control" placeholder="Last name">
+      </div>
+    </div>
 
-        <div>
-          <label for="username">Username</label>
-          <input style=" margin: 10px;" type="text" name="username" id="username" v-model="username"/> <br/>
-        </div>
+    <!-- E-mail -->
+    <input type="email" name="email" id="email" v-model="email" class="form-control mb-4" placeholder="E-mail">
 
-        <div>
-          <label for="password">Password </label>
-          <input style=" margin: 10px;" type="password" name="password" id="password" v-model="password"/>
-        </div>
+    <!-- Username -->
+    <input type="text" name="username" id="username" v-model="username" class="form-control mb-4" placeholder="Username">
 
-        <div>
-          <label for="email">Email</label>
-          <input style=" margin: 10px;" type="text" name="email" id="email" v-model="email"/> <br/>
-        </div>
+    <!-- Password -->
+    <input type="password" name="password" id="password" v-model="password" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+      At least 8 characters and 1 digit
+    </small>
 
-        <div>
-          <label for="adress">Adress</label>
-          <input style=" margin: 10px;" type="text" name="adress" id="adress" v-model="adress"/> <br/>
-        </div>
+    <div class="form-row mb-4">
+      <div class="col">
+        <!-- Country -->
+        <input type="text" name="country" id="country" v-model="country" class="form-control" placeholder="Country">
+      </div>
+      <div class="col">
+        <!-- City -->
+        <input type="text" name="city" id="city" v-model="city" class="form-control" placeholder="City">
+      </div>
+    </div>
 
-        <div>
-          <label for="city">City</label>
-          <input style=" margin: 10px;" type="text" name="city" id="city" v-model="city"/> <br/>
-        </div>
+    <!-- Address-->
+    <input type="text" name="adress" id="adress" v-model="adress" class="form-control mb-4" placeholder="Address">
 
-        <div>
-          <label for="country">Country</label>
-          <input style=" margin: 10px;" type="text" name="country" id="country" v-model="country"/> <br/>
-        </div>
+    <!-- Phone number -->
+    <input type="text" name="phone" id="phone" min="1" max="5" v-model="phone" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+<!--    <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+      Optional - for two step authentication
+    </small>-->
+    <br>
 
-        <div>
-          <label for="phone">Phone</label>
-          <input style=" margin: 10px;" type="text" name="phone" id="phone" min="1" max="5" v-model="phone"/> <br/>
-        </div>
+    <!-- Newsletter -->
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
+      <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
+    </div>
 
-        <!-- Controls -->
-        <div class="controls">
-          <input style="position:relative; margin-top:15px; left:95px; width: 100px;" id="submit" name="submit" type="button" @click="submit" value="Register" />
-        </div>
-        <div>
-          <h1>{{ status }}</h1>
-        </div>
-      </fieldset>
-    </form>
+    <!-- Sign up button -->
+    <input class="btn btn-info my-4 btn-block" id="submit" name="submit" type="button" @click="submit" value="Sign in"/>
 
-  </div></div>
+    <!-- Social register -->
+<!--    <p>or sign up with:</p>
+
+    <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+    <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+    <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+    <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>-->
+
+    <hr>
+
+  </form>
 </template>
 
 <script>
@@ -86,7 +92,7 @@ export default {
   methods:{
     submit(){
       axios.post("/api/unsigned/register", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
-      email: this.email, adress: this.adress, city: this.city, country: this.country, phone: this.phone})
+      email: this.email, address: this.adress, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             self.status = response.data;
           });
