@@ -112,6 +112,15 @@ public abstract class User {
         this.password = newPassword;
     }
 
+    public User(Long id, String firstname, String lastname, String username, String adress, String phone) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.adress = adress;
+        this.phone = phone;
+    }
+
     public Long getId() {
         return id;
     }

@@ -61,8 +61,6 @@ public class PatientService  implements ServiceInterface<Patient>{
         return patientRepository.save(existingPatient);
     }
 
-
-
     @Override
     public void delete(Long id) throws Exception {
         Patient existingPatient = patientRepository.findById(id).orElse(null);
@@ -83,8 +81,22 @@ public class PatientService  implements ServiceInterface<Patient>{
         return patientRepository.save(existingPatient);
     }
 
-    public Patient updateInfo(Patient entity) throws Exception {
+    public Patient updatePassword(Patient entity) throws Exception{
         Patient existingPatient=  patientRepository.findById(entity.getId()).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Pharmacist with given id doesn't exist");
+        }
+
+        existingPatient.setPassword(entity.getPassword());
+
+        if(patientRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Pharmacist with given email already exists");
+        }
+        return patientRepository.save(existingPatient);
+    }
+
+    public Patient updateInfo(Patient entity) throws Exception {
+        Patient existingPatient = patientRepository.findById(entity.getId()).orElse(null);
         if(existingPatient == null){
             throw new Exception("Patient with given id doesn't exist");
         }

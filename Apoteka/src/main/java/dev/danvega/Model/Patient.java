@@ -65,6 +65,14 @@ public class Patient extends User {
         super(firstName, lastname, username, password, email);
     }
 
+    public Patient(Long id, String firstname, String lastname, String username, String adress, String phone) {
+        super(id, firstname, lastname, username, adress, phone);
+    }
+
+    public Patient(Long id, String newPassword) {
+        super(id, newPassword);
+    }
+
     public Patient(String name, String lastName, String city, String address, String phone, String country) {
     }
 
