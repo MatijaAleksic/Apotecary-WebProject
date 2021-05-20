@@ -46,8 +46,8 @@ public class MedicationService  implements ServiceInterface<Medication>{
         if(existingMedication == null){
             throw new Exception("Medication with given id doesn't exist");
         }
-        existingMedication.setType(entity.getType());
-        existingMedication.setSpecification(entity.getSpecification());
+        existingMedication.setMedicationType(entity.getMedicationType());
+        existingMedication.setMedicationSpecification(entity.getMedicationSpecification());
 
         if(medicationRepository.findByName(entity.getName()) != null){
             throw new Exception("Medication with given name already exists");

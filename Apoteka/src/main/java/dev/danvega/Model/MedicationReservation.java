@@ -1,5 +1,7 @@
 package dev.danvega.Model;
 
+import dev.danvega.Model.Enums.StatusMedication;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;

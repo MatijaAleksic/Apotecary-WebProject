@@ -1,5 +1,7 @@
 package dev.danvega.Model;
 
+import dev.danvega.Model.Enums.MedicationType;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,10 +17,7 @@ public class Medication {
     private String name;
 
     @Column(unique = false, nullable = true)
-    private MedicationType Type;
-
-    @Column(unique = false, nullable = true)
-    private String specification;
+    private MedicationType medicationType;
 
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Alergies> alergies;
@@ -32,18 +31,16 @@ public class Medication {
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationRating> ratings;
 
-    public Medication(Long id, String name, MedicationType type, String specification) {
+    public Medication(Long id, String name, MedicationType type) {
         this.id = id;
         this.name = name;
-        Type = type;
-        this.specification = specification;
+        this.medicationType = type;
     }
 
-    public Medication(Long id, String name, MedicationType type, String specification, List<Alergies> alergies, MedicationInfo medicationInfo, MedicationSpecification medicationSpecification, List<MedicationRating> ratings) {
+    public Medication(Long id, String name, MedicationType type, List<Alergies> alergies, MedicationInfo medicationInfo, MedicationSpecification medicationSpecification, List<MedicationRating> ratings) {
         this.id = id;
         this.name = name;
-        Type = type;
-        this.specification = specification;
+        this.medicationType = type;
         this.alergies = alergies;
         this.medicationInfo = medicationInfo;
         this.medicationSpecification = medicationSpecification;
@@ -51,6 +48,11 @@ public class Medication {
     }
 
     public Medication() {
+    }
+
+    public Medication(String name, MedicationType medicationType) {
+        this.name = name;
+        this.medicationType = medicationType;
     }
 
     public Long getId() {
@@ -69,20 +71,12 @@ public class Medication {
         this.name = name;
     }
 
-    public MedicationType getType() {
-        return Type;
+    public MedicationType getMedicationType() {
+        return medicationType;
     }
 
-    public void setType(MedicationType type) {
-        Type = type;
-    }
-
-    public String getSpecification() {
-        return specification;
-    }
-
-    public void setSpecification(String specification) {
-        this.specification = specification;
+    public void setMedicationType(MedicationType medicationType) {
+        this.medicationType = medicationType;
     }
 
     public List<Alergies> getAlergies() {

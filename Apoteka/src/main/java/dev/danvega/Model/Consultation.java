@@ -1,5 +1,7 @@
 package dev.danvega.Model;
 
+import dev.danvega.Model.Enums.StatusCV;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
