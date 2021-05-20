@@ -31,7 +31,7 @@ components:{
   'change-password': ChangeAdminPassword,
   'add-new-medication': AddNewMedication,
   'register-new-administrator' : AddNewAdministrator,
-  'register-new-dermatologist' : AddNewDermatologist
+  'register-new-dermatologist' : AddNewDermatologist,
 },
 
  data(){
