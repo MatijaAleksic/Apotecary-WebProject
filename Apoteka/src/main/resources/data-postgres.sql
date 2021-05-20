@@ -1,7 +1,7 @@
-INSERT INTO apotecaries(id,adress,description,name) values (1, 'neka adresa', 'deskripcija', 'Apoteka1');
-INSERT INTO apotecaries(id,adress,description,name) values (2, 'ewt35', 'daweaw', 'Apoteka2');
-INSERT INTO apotecaries(id,adress,description,name) values (3, 'arrawet325', 'dwadawdawd', 'Apoteka3');
-INSERT INTO apotecaries(id,adress,description,name) values (4, 'ndasdat24234', 'dawd35r3tg', 'Apoteka4');
+INSERT INTO apotecaries(id,adress,description,name) values (1, 'neka adresa', 'deskripcija', 'Apoteka');
+INSERT INTO apotecaries(id,adress,description,name) values (2, 'ewt35', 'daweaw', 'Benu');
+INSERT INTO apotecaries(id,adress,description,name) values (3, 'arrawet325', 'dwadawdawd', 'Feniks');
+INSERT INTO apotecaries(id,adress,description,name) values (4, 'ndasdat24234', 'dawd35r3tg', 'Zelena');
 
 INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id, first_time_login) VALUES (15,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',1, false);
 

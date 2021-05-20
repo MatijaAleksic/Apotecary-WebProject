@@ -39,6 +39,12 @@ public class Medication {
         this.specification = specification;
     }
 
+    public Medication(Long id, String name, String specification) {
+        this.id = id;
+        this.name = name;
+        this.specification = specification;
+    }
+
     public Medication(Long id, String name, MedicationType type, String specification, List<Alergies> alergies, MedicationInfo medicationInfo, MedicationSpecification medicationSpecification, List<MedicationRating> ratings) {
         this.id = id;
         this.name = name;
