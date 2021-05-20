@@ -1,10 +1,6 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.ChangePasswordRequest;
-import dev.danvega.DTO.PatientDTO;
-import dev.danvega.DTO.PhrmacistChangeInfo;
-import dev.danvega.DTO.UserIDDTO;
-import dev.danvega.Mapper.DermatologistMapper;
+import dev.danvega.DTO.*;
 import dev.danvega.Mapper.PharmacistMapper;
 import dev.danvega.Mapper.PharmacistPatientsMapper;
 import dev.danvega.Model.Patient;
@@ -69,11 +65,28 @@ public class PharmacistController {
         return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
     }
 
+    @GetMapping(value="/list")
+    public ResponseEntity<List<PhrmacistChangeInfo>> listPharmacists(){
+        List<Pharmacist> pharmacists = pharmacistService.findAll();
+        if (pharmacists == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(toPharmacistDTOList(pharmacists));
+    }
+
     private List<PatientDTO> toPatientDTOList(List<Patient> patients){
         List<PatientDTO> patientDTOS = new ArrayList<>();
         for (Patient patient : patients) {
             patientDTOS.add(pharmacistPatientsMapper.toDto(patient));
         }
         return patientDTOS;
+    }
+
+    private List<PhrmacistChangeInfo> toPharmacistDTOList(List<Pharmacist> pharmacists){
+        List<PhrmacistChangeInfo> pharmacistDTOS = new ArrayList<>();
+        for (Pharmacist pharmacist : pharmacists) {
+            pharmacistDTOS.add(pharmacistMapper.toDto(pharmacist));
+        }
+        return pharmacistDTOS;
     }
 }

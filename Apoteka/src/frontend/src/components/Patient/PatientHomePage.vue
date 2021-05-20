@@ -7,6 +7,7 @@
       <input id="list" type="button" name="list" @click="component ='apothecaries'" value="List of Apothecaries" />
       <input id="search-apothecaries" type="button" name="search-apothecaries" @click="component ='search-apothecaries'" value="Search Apothecaries" />
       <input id="search-medication" type="button" name="search-medication" @click="component ='search-medication'" value="Search Medication" />
+      <input id="tables" type="button" name="tables" @click="component ='tables'" value="Tables" />
     </div>
     <component v-bind:is="component"> </component>
   </div>
@@ -18,6 +19,7 @@ import PatientProfileEdit from "@/components/Patient/PatientProfileEdit";
 import ApothecaryList from "@/components/ApothecaryList";
 import SearchApothecaries from "@/components/SearchApothecaries";
 import SearchMedication from "@/components/SearchMedication";
+import Tables from "@/components/Tables";
 
 export default {
   name: "PatientHomePage",
@@ -27,6 +29,7 @@ export default {
     'apothecaries': ApothecaryList,
     'search-apothecaries': SearchApothecaries,
     'search-medication': SearchMedication,
+    'tables': Tables,
   },
   data(){
     return{

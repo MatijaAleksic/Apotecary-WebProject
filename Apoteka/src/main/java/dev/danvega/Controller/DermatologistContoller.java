@@ -71,6 +71,15 @@ public class DermatologistContoller {
 
         return new ResponseEntity<>("Uspesno registrovan dermatolog!", HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<List<DermatologistDTO>> listDermatologists(){
+        List<Dermatologist> dermatologists = dermathologistService.findAll();
+        if (dermatologists == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(toDermatologistDTOList(dermatologists));
+    }
   
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
