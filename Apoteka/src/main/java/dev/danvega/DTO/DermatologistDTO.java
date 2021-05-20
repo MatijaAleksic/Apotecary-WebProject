@@ -1,7 +1,10 @@
 package dev.danvega.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class DermatologistDTO {
 
@@ -15,13 +18,17 @@ public class DermatologistDTO {
     private String country;
     private String phone;
     private Long apotecary_id;
-    private Time startHours;
-    private Time endHours;
+
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime startHours;
+
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime endHours;
 
     public DermatologistDTO() {
     }
 
-    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, Time startHours, Time endHours) {
+    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, LocalTime startHours, LocalTime endHours) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -116,19 +123,19 @@ public class DermatologistDTO {
         this.apotecary_id = apotecary_id;
     }
 
-    public Time getStartHours() {
+    public LocalTime getStartHours() {
         return startHours;
     }
 
-    public void setStartHours(Time startHours) {
+    public void setStartHours(LocalTime startHours) {
         this.startHours = startHours;
     }
 
-    public Time getEndHours() {
+    public LocalTime getEndHours() {
         return endHours;
     }
 
-    public void setEndHours(Time endHours) {
+    public void setEndHours(LocalTime endHours) {
         this.endHours = endHours;
     }
 }

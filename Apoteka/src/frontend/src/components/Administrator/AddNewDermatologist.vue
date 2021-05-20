@@ -49,13 +49,13 @@
         </div>
 
         <div>
-          <label for="startTime">StartTime</label>
-          <input type="time" id="startTime" name="startTime" min="00:00" max="24:00"  v-model="startTime" required>
+          <label for="startHours">StartHours</label>
+          <input type="time" id="startHours" name="startHours" min="00:00" max="24:00"  v-model="startHours" required>
         </div>
 
         <div>
-          <label for="endTime">EndTime</label>
-          <input type="time" id="endTime" name="endTime" min="00:00" max="24:00"  v-model="endTime" required>
+          <label for="endHours">EndHours</label>
+          <input type="time" id="endHours" name="endHours" min="00:00" max="24:00"  v-model="endHours" required>
         </div>
 
         
@@ -89,8 +89,8 @@ export default {
       country: '',
       phone: '',
       apotecary_id: 0,
-      startTime : '',
-      endTime : ''
+      startHours : '',
+      endHours : ''
     }
   },
   methods:{
@@ -98,7 +98,7 @@ export default {
       axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
        city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
-       startTime: this.startTime, endTime:this.endTime})
+       startHours: this.startHours, endHours:this.endHours})
           .then((response) => {
             this.msg = response.data;
           });

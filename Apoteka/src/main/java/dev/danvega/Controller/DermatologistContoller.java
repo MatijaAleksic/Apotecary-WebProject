@@ -71,6 +71,7 @@ public class DermatologistContoller {
 
         return new ResponseEntity<>("Uspesno registrovan dermatolog!", HttpStatus.CREATED);
     }
+
   
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
