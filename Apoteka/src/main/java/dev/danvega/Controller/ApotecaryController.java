@@ -30,6 +30,16 @@ public class ApotecaryController {
         return ResponseEntity.ok(toApothecaryDTOList(apothecaries));
     }
 
+    //pokusaj
+    @GetMapping(value="/list")
+    public ResponseEntity<List<ApothecaryDTO>> listApothecaries(){
+        List<Apotecary> apothecaries = apothecaryService.findAll();
+        if (apothecaries == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return ResponseEntity.ok(toApothecaryDTOList(apothecaries));
+    }
+
     private List<ApothecaryDTO> toApothecaryDTOList(List<Apotecary> apothecaries){
         List<ApothecaryDTO> apothecaryDTOS = new ArrayList<>();
         for (Apotecary apothecary : apothecaries){
