@@ -7,26 +7,26 @@ import java.util.List;
 @Table(name="patients")
 public class Patient extends User {
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patient", fetch = FetchType.LAZY)
     private DermatologistRating dermatologistRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     private List<PharmacistRating> pharmacistRating;
 
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patient",fetch = FetchType.LAZY)
     private ApotecaryRating apotecaryRating;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<MedicationRating> medicationRating;
 
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     private List<Consultation> consultations;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     private List<Visit> visits;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
     private List<MedicationReservation> medicationReservations;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL,fetch = FetchType.LAZY)

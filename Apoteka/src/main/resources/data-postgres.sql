@@ -1,4 +1,6 @@
-INSERT INTO apotecaries(id,adress,description,name) values (10, 'neka adresa', 'deskripcija', 'Apoteka1');
+INSERT INTO apotecaries(id,adress,description,name) values (10, 'neka adresa1', 'deskripcija1', 'Apoteka1');
+INSERT INTO apotecaries(id,adress,description,name) values (11, 'neka adresa2', 'deskripcija2', 'Apoteka2');
+INSERT INTO apotecaries(id,adress,description,name) values (12, 'neka adresa3', 'deskripcija3', 'Apoteka3');
 
 INSERT INTO administrators(id, firstname, lastname, username, password, email, adress, city, country, phone,apotecary_id, first_time_login) VALUES (15,'admin','admin1','admin','admin','admin@gmail.com','g','h','i','j',10, false);
 
@@ -7,6 +9,8 @@ INSERT INTO dermatologists(id, firstname, lastname, username, password, email, a
 INSERT INTO dermatologists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (18,'sgb','gsv','derma3','derma3','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj','07:00','15:00',10, false);
 
 INSERT INTO pharmacists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (19,'hgah','haha','pharma1','pharma1','haha','gsgsg','adgag','yuky','ag','07:00','15:00',10, false);
+INSERT INTO pharmacists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (20,'tjtjtj','tjtj','pharma2','pharma2','tjtj','tjtj','tjtj','tjtj','tjtj','07:00','15:00',11, false);
+INSERT INTO pharmacists(id, firstname, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id,first_time_login) VALUES (21,'nvnvnvn','nvnv','pharma3','pharma3','vnvn','vnvn','vnvn','vnvn','vnvn','07:00','15:00',12, false);
 
 INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone,first_time_login) VALUES (20,'a','b','pati1','pati1','gsgsf','gsgsg','gsgsh','gssgi','sgsgsj', false);
 INSERT INTO patients(id, firstname, lastname, username, password, email, adress, city, country, phone,first_time_login) VALUES (21,'aasdf','pati2','pati2','pati2','ghk','ghk','nghn','gssgi','jswssdf', false);

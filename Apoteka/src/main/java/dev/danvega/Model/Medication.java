@@ -19,13 +19,13 @@ public class Medication {
     @Column(unique = false, nullable = true)
     private MedicationType medicationType;
 
-    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
     private List<Alergies> alergies;
 
-    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "medication", fetch = FetchType.LAZY)
     private MedicationInfo medicationInfo;
 
-    @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "medication", fetch = FetchType.LAZY)
     private MedicationSpecification medicationSpecification;
 
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

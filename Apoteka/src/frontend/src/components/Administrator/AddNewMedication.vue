@@ -115,9 +115,6 @@ export default {
 
             axios.post("/api/medication-info/add-new", {price : this.price, priceDurationEndDate: this.priceDurationEndDate, priceDurationEndTime: this.priceDurationEndTime,
                                                  inStorage: this.inStorage, apotecary_id : this.apotecary_id, medication_id: response.data })
-            .then((response) => {
-              this.msg = response.data;
-            });
 
             axios.post("/api/medication-specifications/add-new", {contradictions : this.contradictions, composition: this.composition, dailyIntake: this.dailyIntake,
                                                  replacementDrugs: this.replacementDrugs, medication_id: response.data })

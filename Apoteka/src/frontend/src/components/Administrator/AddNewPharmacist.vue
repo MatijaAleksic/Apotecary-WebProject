@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Register new Dermatologist</h1>
+    <h1>Register new Pharmacist</h1>
     <form>
       <fieldset>
         <div>
@@ -70,7 +70,7 @@
 
 import axios from "axios";
 export default {
-  name: 'AddNewDermatologist',
+  name: 'AddNewPharmacist',
   data() {
     return {
       msg: '',
@@ -104,7 +104,7 @@ export default {
 
   methods:{
     submit(){
-      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/pharmacist/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
        city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
        startHours: this.startHours, endHours:this.endHours})

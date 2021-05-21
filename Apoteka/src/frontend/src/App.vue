@@ -44,7 +44,7 @@ export default {
 
     'pharmacist-homepage': PharmacistHomePage,
     'admin-homepage': AdminHomePage,
-    'dermatologist-homepage' : DermatologistHomePage
+    'dermatologist-homepage' : DermatologistHomePage,
     'patient-homepage':PatientHomePage,
     
     'patient-profile':PatientProfileCard
@@ -53,9 +53,9 @@ export default {
   data(){
     return{
       component: '',
-      logged_user : 'administrator', //'',
+      logged_user : '',
       first_time_login: 'false',
-      user_id : 15 //null
+      user_id : null
     }
   },
 

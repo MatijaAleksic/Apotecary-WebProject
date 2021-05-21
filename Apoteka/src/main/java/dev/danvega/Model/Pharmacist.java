@@ -16,7 +16,7 @@ public class Pharmacist extends User{
     @Column(unique = false, nullable = true)
     private Time endHours;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
@@ -47,6 +47,12 @@ public class Pharmacist extends User{
 
     public Pharmacist(Long id, String newPassword) {
         super(id,newPassword);
+    }
+
+    public Pharmacist(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Time startHours, Time endHours) {
+        super(firstname, lastname, username, password, email, adress, city, country, phone);
+        this.startHours = startHours;
+        this.endHours = endHours;
     }
 
     public Apotecary getApotecary() {

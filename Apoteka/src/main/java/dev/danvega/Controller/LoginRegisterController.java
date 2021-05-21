@@ -68,7 +68,6 @@ public class LoginRegisterController {
     }
 
 
-    //OVDJE RADI
     @PostMapping(path = "/first-login")
     public ResponseEntity<String> firstLogin(@RequestBody FirstLoginChangePasswordDTO firstLoginChangePasswordDTO) throws Exception {
         try {
