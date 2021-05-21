@@ -5,12 +5,12 @@ import dev.danvega.Model.Enums.MedicationType;
 public class MedicationDTO {
 
     private String name;
-    private MedicationType medicationType;
+    private int medicationType;
 
     public MedicationDTO() {
     }
 
-    public MedicationDTO(String name, MedicationType medicationType) {
+    public MedicationDTO(String name, int medicationType) {
         this.name = name;
         this.medicationType = medicationType;
     }
@@ -23,11 +23,11 @@ public class MedicationDTO {
         this.name = name;
     }
 
-    public MedicationType getMedicationType() {
+    public int getMedicationType() {
         return medicationType;
     }
 
-    public void setMedicationType(MedicationType type) {
+    public void setMedicationType(int type) {
         this.medicationType = type;
     }
 }

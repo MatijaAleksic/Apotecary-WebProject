@@ -10,10 +10,10 @@ public class MedicationInfoDTO {
 
     private double price;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate priceDurationEndDate;
 
-    @JsonFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime priceDurationEndTime;
     private int inStorage;
 

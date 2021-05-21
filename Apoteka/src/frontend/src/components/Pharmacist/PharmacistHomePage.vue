@@ -75,7 +75,7 @@
 import axios from "axios";
 import PharmacistProfilPage from "@/components/Pharmacist/PharmacistProfilPage";
 export default {
-  name: "HomePage",
+  name: "PharmacistHomePage",
   components: {
     'pharmacist-profile': PharmacistProfilPage,
   },

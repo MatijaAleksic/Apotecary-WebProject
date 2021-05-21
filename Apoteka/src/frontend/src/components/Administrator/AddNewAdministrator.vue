@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Register new administrator</h1>
+    <h1>Register new Administrator</h1>
     <form>
       <fieldset>
         <div>
