@@ -88,7 +88,7 @@ export default {
       axios.post("/api/unsigned/register", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
       email: this.email, adress: this.adress, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
-            self.status = response.data;
+            this.status = response.data;
           });
     }
   }}

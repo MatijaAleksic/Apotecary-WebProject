@@ -59,7 +59,6 @@ export default {
         else{
             axios.post("/api/unsigned/first-login", {userId : this.userId, userType: this.userType, newPassword: this.new_password})
                 .then((response) => {
-                  alert("USLO OVDJE")
                   this.msg = response.data;
                   this.$emit('updateinfo', 'false');
                 });
