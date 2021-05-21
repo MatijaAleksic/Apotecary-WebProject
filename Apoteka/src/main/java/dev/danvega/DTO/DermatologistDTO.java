@@ -25,10 +25,13 @@ public class DermatologistDTO {
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endHours;
 
+    private Long id;
+
     public DermatologistDTO() {
     }
 
-    public DermatologistDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, LocalTime startHours, LocalTime endHours) {
+    public DermatologistDTO(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, LocalTime startHours, LocalTime endHours) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -137,5 +140,13 @@ public class DermatologistDTO {
 
     public void setEndHours(LocalTime endHours) {
         this.endHours = endHours;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

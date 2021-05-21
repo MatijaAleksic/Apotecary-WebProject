@@ -1,6 +1,5 @@
 package dev.danvega.DTO;
 
-import javax.persistence.Column;
 
 public class RegisterPatientDTO {
 
@@ -17,7 +16,7 @@ public class RegisterPatientDTO {
     public RegisterPatientDTO() {
     }
 
-    public RegisterPatientDTO(String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
+    public RegisterPatientDTO(String firstname, String lastname, String username,String password, String email, String adress, String city, String country, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -100,4 +99,5 @@ public class RegisterPatientDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

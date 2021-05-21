@@ -4,10 +4,7 @@ import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
-import dev.danvega.Model.Administrator;
-import dev.danvega.Model.Dermatologist;
-import dev.danvega.Model.Patient;
-import dev.danvega.Model.Visit;
+import dev.danvega.Model.*;
 import dev.danvega.Services.ApotecaryService;
 import dev.danvega.Services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +67,28 @@ public class DermatologistContoller {
         }
 
         return new ResponseEntity<>("Uspesno registrovan dermatolog!", HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/get-all")
+    public ResponseEntity<List<DermatologistDTO>> get_all(){
+        List<Dermatologist> dermatologists = dermathologistService.findAll();
+        if(dermatologists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toDermatologistDTOList(dermatologists), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
+    {
+        try{
+            dermathologistService.delete(userIDDTO.getId());
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("Uspesno brisanje dermatologa!", HttpStatus.OK);
+
     }
 
   

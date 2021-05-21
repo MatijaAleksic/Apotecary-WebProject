@@ -57,7 +57,7 @@
         
         <!-- Controls -->
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Save Info" />
+          <input id="submit" name="submit" type="button" @click="submit" value="Add medication" />
         </div>
         <div>
           <h1>{{ msg }}</h1>

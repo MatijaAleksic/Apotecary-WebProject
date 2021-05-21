@@ -68,6 +68,11 @@ public class Patient extends User {
     public Patient(String name, String lastName, String city, String address, String phone, String country) {
     }
 
+    public Patient(String firstname, String lastname, String username, String email, String adress, String city, String country, String phone) {
+        super(firstname, lastname, username, email, adress, city, country, phone);
+    }
+
+
     public DermatologistRating getDermatologistRating() {
         return dermatologistRating;
     }

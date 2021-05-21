@@ -16,7 +16,7 @@
 
         <!-- Controls -->
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Save Password" />
+          <input id="submit" name="submit" type="button" @click="submit" value="Change Password" />
         </div>
         <div>
           <h1>{{ msg }}</h1>

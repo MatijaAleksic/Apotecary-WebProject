@@ -45,7 +45,7 @@ public class Visit {
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToOne(mappedBy = "visit", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "visit", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private MedicationReservation medicationReservation;
 
     public Visit(Long id, LocalDate startDate, int duration, double price, StatusCV status) {

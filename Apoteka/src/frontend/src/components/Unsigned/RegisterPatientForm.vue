@@ -22,11 +22,6 @@
         </div>
 
         <div>
-          <label for="password">Password </label>
-          <input style=" margin: 10px;" type="password" name="password" id="password" v-model="password"/>
-        </div>
-
-        <div>
           <label for="email">Email</label>
           <input style=" margin: 10px;" type="text" name="email" id="email" v-model="email"/> <br/>
         </div>
@@ -85,7 +80,7 @@ export default {
   },
   methods:{
     submit(){
-      axios.post("/api/unsigned/register", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
+      axios.post("/api/unsigned/register-new", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
       email: this.email, adress: this.adress, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.status = response.data;
