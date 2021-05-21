@@ -2,6 +2,7 @@ package dev.danvega.Services;
 
 import dev.danvega.Model.Administrator;
 import dev.danvega.Model.Patient;
+import dev.danvega.Model.Pharmacist;
 import dev.danvega.Repository.AdministratorRepository;
 import dev.danvega.Repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,24 @@ public class PatientService  implements ServiceInterface<Patient>{
         }
         existingPatient.setPassword(password);
         existingPatient.setFirstTimeLogin(false);
+        return patientRepository.save(existingPatient);
+    }
+
+    public Patient updateInfo(Patient entity) throws Exception {
+        Patient existingPatient=  patientRepository.findById(entity.getId()).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Patient with given id doesn't exist");
+        }
+        existingPatient.setFirstname(entity.getFirstname());
+        existingPatient.setLastname(entity.getLastname());
+        existingPatient.setUsername(entity.getUsername());
+        existingPatient.setAdress(entity.getAdress());
+        existingPatient.setPhone(entity.getPhone());
+
+
+        if(patientRepository.findByEmail(entity.getEmail()) != null){
+            throw new Exception("Patient with given email already exists");
+        }
         return patientRepository.save(existingPatient);
     }
 }
