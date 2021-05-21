@@ -16,7 +16,7 @@ public class MedicationInfoMapper  implements MapperInterface<MedicationInfo, Me
 
     @Override
     public MedicationInfo toEntity(MedicationInfoDTO dto) {
-        return null;
+        return new MedicationInfo(dto.getPrice(), dto.getPriceDurationEndDate(), dto.getPriceDurationEndTime(), dto.getInStorage());
     }
 
     @Override

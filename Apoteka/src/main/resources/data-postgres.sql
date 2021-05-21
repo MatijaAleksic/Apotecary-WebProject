@@ -31,6 +31,7 @@ INSERT INTO medications(id,medication_type,name) VALUES (10,1,'Antibiotik1');
 INSERT INTO medications(id,medication_type,name) VALUES (11,1,'Antibiotik2');
 INSERT INTO medications(id,medication_type,name) VALUES (12,0,'Anestetik1');
 INSERT INTO medications(id,medication_type,name) VALUES (13,0,'Anestetik2');
+INSERT INTO medications(id,medication_type,name) VALUES (14,0,'Anestetik3');
 
 
 INSERT INTO alergies(id,medication_id,patient_id) VALUES (1,10,6);

@@ -51,13 +51,20 @@ public class MedicationInfo {
         this.apotecary = apotecary;
     }
 
-    public MedicationInfo(double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, Apotecary apotecary_id, Medication medication_id) {
+    public MedicationInfo(double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, Apotecary apotecary, Medication medication) {
         this.price = price;
         this.priceDurationEndDate = priceDurationEndDate;
         this.priceDurationEndTime = priceDurationEndTime;
         this.inStorage = inStorage;
         this.medication = medication;
         this.apotecary = apotecary;
+    }
+
+    public MedicationInfo(double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage) {
+        this.price = price;
+        this.priceDurationEndDate = priceDurationEndDate;
+        this.priceDurationEndTime = priceDurationEndTime;
+        this.inStorage = inStorage;
     }
 
     public Long getId() {
