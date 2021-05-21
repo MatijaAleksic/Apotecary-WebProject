@@ -18,6 +18,6 @@ public class DermatologistMapper implements MapperInterface<Dermatologist, Derma
 
     @Override
     public DermatologistDTO toDto(Dermatologist entity) {
-        return new DermatologistDTO(entity.getFirstname(), entity.getLastname(), entity.getUsername(), entity.getPassword(), entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone(),entity.getApotecary().getId(),entity.getStartHours().toLocalTime(),entity.getEndHours().toLocalTime());
+        return new DermatologistDTO(entity.getId(), entity.getFirstname(), entity.getLastname(), entity.getUsername(), entity.getPassword(), entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone(),entity.getApotecary().getId(),entity.getStartHours().toLocalTime(),entity.getEndHours().toLocalTime());
     }
 }

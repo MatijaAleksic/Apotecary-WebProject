@@ -53,18 +53,17 @@ public class LoginRegisterController {
 
     }
 
-    @PostMapping(path = "/register")
+    @PostMapping(path = "/register-new")
     public ResponseEntity<String> register(@RequestBody RegisterPatientDTO registerPatientDTO) throws Exception {
         Patient patient = new Patient(registerPatientDTO.getFirstname(), registerPatientDTO.getLastname(), registerPatientDTO.getUsername(), registerPatientDTO.getPassword(),
                 registerPatientDTO.getEmail(), registerPatientDTO.getAdress(), registerPatientDTO.getCity(), registerPatientDTO.getCountry(), registerPatientDTO.getPhone());
+        patient.setFirstTimeLogin(true);
         try {
             patientService.create(patient);
         }catch(Exception e){
             return new ResponseEntity<>("Nevalidni kredencijali pokusajte opet!",HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>("Uspesna registracija!", HttpStatus.OK);
-
     }
 
 
