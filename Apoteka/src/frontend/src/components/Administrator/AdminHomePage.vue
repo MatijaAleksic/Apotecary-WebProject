@@ -8,6 +8,7 @@
         <button v-on:click="component ='register-new-administrator'">Register new Administrator</button>
         <button v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</button>
         <button v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</button>
+        <button v-on:click="component ='pharmacist-table'">Pharmacist Table</button>
       </div>
       <component :user_id ="userId" v-bind:is="component"> </component>
     </div>
@@ -23,6 +24,7 @@ import AddNewMedication from './AddNewMedication.vue'
 import AddNewAdministrator from './AddNewAdministrator.vue'
 import AddNewDermatologist from './AddNewDermatologist.vue'
 import AddNewPharmacist from './AddNewPharmacist.vue'
+import PharmacistTable from '@/components/Tables/PharmacistTable.vue'
 
 
 export default {
@@ -38,7 +40,8 @@ components:{
   'add-new-medication': AddNewMedication,
   'register-new-administrator' : AddNewAdministrator,
   'register-new-dermatologist' : AddNewDermatologist,
-  'register-new-pharmacist' : AddNewPharmacist
+  'register-new-pharmacist' : AddNewPharmacist,
+  'pharmacist-table' : PharmacistTable
 },
 
  data(){

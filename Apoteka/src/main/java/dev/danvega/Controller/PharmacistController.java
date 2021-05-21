@@ -91,6 +91,36 @@ public class PharmacistController {
         return new ResponseEntity<>("Uspesno registrovan farmaceut!", HttpStatus.CREATED);
     }
 
+    @GetMapping("/get-all")
+    public ResponseEntity<List<PharmacistDTO>> get_all()
+    {
+        List<Pharmacist> pharmacists = pharmacistService.findAll();
+        if(pharmacists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toPharmacistDTOList(pharmacists), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
+    {
+        try{
+            pharmacistService.delete(userIDDTO.getId());
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("Uspesno brisanje farmaceuta!", HttpStatus.OK);
+
+    }
+
+    private List<PharmacistDTO> toPharmacistDTOList(List<Pharmacist> pharmacists){
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        for (Pharmacist pharma : pharmacists) {
+            pharmacistDTOS.add(pharmacistMapper.toDTO(pharma));
+        }
+        return pharmacistDTOS;
+    }
+
     private List<PatientDTO> toPatientDTOList(List<Patient> patients){
         List<PatientDTO> patientDTOS = new ArrayList<>();
         for (Patient patient : patients) {

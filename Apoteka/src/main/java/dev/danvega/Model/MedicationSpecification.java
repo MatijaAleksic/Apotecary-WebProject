@@ -22,7 +22,7 @@ public class MedicationSpecification {
     @Column(unique = false, nullable = true)
     private String replacementDrugs;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
     private Medication medication;
 

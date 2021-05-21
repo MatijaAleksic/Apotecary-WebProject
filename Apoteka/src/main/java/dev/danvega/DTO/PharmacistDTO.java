@@ -29,6 +29,8 @@ public class PharmacistDTO {
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endHours;
 
+    private Long id;
+
     public PharmacistDTO() {
     }
 
@@ -45,6 +47,22 @@ public class PharmacistDTO {
         this.apotecary_id = apotecary_id;
         this.startHours = startHours;
         this.endHours = endHours;
+    }
+
+    public PharmacistDTO(Long id, String firstname, String lastname, String username, String email, String adress, String city, String country, String phone, Time startHours, Time endHours) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.adress = adress;
+        this.city = city;
+        this.country = country;
+        this.phone = phone;
+        this.apotecary_id = apotecary_id;
+        this.startHours = startHours.toLocalTime();
+        this.endHours = endHours.toLocalTime();
     }
 
     public String getFirstname() {
@@ -141,5 +159,13 @@ public class PharmacistDTO {
 
     public void setEndHours(LocalTime endHours) {
         this.endHours = endHours;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

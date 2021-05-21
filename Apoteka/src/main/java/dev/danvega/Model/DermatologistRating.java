@@ -17,11 +17,11 @@ public class DermatologistRating {
     @Column(unique = false, nullable = true)
     private double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "dermatologist_id")
     private Dermatologist dermatologist;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 

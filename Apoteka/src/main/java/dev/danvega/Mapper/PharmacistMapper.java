@@ -26,4 +26,8 @@ public class PharmacistMapper implements MapperInterface<Pharmacist, PhrmacistCh
     public PhrmacistChangeInfo toDto(Pharmacist entity) {
         return new PhrmacistChangeInfo(entity.getId(), entity.getFirstname(), entity.getLastname(), entity.getUsername(), entity.getPassword(), entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone());
     }
+
+    public PharmacistDTO toDTO(Pharmacist entity) {
+        return new PharmacistDTO(entity.getId(), entity.getFirstname(), entity.getLastname(), entity.getUsername(),entity.getEmail(),entity.getAdress(),entity.getCity(),entity.getCountry(),entity.getPhone(), entity.getStartHours(), entity.getEndHours());
+    }
 }
