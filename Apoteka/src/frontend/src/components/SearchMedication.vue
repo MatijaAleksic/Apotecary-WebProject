@@ -39,7 +39,7 @@ export default {
   computed: {
     searchHandler() {
       return this.medicationList.filter(elem => {
-        return elem.name.toLowerCase().includes(this.search.toLowerCase())
+        return (elem.name.toLowerCase().includes(this.search.toLowerCase()) || elem.specification.toLowerCase().includes(this.search.toLowerCase()))
       });
     }
   }

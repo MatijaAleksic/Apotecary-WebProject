@@ -39,7 +39,7 @@ export default {
   computed: {
     searchHandler() {
       return this.apothecaryList.filter(elem => {
-        return elem.name.toLowerCase().includes(this.search.toLowerCase())
+        return (elem.name.toLowerCase().includes(this.search.toLowerCase()) || elem.address.toLowerCase().includes(this.search.toLowerCase()))
       });
     }
   }
