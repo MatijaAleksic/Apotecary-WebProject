@@ -61,6 +61,11 @@ public class Apotecary {
         this.description = description;
     }
 
+    public Apotecary(String name, String adress) {
+        this.name = name;
+        this.adress = adress;
+    }
+
     public Apotecary() {
     }
 

@@ -1,9 +1,15 @@
 package dev.danvega.Controller;
 
 import dev.danvega.DTO.ChangeInformationRequest;
+import dev.danvega.DTO.PatientDTO;
+import dev.danvega.DTO.PhrmacistChangeInfo;
+import dev.danvega.Model.Patient;
+import dev.danvega.Model.Pharmacist;
 import dev.danvega.Services.ChangeInformation;
 import dev.danvega.Services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,13 +25,23 @@ public class PatientController {
     ChangeInformation change = new ChangeInformation();
 
     @PostMapping("/change-information")
-    public String change_information(@RequestBody ChangeInformationRequest cir)
+    public ResponseEntity<String> changeInformation(@RequestBody ChangeInformationRequest cir){
+        Patient patient = new Patient(cir.getName(), cir.getLastName(), cir.getUsername(), cir.getAddress(), cir.getPhoneNumber());
+
+        try{
+            patient = patientService.updateInfo(patient);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
+    }
+    /*public String change_information(@RequestBody ChangeInformationRequest cir)
     {
         change.changeInfo(cir.getName(), cir.getLastName(), cir.getUsername(), cir.getAddress(), cir.getPhoneNumber());
-        return "Uspesno promenjeno ime iz Uros u " + cir.getName() + "\n Uspesno promenjeno prezime iz Stojanovic u " + cir.getLastName()
-                + "\n Uspesno promenjen username iz ustojanovic u " + cir.getUsername() + "\n Uspesno promenjena adresa iz njegoseva 14 u "
-                + cir.getAddress() + "\n Uspesno promenjen broj telefona iz 12864918246 u " + cir.getPhoneNumber();
-    }
+        return "Uspesno ste promenili informacije";
+    }*/
 }
 
 

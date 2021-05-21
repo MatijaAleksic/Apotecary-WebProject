@@ -1,12 +1,16 @@
 package dev.danvega.DTO;
 
 public class PatientDTO {
+    Long id;
     String name;
     String lastName;
     String address;
     String city;
     String country;
     String phone;
+
+    public PatientDTO() {
+    }
 
     public PatientDTO(String name, String lastName, String address, String city, String country, String phone) {
         this.name = name;
@@ -15,6 +19,14 @@ public class PatientDTO {
         this.city = city;
         this.country = country;
         this.phone = phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
