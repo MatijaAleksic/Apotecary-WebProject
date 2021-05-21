@@ -1,5 +1,7 @@
 package dev.danvega.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,7 +9,11 @@ import java.time.LocalTime;
 public class MedicationInfoDTO {
 
     private double price;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate priceDurationEndDate;
+
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime priceDurationEndTime;
     private int inStorage;
 

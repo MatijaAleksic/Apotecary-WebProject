@@ -26,17 +26,18 @@ public class MedicationController {
     private final MedicationMapper medicationMapper = new MedicationMapper();
 
     @PostMapping("/add-new")
-    public ResponseEntity<String> add_new_medication(@RequestBody MedicationDTO medicationDTO)
+    public ResponseEntity<Long> add_new_medication(@RequestBody MedicationDTO medicationDTO)
     {
         Medication med = medicationMapper.toEntity(medicationDTO);
+        Medication returnMed;
 
         try {
-            medicationService.create(med);
+            returnMed = medicationService.create(med);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Uspesno dodavanje novog leka!", HttpStatus.CREATED);
+        return new ResponseEntity<>(returnMed.getId(), HttpStatus.CREATED);
     }
 }

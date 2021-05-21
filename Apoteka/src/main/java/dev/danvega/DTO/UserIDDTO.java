@@ -1,6 +1,7 @@
 package dev.danvega.DTO;
 
 public class UserIDDTO {
+
     private Long id;
 
     public UserIDDTO(Long id) {

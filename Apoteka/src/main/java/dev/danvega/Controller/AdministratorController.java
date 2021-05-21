@@ -1,9 +1,6 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.AdminChangeInfo;
-import dev.danvega.DTO.AdministratorDTO;
-import dev.danvega.DTO.ChangePasswordRequest;
-import dev.danvega.DTO.DermatologistDTO;
+import dev.danvega.DTO.*;
 import dev.danvega.Mapper.AdministratorMapper;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Model.Administrator;
@@ -96,5 +93,19 @@ public class AdministratorController {
             b = "uspjesno!";
         }
         return new ResponseEntity<>(b, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/get-apotecary-id")
+    public ResponseEntity<Long> get_apotecary(@RequestBody UserIDDTO userIDDTO)
+    {
+        Administrator admin;
+        try {
+            admin = administratorService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(admin.getApotecary().getId(), HttpStatus.OK);
     }
 }

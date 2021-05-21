@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/api/medication-info")
 public class MedicationInfoController {
@@ -34,12 +36,13 @@ public class MedicationInfoController {
     private final MedicationInfoMapper medicationInfoMapper = new MedicationInfoMapper();
 
     @PostMapping("/add-new")
+    @Transactional
     public ResponseEntity<String> add_new_medication_info(@RequestBody MedicationInfoDTO medicationInfoDTO)
     {
-        Medication med = medicationService.findOne(medicationInfoDTO.getMedication_id());
-        Apotecary apo = apotecaryService.findOne(medicationInfoDTO.getApotecary_id());
+        MedicationInfo medInfo = medicationInfoMapper.toEntity(medicationInfoDTO);
 
-        MedicationInfo medInfo = medicationInfoMapper.toEntity(medicationInfoDTO, med, apo);
+        medInfo.setMedication(medicationService.findOne(medicationInfoDTO.getMedication_id()));
+        medInfo.setApotecary(apotecaryService.findOne(medicationInfoDTO.getApotecary_id()));
 
         try {
             medicationInfoService.create(medInfo);

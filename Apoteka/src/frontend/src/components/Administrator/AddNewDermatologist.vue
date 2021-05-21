@@ -1,6 +1,6 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Register new dermatologist</h1>
+    <h1>Register new Dermatologist</h1>
     <form>
       <fieldset>
         <div>

@@ -10,8 +10,8 @@
       </div>
     </div>
 
-    <home-page v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></home-page>
-    <admin-homepage v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
+    <pharmacist-homepage v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></pharmacist-homepage>
+    <admin-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
     <dermatologist-homepage v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"> </dermatologist-homepage>
     <patient-homepage v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
 
@@ -24,16 +24,12 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
-import RegisterDermatologist from './components/RegisterDermatologist.vue'
-import changePassword from "@/components/changePassword.vue";
-import ChangeInformation from "@/components/ChangeInformation.vue";
-import SearchDermatologist from "@/components/SearchDermatologist.vue";
-import LoginForm from "@/components/LoginForm";
-import RegisterPatientForm from "@/components/RegisterPatientForm";
-import HomePage from "@/components/Pharmacist/HomePage";
+import LoginForm from "./components/Unsigned/LoginForm.vue";
+import RegisterPatientForm from "./components/Unsigned/RegisterPatientForm.vue";
+import FirstLogIn from "./components/Unsigned/FirstLogIn.vue";
+
+import PharmacistHomePage from "@/components/Pharmacist/PharmacistHomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
-import FirstLogIn from "./components/FirstLogIn.vue";
 import DermatologistHomePage from "@/components/Dermatologist/DermatologistHomePage.vue";
 import PatientHomePage from "@/components/Patient/PatientHomePage";
 import PatientProfileCard from "@/components/Patient/PatientProfileCard";
@@ -42,26 +38,24 @@ export default {
   name: 'App',
 
   components: {
-    'register-dermatologist' : RegisterDermatologist,
-    'change-password': changePassword,
-    'change-information': ChangeInformation,
-    'search-dermatologist': SearchDermatologist,
     'login': LoginForm,
     'register-patient' : RegisterPatientForm,
-    'home-page': HomePage,
-    'admin-homepage': AdminHomePage,
     'first-login' : FirstLogIn,
-    'dermatologist-homepage' : DermatologistHomePage,
+
+    'pharmacist-homepage': PharmacistHomePage,
+    'admin-homepage': AdminHomePage,
+    'dermatologist-homepage' : DermatologistHomePage
     'patient-homepage':PatientHomePage,
+    
     'patient-profile':PatientProfileCard
   },
 
   data(){
     return{
       component: '',
-      logged_user : '',
+      logged_user : 'administrator', //'',
       first_time_login: 'false',
-      user_id : null
+      user_id : 15 //null
     }
   },
 

@@ -46,7 +46,7 @@ public class MedicationSpecificationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Uspesno dodavanje novoe specifikacije leka!", HttpStatus.CREATED);
+        return new ResponseEntity<>("Uspesno dodavanje novog leka!", HttpStatus.CREATED);
     }
 
 }

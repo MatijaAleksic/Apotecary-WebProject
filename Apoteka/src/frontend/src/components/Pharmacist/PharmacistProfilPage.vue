@@ -13,13 +13,13 @@
 
 <script>
 import ChangeInformationPharmacist from "@/components/Pharmacist/ChangeInformationPharmacist";
-import changePassword from "@/components/changePassword";
+import ChangePasswordPharmacist from "@/components/Pharmacist/ChangePasswordPharmacist";
 
 export default {
   name: "PharmacistProfilPage",
   components:{
     'change-infomration-pharmacist': ChangeInformationPharmacist,
-    'change-password-pharmacist': changePassword
+    'change-password-pharmacist': ChangePasswordPharmacist
   }
 
 }
