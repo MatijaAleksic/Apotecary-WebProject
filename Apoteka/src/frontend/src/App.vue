@@ -44,7 +44,7 @@ export default {
 
     'pharmacist-homepage': PharmacistHomePage,
     'admin-homepage': AdminHomePage,
-    'dermatologist-homepage' : DermatologistHomePage
+    'dermatologist-homepage' : DermatologistHomePage,
     'patient-homepage':PatientHomePage,
     
     'patient-profile':PatientProfileCard
