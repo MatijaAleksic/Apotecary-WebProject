@@ -53,7 +53,7 @@ export default {
   data(){
     return{
       component: '',
-      logged_user : '',
+      logged_user : '', //'administrator', //'',
       first_time_login: 'false',
       user_id : null
     }

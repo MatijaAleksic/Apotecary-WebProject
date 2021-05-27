@@ -23,6 +23,10 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
         return dermatologistRepository.findAll();
     }
 
+    public List<Dermatologist> findAllByApotecaryId(Long id) {
+        return dermatologistRepository.findByApotecary_Id(id);
+    }
+
     public Page<Dermatologist> findAll(Pageable pageable) {
         return dermatologistRepository.findAll(pageable);
     }

@@ -79,6 +79,15 @@ public class DermatologistContoller {
         return new ResponseEntity<>(toDermatologistDTOList(dermatologists), HttpStatus.OK);
     }
 
+    @PostMapping("/get-all-admin")
+    public ResponseEntity<List<DermatologistDTO>> get_all_admin(@RequestBody ApotecaryIDDTO apotecaryIDDTO){
+        List<Dermatologist> dermatologists = dermathologistService.findAllByApotecaryId(apotecaryIDDTO.getId());
+        if(dermatologists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toDermatologistDTOList(dermatologists), HttpStatus.OK);
+    }
+
     @PostMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
     {

@@ -23,6 +23,10 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         return pharmacistRepository.findAll();
     }
 
+    public List<Pharmacist> findAllByApotecaryId(Long id) {
+        return pharmacistRepository.findByApotecary_Id(id);
+    }
+
     public Page<Pharmacist> findAll(Pageable pageable) {
         return pharmacistRepository.findAll(pageable);
     }

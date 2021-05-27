@@ -11,13 +11,14 @@
         <button v-on:click="component ='pharmacist-table'">Pharmacist Table</button>
         <button v-on:click="component ='dermatologist-table'">Dermatologist Table</button>
       </div>
-      <component :user_id ="userId" v-bind:is="component"> </component>
+      <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+
     </div>
     
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 import ChangePersonalInformation from './ChangeInformationAdministrator.vue'
 import ChangeAdminPassword from './ChangeAdminPassword.vue'
@@ -25,8 +26,8 @@ import AddNewMedication from './AddNewMedication.vue'
 import AddNewAdministrator from './AddNewAdministrator.vue'
 import AddNewDermatologist from './AddNewDermatologist.vue'
 import AddNewPharmacist from './AddNewPharmacist.vue'
-import PharmacistTable from '@/components/Tables/PharmacistTable.vue'
-import DermatologistTable from '@/components/Tables/DermatologistTable.vue'
+import AdminPharmacistTable from '@/components/Tables/AdminPharmacistTable.vue'
+import AdminDermatologistTable from '@/components/Tables/AdminDermatologistTable.vue'
 
 
 export default {
@@ -43,13 +44,14 @@ components:{
   'register-new-administrator' : AddNewAdministrator,
   'register-new-dermatologist' : AddNewDermatologist,
   'register-new-pharmacist' : AddNewPharmacist,
-  'pharmacist-table' : PharmacistTable,
-  'dermatologist-table' : DermatologistTable
+  'pharmacist-table' : AdminPharmacistTable,
+  'dermatologist-table' : AdminDermatologistTable
 },
 
  data(){
     return{
       userId : Number,
+      apotecary_id : null,
 
       component:null,
     }
@@ -57,6 +59,10 @@ components:{
 
   mounted() {
     this.userId = this.userInfo.userId;
+    axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
+          .then((response) => {
+            this.apotecary_id = response.data;
+          });
     }
 }
 
