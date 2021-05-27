@@ -36,7 +36,6 @@ public class DermatologistRatingService implements ServiceInterface<Dermatologis
         List<DermatologistRating> ratings =  dermatologistRatingRepository.findByDermatologist_Id(id);
         double sum = 0;
         for(DermatologistRating temp : ratings) {
-            System.out.println();
             sum = sum + temp.getRating();
         }
         if(ratings.size() == 0)

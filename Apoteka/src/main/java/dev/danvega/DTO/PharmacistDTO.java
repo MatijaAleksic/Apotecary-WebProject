@@ -1,14 +1,9 @@
 package dev.danvega.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import dev.danvega.Model.Apotecary;
-import dev.danvega.Model.Consultation;
-import dev.danvega.Model.PharmacistRating;
 
-import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.List;
 
 public class PharmacistDTO {
 
@@ -31,6 +26,8 @@ public class PharmacistDTO {
 
     private Long id;
 
+    private double pharmacistRating;
+
     public PharmacistDTO() {
     }
 
@@ -49,7 +46,23 @@ public class PharmacistDTO {
         this.endHours = endHours;
     }
 
-    public PharmacistDTO(Long id, String firstname, String lastname, String username, String email, String adress, String city, String country, String phone, Time startHours, Time endHours) {
+    public PharmacistDTO(Long id, String firstname, String lastname, String username, String email, String adress, String city, String country, String phone, Long apotecary_id, Time startHours, Time endHours) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.adress = adress;
+        this.city = city;
+        this.country = country;
+        this.phone = phone;
+        this.apotecary_id = apotecary_id;
+        this.startHours = startHours.toLocalTime();
+        this.endHours = endHours.toLocalTime();
+    }
+
+    public PharmacistDTO(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone, Long apotecary_id, Time startHours, Time endHours) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -167,5 +180,13 @@ public class PharmacistDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public double getPharmacistRating() {
+        return pharmacistRating;
+    }
+
+    public void setPharmacistRating(double pharmacistRating) {
+        this.pharmacistRating = pharmacistRating;
     }
 }

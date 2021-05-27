@@ -32,6 +32,19 @@ public class PharmacistRatingService implements ServiceInterface<PharmacistRatin
         return pharmacistRatingRepository.findById(id).orElse(null);
     }
 
+    public double findRatingByPharmacist(Long id) {
+        List<PharmacistRating> ratings =  pharmacistRatingRepository.findByPharmacist_Id(id);
+        double sum = 0;
+        for(PharmacistRating temp : ratings) {
+            sum = sum + temp.getRating();
+        }
+        if(ratings.size() == 0)
+        {
+            return 0;
+        }
+        return sum / ratings.size();
+    }
+
     @Override
     public PharmacistRating create(PharmacistRating entity) throws Exception {
         if(pharmacistRatingRepository.findByPharmacist_IdAndPatient_Id(entity.getPharmacist().getId(), entity.getPatient().getId()) != null){

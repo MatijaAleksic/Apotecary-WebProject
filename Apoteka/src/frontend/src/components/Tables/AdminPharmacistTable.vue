@@ -1,6 +1,9 @@
 <template>
     <h3> Pharmacist Table </h3>
 
+    <input type="text" v-model="searchFirstname" placeholder="Firstname"/>
+    <input type="text" v-model="searchLastname" placeholder="Lastname"/>
+
     <table>
         <tr bgcolor='lightgrey'>
             <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
@@ -14,9 +17,11 @@
             <th><div @click="sortBy('phone')" class="sortBy">Phone</div></th>
             <th><div @click="sortBy('startHours')" class="sortBy">Start Hours</div></th>
             <th><div @click="sortBy('endHours')" class="sortBy">End Hours</div></th>
+            <th><div @click="sortBy('apotecary_id')" class="sortBy">Apotecary ID</div></th>
+            <th><div @click="sortBy('pharmacistRating')" class="sortBy">Rating</div></th>
         </tr>
 
-        <tr v-for="pharma in pharmacists"  v-bind:key="pharma.id"> 
+        <tr v-for="pharma in fillteredPharmacist"  v-bind:key="pharma.id"> 
             <!-- v-on:click="selectPharmacist(p)" -->
             <td> {{pharma.id}}</td>
             <td> {{pharma.firstname}}</td>
@@ -29,6 +34,8 @@
             <td> {{pharma.phone}}</td>
             <td> {{pharma.startHours}}</td>
             <td> {{pharma.endHours}}</td>
+            <td> {{pharma.apotecary_id}}</td>
+            <td> {{pharma.pharmacistRating}}</td>
             <td><button v-on:click="deletePharmacist(pharma.id)">Delete</button></td>
         </tr>
     </table>
@@ -46,10 +53,14 @@ export default {
 
     data(){
         return{
-        pharmacists : null,
+        pharmacists : [],
+
         mode: "BROWSE",
         selectedPharmacist: {},
         searchField: "",
+
+        searchFirstname: "",
+        searchLastname: "",
 
         apotecary_id : null,
 
@@ -72,11 +83,6 @@ export default {
     },
 
     methods: {
-        selectPharmacist(pharmacist){
-            if(this.mode == 'BROWSE'){
-                this.selectedPharmacist = pharmacist;
-            }
-        },
 
         deletePharmacist(identification){
             axios.post("/api/pharmacist/delete", {id: identification})
@@ -86,15 +92,19 @@ export default {
             })
         },
 
-        sortBy(prop) {
-            this.pharmacists.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
-        },
-
         refresh(){
             axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.pharmacists = response.data;
             })
+        }
+    },
+
+    computed: {
+        fillteredPharmacist: function() {
+            return this.pharmacists.filter( (elem) => {
+                return elem.firstname.match(this.searchFirstname) && elem.lastname.match(this.searchLastname)
+            });
         }
     }
 }
