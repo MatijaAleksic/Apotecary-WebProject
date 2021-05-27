@@ -55,12 +55,23 @@ export default {
       phone: '',
       address: '',
       city: '',
-      country: ''
+      country: '',
+
+      userId : null
     }
   },
+
+  props: {
+    adminINFO: Object
+  },
+
+  mounted() {
+      this.userId = this.adminINFO.userId;
+  },
+
   methods:{
     submit(){
-      axios.post("/api/administrator/change-information", {id: 15, firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/administrator/change-information", {id: this.userId, firstname: this.firstname, lastname: this.lastname,
       address: this.address, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;

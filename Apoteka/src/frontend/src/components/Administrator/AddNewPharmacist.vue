@@ -91,14 +91,11 @@ export default {
   },
 
   props: {
-    user_id: Number
+    adminINFO: Object
   },
 
   mounted() {
-    axios.post("/api/administrator/get-apotecary-id", {id : this.user_id})
-          .then((response) => {
-            this.apotecary_id = response.data;
-          });
+      this.apotecary_id = this.adminINFO.apotecary_id;
   },
 
 

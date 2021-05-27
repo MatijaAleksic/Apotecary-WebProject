@@ -101,6 +101,15 @@ public class PharmacistController {
         return new ResponseEntity<>(toPharmacistDTOList(pharmacists), HttpStatus.OK);
     }
 
+    @PostMapping("/get-all-admin")
+    public ResponseEntity<List<PharmacistDTO>> get_all_admin(@RequestBody ApotecaryIDDTO apotecaryIDDTO){
+        List<Pharmacist> pharmacists = pharmacistService.findAllByApotecaryId(apotecaryIDDTO.getId());
+        if(pharmacists == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toPharmacistDTOList(pharmacists), HttpStatus.OK);
+    }
+
     @PostMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
     {

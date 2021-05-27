@@ -42,7 +42,7 @@
 
 import axios from "axios";
 export default {
-    name: "PharmacistTable",
+    name: "AdminPharmacistTable",
 
     data(){
         return{
@@ -51,16 +51,20 @@ export default {
         selectedPharmacist: {},
         searchField: "",
 
+        apotecary_id : null,
+
         msg: ""
         }
     },
 
     props: {
-    user_id: Number
+        adminINFO: Object
     },
 
     mounted() {
-        axios.get("/api/pharmacist/get-all")
+        this.apotecary_id = this.adminINFO.apotecary_id;
+
+        axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.pharmacists = response.data;
             })
@@ -87,7 +91,7 @@ export default {
         },
 
         refresh(){
-            axios.get("/api/pharmacist/get-all")
+            axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.pharmacists = response.data;
             })

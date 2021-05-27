@@ -1,6 +1,9 @@
 <template>
     <h3> Dermatologist Table </h3>
 
+    <input type="text" v-model="searchFirstname" placeholder="Firstname"/>
+    <input type="text" v-model="searchLastname" placeholder="Lastname"/>
+
     <table>
         <tr bgcolor='lightgrey'>
             <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
@@ -16,8 +19,7 @@
             <th><div @click="sortBy('endHours')" class="sortBy">End Hours</div></th>
         </tr>
 
-        <tr v-for="derma in dermatologists"  v-bind:key="derma.id"> 
-            <!-- v-on:click="selectPharmacist(p)" -->
+        <tr v-for="derma in fillteredDermatologist"  v-bind:key="derma.id"> 
             <td> {{derma.id}}</td>
             <td> {{derma.firstname}}</td>
             <td> {{derma.lastname}}</td>
@@ -46,25 +48,30 @@ export default {
 
     data(){
         return{
-        dermatologists : null,
+        dermatologists : [],
+
         mode: "BROWSE",
         selectedDermatologist: {},
         searchField: "",
+
+        searchFirstname: "",
+        searchLastname: "",
 
         msg: ""
         }
     },
 
     props: {
-    user_id: Number
+        adminINFO: Object
     },
 
-    mounted() {
-        axios.get("/api/dermatologist/get-all")
+    created() {
+
+        this.apotecary_id = this.adminINFO.apotecary_id;
+        axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.dermatologists = response.data;
             })
-   
     },
 
     methods: {
@@ -87,12 +94,21 @@ export default {
         },
 
         refresh(){
-            axios.get("/api/dermatologist/get-all")
+            axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.dermatologists = response.data;
             })
         }
+    },
+
+    computed: {
+        fillteredDermatologist: function() {
+            return this.dermatologists.filter( (elem) => {
+                return elem.firstname.match(this.searchFirstname) && elem.lastname.match(this.searchLastname)
+        });
     }
+
+  }
 }
 </script>
 

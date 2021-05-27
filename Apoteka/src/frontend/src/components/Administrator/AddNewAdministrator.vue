@@ -76,9 +76,18 @@ export default {
       city: '',
       country: '',
       phone: '',
-      apotecary_id: 0
+      apotecary_id: null
     }
   },
+
+   props: {
+    adminINFO: Object
+  },
+
+  mounted() {
+      this.apotecary_id = this.adminINFO.apotecary_id;
+  },
+
   methods:{
     submit(){
       axios.post("/api/administrator/register-new", {firstname: this.firstname, lastname: this.lastname,

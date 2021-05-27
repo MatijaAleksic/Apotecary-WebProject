@@ -35,13 +35,24 @@ export default {
     return {
       msg: '',
       newPassword: '',
-      reNewPassword: ''
+      reNewPassword: '',
+
+      userId: null
     }
   },
+
+  props: {
+    adminINFO: Object
+  },
+
+  mounted() {
+      this.userId = this.adminINFO.userId;
+  },
+
   methods:{
     submit(){
         if(this.reNewPassword == this.newPassword){
-            axios.post("/api/administrator/change-password", {id : 15, newPassword: this.newPassword})
+            axios.post("/api/administrator/change-password", {id : this.userId, newPassword: this.newPassword})
                 .then((response) => {
                     this.msg = response.data;
                 });
