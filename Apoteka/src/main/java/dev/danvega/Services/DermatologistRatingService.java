@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +30,21 @@ public class DermatologistRatingService implements ServiceInterface<Dermatologis
     @Override
     public DermatologistRating findOne(Long id) {
         return dermatologistRatingRepository.findById(id).orElse(null);
+    }
+
+    public double findRatingByDermatologist(Long id) {
+        List<DermatologistRating> ratings =  dermatologistRatingRepository.findByDermatologist_Id(id);
+        double sum = 0;
+        for(DermatologistRating temp : ratings) {
+            System.out.println();
+            sum = sum + temp.getRating();
+        }
+        if(ratings.size() == 0)
+        {
+            return 0;
+        }
+        return sum / ratings.size();
+
     }
 
     @Override

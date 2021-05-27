@@ -6,6 +6,7 @@ import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.*;
 import dev.danvega.Services.ApotecaryService;
+import dev.danvega.Services.DermatologistRatingService;
 import dev.danvega.Services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import dev.danvega.Services.DermathologistService;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class DermatologistContoller {
 
     @Autowired
     DermathologistService dermathologistService = new DermathologistService();
+
+    @Autowired
+    DermatologistRatingService dermatologistRatingService = new DermatologistRatingService();
 
     @Autowired
     VisitService visitService = new VisitService();
@@ -100,11 +105,14 @@ public class DermatologistContoller {
 
     }
 
-  
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        DermatologistDTO temp;
+
         for (Dermatologist dermatologist : dermatologists) {
-            dermatologistDTOS.add(dermatologistMapper.toDto(dermatologist));
+            temp = dermatologistMapper.toDto(dermatologist);
+            temp.setDermatologistRating(dermatologistRatingService.findRatingByDermatologist(dermatologist.getId()));
+            dermatologistDTOS.add(temp);
         }
         return dermatologistDTOS;
     }

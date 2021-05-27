@@ -27,6 +27,8 @@ public class DermatologistDTO {
 
     private Long id;
 
+    private double dermatologistRating;
+
     public DermatologistDTO() {
     }
 
@@ -44,6 +46,14 @@ public class DermatologistDTO {
         this.apotecary_id = apotecary_id;
         this.startHours = startHours;
         this.endHours = endHours;
+    }
+
+    public double getDermatologistRating() {
+        return dermatologistRating;
+    }
+
+    public void setDermatologistRating(double dermatologistRating) {
+        this.dermatologistRating = dermatologistRating;
     }
 
     public String getFirstname() {
