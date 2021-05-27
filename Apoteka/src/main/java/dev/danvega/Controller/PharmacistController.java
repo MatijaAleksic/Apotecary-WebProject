@@ -9,6 +9,7 @@ import dev.danvega.Model.Patient;
 import dev.danvega.Model.Pharmacist;
 import dev.danvega.Services.ApotecaryService;
 import dev.danvega.Services.ConsultationService;
+import dev.danvega.Services.PharmacistRatingService;
 import dev.danvega.Services.PharmacistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,9 @@ public class PharmacistController {
     ConsultationService consultationService = new ConsultationService();
     @Autowired
     ApotecaryService apotecaryService = new ApotecaryService();
+
+    @Autowired
+    PharmacistRatingService pharmacistRatingService = new PharmacistRatingService();
 
     private final PharmacistMapper pharmacistMapper = new PharmacistMapper();
     private final PharmacistPatientsMapper pharmacistPatientsMapper = new PharmacistPatientsMapper();
@@ -124,8 +128,13 @@ public class PharmacistController {
 
     private List<PharmacistDTO> toPharmacistDTOList(List<Pharmacist> pharmacists){
         List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        PharmacistDTO temp;
+
         for (Pharmacist pharma : pharmacists) {
-            pharmacistDTOS.add(pharmacistMapper.toDTO(pharma));
+            temp = pharmacistMapper.toDTO(pharma);
+            System.out.println(pharmacistRatingService.findRatingByPharmacist(pharma.getId()));
+            temp.setPharmacistRating(pharmacistRatingService.findRatingByPharmacist(pharma.getId()));
+            pharmacistDTOS.add(temp);
         }
         return pharmacistDTOS;
     }

@@ -17,7 +17,8 @@ INSERT INTO patients(id, firstname, lastname, username, password, email, adress,
 
 
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (1,3.5,16,20);
-INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (2,5,17,21);
+INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (2,5,16,21);
+INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (3,5,17,21);
 
 INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (10,4, 19,20);
 INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (11,5, 19,21);

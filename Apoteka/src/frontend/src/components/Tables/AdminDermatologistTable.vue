@@ -17,6 +17,8 @@
             <th><div @click="sortBy('phone')" class="sortBy">Phone</div></th>
             <th><div @click="sortBy('startHours')" class="sortBy">Start Hours</div></th>
             <th><div @click="sortBy('endHours')" class="sortBy">End Hours</div></th>
+            <th><div @click="sortBy('apotecary_id')" class="sortBy">Apotecary ID</div></th>
+            <th><div @click="sortBy('dermatologistRating')" class="sortBy">Rating</div></th>
         </tr>
 
         <tr v-for="derma in fillteredDermatologist"  v-bind:key="derma.id"> 
@@ -31,6 +33,8 @@
             <td> {{derma.phone}}</td>
             <td> {{derma.startHours}}</td>
             <td> {{derma.endHours}}</td>
+            <td> {{derma.apotecary_id}}</td>
+            <td> {{derma.dermatologistRating}}</td>
             <td><button v-on:click="deleteDermatologist(derma.id)">Delete</button></td>
         </tr>
     </table>
