@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.Alergies;
+import dev.danvega.Model.Medication;
 import dev.danvega.Model.MedicationInfo;
 import dev.danvega.Repository.AlergiesRepository;
 import dev.danvega.Repository.MedicationInfoRepository;
@@ -27,10 +28,20 @@ public class MedicationInfoService  implements ServiceInterface<MedicationInfo> 
         return medicationInfoRepository.findAll(pageable);
     }
 
+    public List<MedicationInfo> findAllByApotecaryId(Long id) {
+        return medicationInfoRepository.findByApotecary_Id(id);
+    }
+
     @Override
     public MedicationInfo findOne(Long id) {
         return medicationInfoRepository.findById(id).orElse(null);
     }
+
+    public MedicationInfo findByApotecary_IdAndMedication_Id(Long id, Long id1) {
+        return medicationInfoRepository.findByApotecary_IdAndMedication_Id(id, id1);
+    }
+
+
 
     @Override
     public MedicationInfo create(MedicationInfo entity) throws Exception {

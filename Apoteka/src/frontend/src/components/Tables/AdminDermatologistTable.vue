@@ -61,6 +61,8 @@ export default {
         searchFirstname: "",
         searchLastname: "",
 
+        apotecary_id : null,
+
         msg: ""
         }
     },
@@ -79,15 +81,6 @@ export default {
     },
 
     methods: {
-        selectDermatologist(dermatologist){
-            if(this.mode == 'BROWSE'){
-                this.selectedDermatologist = dermatologist;
-            }
-        },
-
-        sortBy(prop) {
-            this.dermatologists.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
-        },
 
         deleteDermatologist(identification){
             axios.post("/api/dermatologist/delete", {id: identification})

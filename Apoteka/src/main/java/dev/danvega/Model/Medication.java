@@ -22,8 +22,8 @@ public class Medication {
     @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
     private List<Alergies> alergies;
 
-    @OneToOne(mappedBy = "medication", fetch = FetchType.LAZY)
-    private MedicationInfo medicationInfo;
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
+    private List<MedicationInfo> medicationInfo;
 
     @OneToOne(mappedBy = "medication", fetch = FetchType.LAZY)
     private MedicationSpecification medicationSpecification;
@@ -37,7 +37,7 @@ public class Medication {
         this.medicationType = type;
     }
 
-    public Medication(Long id, String name, MedicationType type, List<Alergies> alergies, MedicationInfo medicationInfo, MedicationSpecification medicationSpecification, List<MedicationRating> ratings) {
+    public Medication(Long id, String name, MedicationType type, List<Alergies> alergies, List<MedicationInfo> medicationInfo, MedicationSpecification medicationSpecification, List<MedicationRating> ratings) {
         this.id = id;
         this.name = name;
         this.medicationType = type;
@@ -87,11 +87,11 @@ public class Medication {
         this.alergies = alergies;
     }
 
-    public MedicationInfo getMedicationInfo() {
+    public List<MedicationInfo> getMedicationInfo() {
         return medicationInfo;
     }
 
-    public void setMedicationInfo(MedicationInfo medicationInfo) {
+    public void setMedicationInfo(List<MedicationInfo> medicationInfo) {
         this.medicationInfo = medicationInfo;
     }
 

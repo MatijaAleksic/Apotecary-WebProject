@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface MedicationSpecificationRepository extends JpaRepository<MedicationSpecification, Long> {
 
     MedicationSpecification findByMedication_Id(Long id);
+
 }

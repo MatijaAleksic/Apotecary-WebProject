@@ -31,6 +31,10 @@ public class MedicationSpecificationService  implements ServiceInterface<Medicat
         return medicationSpecificationRepository.findById(id).orElse(null);
     }
 
+    public MedicationSpecification findByMedication_Id(Long id) {
+        return medicationSpecificationRepository.findByMedication_Id(id);
+    }
+
     @Override
     public MedicationSpecification create(MedicationSpecification entity) throws Exception {
         if(medicationSpecificationRepository.findByMedication_Id(entity.getMedication().getId()) != null){
