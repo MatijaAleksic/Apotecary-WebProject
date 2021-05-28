@@ -2,6 +2,7 @@ package dev.danvega.Services;
 
 import dev.danvega.Model.Alergies;
 import dev.danvega.Model.Medication;
+import dev.danvega.Model.MedicationInfo;
 import dev.danvega.Repository.AlergiesRepository;
 import dev.danvega.Repository.MedicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicationService  implements ServiceInterface<Medication>{
@@ -63,4 +65,5 @@ public class MedicationService  implements ServiceInterface<Medication>{
         }
         medicationRepository.delete(existingMedication);
     }
+
 }
