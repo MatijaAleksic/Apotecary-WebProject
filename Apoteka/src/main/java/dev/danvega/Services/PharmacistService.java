@@ -36,6 +36,7 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         return pharmacistRepository.findById(id).orElse(null);
     }
 
+
     @Override
     public Pharmacist create(Pharmacist entity) throws Exception {
         if(pharmacistRepository.findByEmail(entity.getEmail()) != null){

@@ -4,16 +4,13 @@ import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.PharmacistMapper;
 import dev.danvega.Mapper.PharmacistPatientsMapper;
-import dev.danvega.Model.Dermatologist;
-import dev.danvega.Model.Patient;
-import dev.danvega.Model.Pharmacist;
-import dev.danvega.Services.ApotecaryService;
-import dev.danvega.Services.ConsultationService;
-import dev.danvega.Services.PharmacistRatingService;
-import dev.danvega.Services.PharmacistService;
+import dev.danvega.Mapper.VacationPharmacistMapper;
+import dev.danvega.Model.*;
+import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -25,17 +22,19 @@ import java.util.List;
 public class PharmacistController {
 
     @Autowired
+    VacationPharmacistService vacationPharmacistService = new VacationPharmacistService();
+    @Autowired
     PharmacistService pharmacistService = new PharmacistService();
     @Autowired
     ConsultationService consultationService = new ConsultationService();
     @Autowired
     ApotecaryService apotecaryService = new ApotecaryService();
-
     @Autowired
     PharmacistRatingService pharmacistRatingService = new PharmacistRatingService();
 
     private final PharmacistMapper pharmacistMapper = new PharmacistMapper();
     private final PharmacistPatientsMapper pharmacistPatientsMapper = new PharmacistPatientsMapper();
+    private final VacationPharmacistMapper vacationPharmacistMapper = new VacationPharmacistMapper();
 
     @PostMapping("/view-patients")
     public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
@@ -45,6 +44,20 @@ public class PharmacistController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(toPatientDTOList(patients));
+    }
+
+    @PostMapping("/get-apotecary-id")
+    public ResponseEntity<Long> get_apotecary(@RequestBody UserIDDTO userIDDTO)
+    {
+        Pharmacist pharmacist;
+        try {
+            pharmacist = pharmacistService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(pharmacist.getApotecary().getId(), HttpStatus.OK);
     }
 
     @PostMapping("/change-information")
@@ -74,6 +87,28 @@ public class PharmacistController {
 
         }
         return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
+
+    @PostMapping("/vacation")
+    public ResponseEntity<String>request_vacation(@RequestBody VacationPharmacistDTO vacationPharmacistDTO)
+    {
+        System.out.println(vacationPharmacistDTO.getStartDate());
+        System.out.println(vacationPharmacistDTO.getFinishDate());
+        System.out.println(vacationPharmacistDTO.getDescription());
+        VacationPharmacist vacationPharmacist = new VacationPharmacist(vacationPharmacistDTO.getPharmacist_id(),
+                vacationPharmacistDTO.getStartDate(), vacationPharmacistDTO.getFinishDate(), vacationPharmacistDTO.getDescription(),
+                vacationPharmacistDTO.getApprodved());
+
+
+        vacationPharmacist.setPharmacist(pharmacistService.findOne(vacationPharmacistDTO.getPharmacist_id()));
+
+        try{
+            vacationPharmacistService.create(vacationPharmacist);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Uspesno ste poslali zahtev za godisnji odmor!", HttpStatus.CREATED);
     }
 
     @PostMapping("/register-new")

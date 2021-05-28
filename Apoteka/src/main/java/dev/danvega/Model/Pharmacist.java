@@ -1,5 +1,7 @@
 package dev.danvega.Model;
 
+import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -15,6 +17,11 @@ public class Pharmacist extends User{
 
     @Column(unique = false, nullable = true)
     private Time endHours;
+
+
+
+    @OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY)
+    private List<VacationPharmacist> vacations;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
@@ -93,6 +100,14 @@ public class Pharmacist extends User{
 
     public void setRatings(List<PharmacistRating> ratings) {
         this.ratings = ratings;
+    }
+
+    public List<VacationPharmacist> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(List<VacationPharmacist> vacations) {
+        this.vacations = vacations;
     }
 }
 

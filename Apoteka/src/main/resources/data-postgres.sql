@@ -64,3 +64,5 @@ VALUES (12,5,'11/06/2021','09:00',1,10,null,12,21,1);
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (10, 'Contradictions1', 'Composition1', 'Daily_Intake1', 'Replacement_drugs1',10);
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (11, 'Contradictions2', 'Composition2', 'Daily_Intake2', 'Replacement_drugs2',11);
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (12, 'Contradictions3', 'Composition3', 'Daily_Intake3', 'Replacement_drugs3',12);
+
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (25,FALSE ,'Odo se kupati u Grcku','05/07/2021', '10/07/2021',19);

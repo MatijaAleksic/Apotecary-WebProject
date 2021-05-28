@@ -1,7 +1,7 @@
 <template>
-  <div id="container"><div id="container-inner" style="border:white"  >
-    <form style="border:white">
-      <fieldset style="border:white">
+  <div id="container"><div id="container-inner"  >
+    <form>
+      <fieldset>
         <div class="field">
           <label for="id">Id</label>
           <input type="number" name="id" id="id" v-model="id"/>
@@ -43,18 +43,6 @@
 
   </div></div>
 </template>
-<style>
-
- .field{
-   margin: auto;
-   display: flex;
-   width: 25%;
-
- }
- .labela{
-   padding:3px 5px;
- }
-</style>
 
 <script>
 import axios from "axios";

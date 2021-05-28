@@ -6,8 +6,8 @@ import dev.danvega.Model.Patient;
 public class PharmacistPatientsMapper implements MapperInterface<Patient, PatientDTO> {
     @Override
     public Patient toEntity(PatientDTO dto) {
-        return new Patient(dto.getName(), dto.getLastName(), dto.getCity(),dto.getAddress(), dto.getPhone()
-                ,dto.getCountry());
+        return new Patient(dto.getId(),dto.getName(), dto.getLastName(), dto.getCity(),dto.getAddress(), dto.getPhone(),
+                dto.getCountry());
     }
 
     @Override
