@@ -8,15 +8,15 @@
             <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
             <th><div @click="sortBy('type')" class="sortBy">Type</div></th>
             <th><div @click="sortBy('name')" class="sortBy">Name</div></th>
-            <th><div @click="sortBy('composition')" class="sortBy">composition</div></th>
-            <th><div @click="sortBy('contradiction')" class="sortBy">contradiction</div></th>
-            <th><div @click="sortBy('dailyIntake')" class="sortBy">dailyIntake</div></th>
-            <th><div @click="sortBy('replacement')" class="sortBy">replacement</div></th>
-            <th><div @click="sortBy('inStorage')" class="sortBy">inStorage</div></th>
-            <th><div @click="sortBy('price')" class="sortBy">price</div></th>
-            <th><div @click="sortBy('apotecary_id')" class="sortBy">apotecary_id</div></th>
-            <th><div @click="sortBy('priceDurationEndDate')" class="sortBy">priceDurationEndDate</div></th>
-            <th><div @click="sortBy('priceDurationEndTime')" class="sortBy">priceDurationEndTime</div></th>
+            <th><div @click="sortBy('composition')" class="sortBy">Composition</div></th>
+            <th><div @click="sortBy('contradiction')" class="sortBy">Contradiction</div></th>
+            <th><div @click="sortBy('dailyIntake')" class="sortBy">Daily Intake</div></th>
+            <th><div @click="sortBy('replacement')" class="sortBy">Replacement</div></th>
+            <th><div @click="sortBy('inStorage')" class="sortBy">In Storage</div></th>
+            <th><div @click="sortBy('price')" class="sortBy">Price</div></th>
+            <th><div @click="sortBy('apotecary_id')" class="sortBy">ApotecaryID</div></th>
+            <th><div @click="sortBy('priceDurationEndDate')" class="sortBy">Price Duration EndDate</div></th>
+            <th><div @click="sortBy('priceDurationEndTime')" class="sortBy">Price Duration EndTime</div></th>
         </tr>
 
         <tr v-for="medication in fillteredMedications"  v-bind:key="medication.id"> 

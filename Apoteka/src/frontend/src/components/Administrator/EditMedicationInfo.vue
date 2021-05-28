@@ -69,7 +69,6 @@ export default {
                 this.priceDurationEndTime= response.data.priceDurationEndTime;
                 this.inStorage= response.data.inStorage;
                 this.medInfoId = response.data.id;
-                alert(this.medInfoId);
             })
   },
 

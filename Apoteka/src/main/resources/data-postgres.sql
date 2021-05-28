@@ -64,8 +64,13 @@ VALUES (32,10,'12/09/2021','08:00',1,10,1,16,20,null);
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
 VALUES (33,5,'11/06/2021','09:00',1,12,null,17,21,1);
 
-INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (10, 'Contradictions1', 'Composition1', 'Daily_Intake1', 'Replacement_drugs1',10);
-INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (11, 'Contradictions2', 'Composition2', 'Daily_Intake2', 'Replacement_drugs2',11);
-INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (12, 'Contradictions3', 'Composition3', 'Daily_Intake3', 'Replacement_drugs3',12);
+INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (10, 'Contradictions2', 'Composition2', 'Daily_Intake2', 'Replacement_drugs1',10);
+INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (11, 'Contradictions1', 'Composition3', 'Daily_Intake2', 'Replacement_drugs2',11);
+INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (12, 'Contradictions3', 'Composition4', 'Daily_Intake1', 'Replacement_drugs4',12);
+INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (13, 'Contradictions4', 'Composition1', 'Daily_Intake3', 'Replacement_drugs2',13);
+INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (14, 'Contradictions5', 'Composition5', 'Daily_Intake5', 'Replacement_drugs5',14);
+
 
 INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (25,FALSE ,'Odo se kupati u Grcku','05/07/2021', '10/07/2021',19);
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (26,FALSE ,'Description2','02/01/2021', '15/11/2021',20);
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (27,FALSE ,'Description3','07/09/2021', '07/04/2021',21);

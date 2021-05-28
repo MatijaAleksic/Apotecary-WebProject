@@ -115,7 +115,7 @@ public class MedicationInfoController {
         try{
             medicationInfoService.delete(userIDDTO.getId());
         }catch(Exception e){
-            return new ResponseEntity<>("Postoji medication reservation vezan za ovaj Medication Info!",HttpStatus.OK);
+            return new ResponseEntity<>("Postoji Medication Reservation vezan za ovaj Medication Info!",HttpStatus.OK);
         }
         return new ResponseEntity<>("Uspesno brisanje medication information!", HttpStatus.OK);
 
