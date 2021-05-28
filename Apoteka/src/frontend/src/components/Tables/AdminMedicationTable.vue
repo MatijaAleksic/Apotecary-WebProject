@@ -32,7 +32,9 @@
             <td> {{medication.apotecary_id}}</td>
             <td> {{medication.priceDurationEndDate}}</td>
             <td> {{medication.priceDurationEndTime}}</td>
-            <td><button @click="EditInfo(medication.id)">Edit</button></td> <!-- v-on:click="deletePharmacist(pharma.id)" -->
+            <td><button @click="EditInfo(medication.id)">Edit</button></td>
+            <td><button @click="Delete(medication.id)">Delete</button></td>
+
         </tr>
     </table>
     <div>
@@ -68,6 +70,8 @@ export default {
         apotecary_id : null,
         medication_id: null,
 
+        medInfoId: null,
+
         msg: "",
         component:null
         }
@@ -93,6 +97,29 @@ export default {
         {
             this.medication_id = medId;
             this.component ='edit-medication'; 
+        },
+
+        Delete(medId)
+        {
+            this.medication_id = medId;
+
+            axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id})
+            .then(response => {
+                this.medInfoId = response.data.id;
+
+                if(this.medInfoId != null)
+                {
+                    axios.post("/api/medication-info/delete", {id : this.medInfoId})
+                        .then(response => {
+                            this.msg = response.data;
+                            this.refresh();
+                    })
+                }
+                else{
+                    this.refresh();
+                }
+            })
+            
         },
 
         refresh(){

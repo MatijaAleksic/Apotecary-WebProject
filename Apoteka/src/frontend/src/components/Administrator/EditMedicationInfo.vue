@@ -49,6 +49,8 @@ export default {
       priceDurationEndDate: null,
       priceDurationEndTime: null,
       inStorage: null,
+
+      medInfoId : null
     }
   },
 
@@ -66,6 +68,8 @@ export default {
                 this.priceDurationEndDate= response.data.priceDurationEndDate;
                 this.priceDurationEndTime= response.data.priceDurationEndTime;
                 this.inStorage= response.data.inStorage;
+                this.medInfoId = response.data.id;
+                alert(this.medInfoId);
             })
   },
 

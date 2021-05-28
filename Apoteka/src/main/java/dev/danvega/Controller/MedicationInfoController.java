@@ -109,6 +109,17 @@ public class MedicationInfoController {
 
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
+    {
+        try{
+            medicationInfoService.delete(userIDDTO.getId());
+        }catch(Exception e){
+            return new ResponseEntity<>("Postoji medication reservation vezan za ovaj Medication Info!",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Uspesno brisanje medication information!", HttpStatus.OK);
+
+    }
 
     @Transactional
     @PostMapping("/get-all-admin")
