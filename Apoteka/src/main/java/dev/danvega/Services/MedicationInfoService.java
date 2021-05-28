@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.Alergies;
+import dev.danvega.Model.Medication;
 import dev.danvega.Model.MedicationInfo;
 import dev.danvega.Repository.AlergiesRepository;
 import dev.danvega.Repository.MedicationInfoRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -27,10 +29,21 @@ public class MedicationInfoService  implements ServiceInterface<MedicationInfo> 
         return medicationInfoRepository.findAll(pageable);
     }
 
+    public List<MedicationInfo> findAllByApotecaryId(Long id) {
+        return medicationInfoRepository.findByApotecary_Id(id);
+    }
+
     @Override
     public MedicationInfo findOne(Long id) {
         return medicationInfoRepository.findById(id).orElse(null);
     }
+
+    //@Transactional
+    public MedicationInfo findByApotecary_IdAndMedication_Id(Long id, Long id1) {
+        return medicationInfoRepository.findByApotecary_IdAndMedication_Id(id, id1);
+    }
+
+
 
     @Override
     public MedicationInfo create(MedicationInfo entity) throws Exception {
@@ -51,9 +64,6 @@ public class MedicationInfoService  implements ServiceInterface<MedicationInfo> 
         existingMedicationInfo.setPriceDurationEndDate(entity.getPriceDurationEndDate());
         existingMedicationInfo.setPriceDurationEndTime(entity.getPriceDurationEndTime());
 
-        if(medicationInfoRepository.findByApotecary_IdAndMedication_Id(entity.getApotecary().getId(), entity.getMedication().getId()) != null){
-            throw new Exception("Medication info for given apotecary and medication already exists");
-        }
         return medicationInfoRepository.save(existingMedicationInfo);
     }
 

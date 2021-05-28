@@ -1,5 +1,8 @@
 package dev.danvega.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,24 +18,29 @@ public class MedicationInfo {
     @Column(unique = false, nullable = true)
     private double price;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(unique = false, nullable = true)
     private LocalDate priceDurationEndDate;
 
+    @JsonFormat(pattern = "HH:mm")
     @Column(unique = false, nullable = true)
     private LocalTime priceDurationEndTime;
 
     @Column(unique = false, nullable = true)
     private int inStorage;
 
-    @OneToOne(mappedBy = "medicationInfo", fetch = FetchType.LAZY)
-    private MedicationReservation medicationReservation;
+    @OneToMany(mappedBy = "medicationInfo",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<MedicationReservation> medicationReservation;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
+    @JsonIgnore
     private Medication medication;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "apotecary_id")
+    @JoinColumn(name = "apotecary_id", nullable = true)
+    @JsonIgnore
     private Apotecary apotecary;
 
 
@@ -40,7 +48,7 @@ public class MedicationInfo {
     public MedicationInfo() {
     }
 
-    public MedicationInfo(Long id, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, MedicationReservation medicationReservation, Medication medication, Apotecary apotecary) {
+    public MedicationInfo(Long id, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, List<MedicationReservation> medicationReservation, Medication medication, Apotecary apotecary) {
         this.id = id;
         this.price = price;
         this.priceDurationEndDate = priceDurationEndDate;
@@ -91,11 +99,11 @@ public class MedicationInfo {
         this.inStorage = inStorage;
     }
 
-    public MedicationReservation getMedicationReservation() {
+    public List<MedicationReservation> getMedicationReservation() {
         return medicationReservation;
     }
 
-    public void setMedicationReservation(MedicationReservation medicationReservation) {
+    public void setMedicationReservation(List<MedicationReservation> medicationReservation) {
         this.medicationReservation = medicationReservation;
     }
 

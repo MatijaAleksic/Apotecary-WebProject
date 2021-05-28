@@ -5,6 +5,7 @@ import dev.danvega.Model.Enums.StatusMedication;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name="medicationReservation")
@@ -30,7 +31,7 @@ public class MedicationReservation {
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "visit_id")
     private Visit visit;
 
@@ -42,7 +43,7 @@ public class MedicationReservation {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_info_id")
     private MedicationInfo medicationInfo;
 

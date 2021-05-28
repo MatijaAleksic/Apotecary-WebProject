@@ -97,13 +97,17 @@ export default {
             .then(response => {
                 this.pharmacists = response.data;
             })
-        }
+        },
+
+        sortBy(prop) {
+            this.pharmacists.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+        },
     },
 
     computed: {
         fillteredPharmacist: function() {
             return this.pharmacists.filter( (elem) => {
-                return elem.firstname.match(this.searchFirstname) && elem.lastname.match(this.searchLastname)
+                return elem.firstname.toLowerCase().match(this.searchFirstname.toLowerCase()) && elem.lastname.toLowerCase().match(this.searchLastname.toLowerCase())
             });
         }
     }
