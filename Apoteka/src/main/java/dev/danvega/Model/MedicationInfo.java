@@ -1,5 +1,8 @@
 package dev.danvega.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,24 +18,29 @@ public class MedicationInfo {
     @Column(unique = false, nullable = true)
     private double price;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(unique = false, nullable = true)
     private LocalDate priceDurationEndDate;
 
+    @JsonFormat(pattern = "HH:mm")
     @Column(unique = false, nullable = true)
     private LocalTime priceDurationEndTime;
 
     @Column(unique = false, nullable = true)
     private int inStorage;
 
-    @OneToMany(mappedBy = "medicationInfo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "medicationInfo",fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<MedicationReservation> medicationReservation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
+    @JsonIgnore
     private Medication medication;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id", nullable = true)
+    @JsonIgnore
     private Apotecary apotecary;
 
 

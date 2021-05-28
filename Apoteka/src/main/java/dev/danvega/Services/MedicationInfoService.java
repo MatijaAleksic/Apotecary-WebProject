@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -37,6 +38,7 @@ public class MedicationInfoService  implements ServiceInterface<MedicationInfo> 
         return medicationInfoRepository.findById(id).orElse(null);
     }
 
+    //@Transactional
     public MedicationInfo findByApotecary_IdAndMedication_Id(Long id, Long id1) {
         return medicationInfoRepository.findByApotecary_IdAndMedication_Id(id, id1);
     }
@@ -62,9 +64,6 @@ public class MedicationInfoService  implements ServiceInterface<MedicationInfo> 
         existingMedicationInfo.setPriceDurationEndDate(entity.getPriceDurationEndDate());
         existingMedicationInfo.setPriceDurationEndTime(entity.getPriceDurationEndTime());
 
-        if(medicationInfoRepository.findByApotecary_IdAndMedication_Id(entity.getApotecary().getId(), entity.getMedication().getId()) != null){
-            throw new Exception("Medication info for given apotecary and medication already exists");
-        }
         return medicationInfoRepository.save(existingMedicationInfo);
     }
 

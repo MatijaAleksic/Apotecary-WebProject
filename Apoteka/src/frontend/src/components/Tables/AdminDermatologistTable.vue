@@ -95,13 +95,17 @@ export default {
             .then(response => {
                 this.dermatologists = response.data;
             })
-        }
+        },
+
+        sortBy(prop) {
+            this.dermatologists.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+        },
     },
 
     computed: {
         fillteredDermatologist: function() {
             return this.dermatologists.filter( (elem) => {
-                return elem.firstname.match(this.searchFirstname) && elem.lastname.match(this.searchLastname)
+                return elem.firstname.toLowerCase().match(this.searchFirstname.toLowerCase()) && elem.lastname.toLowerCase().match(this.searchLastname.toLowerCase())
         });
     }
 

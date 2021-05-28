@@ -1,15 +1,9 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.ApotecaryIDDTO;
-import dev.danvega.DTO.MedicationAdminDTO;
-import dev.danvega.DTO.MedicationDTO;
-import dev.danvega.DTO.MedicationInfoDTO;
+import dev.danvega.DTO.*;
 import dev.danvega.Mapper.MedicationInfoMapper;
 import dev.danvega.Mapper.MedicationMapper;
-import dev.danvega.Model.Apotecary;
-import dev.danvega.Model.Medication;
-import dev.danvega.Model.MedicationInfo;
-import dev.danvega.Model.MedicationSpecification;
+import dev.danvega.Model.*;
 import dev.danvega.Services.ApotecaryService;
 import dev.danvega.Services.MedicationInfoService;
 import dev.danvega.Services.MedicationService;
@@ -65,9 +59,60 @@ public class MedicationInfoController {
     }
 
     @Transactional
+    @PostMapping("/get")
+    public ResponseEntity<MedicationInfo> get(@RequestBody ApoMedIDDTO apoMedIDDTO){
+        MedicationInfo medInfo = medicationInfoService.findByApotecary_IdAndMedication_Id(apoMedIDDTO.getApotecary_id(),apoMedIDDTO.getMedication_id());
+        if(medInfo == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+        return new ResponseEntity<>(medInfo, HttpStatus.OK);
+    }
+
+    @PostMapping("/change-information")
+    @Transactional
+    public ResponseEntity<String> changeInformation(@RequestBody MedicationInfoDTO medicationInfoDTO) throws Exception {
+
+        MedicationInfo medInf = medicationInfoService.findByApotecary_IdAndMedication_Id(medicationInfoDTO.getApotecary_id(), medicationInfoDTO.getMedication_id());
+
+        if(medInf == null){
+            Apotecary atemp = apotecaryService.findOne(medicationInfoDTO.getApotecary_id());
+            Medication mtemp = medicationService.findOne(medicationInfoDTO.getMedication_id());
+            MedicationInfo med = new MedicationInfo(medicationInfoDTO.getPrice(),medicationInfoDTO.getPriceDurationEndDate(),
+                    medicationInfoDTO.getPriceDurationEndTime(),medicationInfoDTO.getInStorage(), atemp,mtemp);
+
+            try{
+                medicationInfoService.create(med);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity<>("Medication Info napravljen!", HttpStatus.OK);
+        }
+        else
+        {
+            medInf.setPrice(medicationInfoDTO.getPrice());
+            medInf.setInStorage(medicationInfoDTO.getInStorage());
+            medInf.setPriceDurationEndTime(medicationInfoDTO.getPriceDurationEndTime());
+            medInf.setPriceDurationEndDate(medicationInfoDTO.getPriceDurationEndDate());
+
+            try{
+                medicationInfoService.update(medInf, medInf.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>("Uspesno ste promenili informacije", HttpStatus.OK);
+        }
+
+
+    }
+
+
+    @Transactional
     @PostMapping("/get-all-admin")
     public ResponseEntity<List<MedicationAdminDTO>> get_all_admin(@RequestBody ApotecaryIDDTO apotecaryIDDTO){
-        System.out.println(apotecaryIDDTO.getId());
         List<Medication> medications = medicationService.findAll();
         if(medications == null)
         {
@@ -81,10 +126,8 @@ public class MedicationInfoController {
             MedicationSpecification medSpecTemp = new MedicationSpecification();
             MedicationInfo medInfoTemp = new MedicationInfo();
 
-            System.out.println(apotecaryIDDTO.getId());
             for(Medication med : medications)
             {
-                System.out.println(med.getId());
                 medInfoTemp = medicationInfoService.findByApotecary_IdAndMedication_Id(apotecaryIDDTO.getId(),med.getId());
 
                 if(medInfoTemp == null){
