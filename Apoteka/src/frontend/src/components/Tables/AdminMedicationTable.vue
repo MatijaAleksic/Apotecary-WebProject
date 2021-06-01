@@ -83,7 +83,6 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-
         axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.medications = response.data;

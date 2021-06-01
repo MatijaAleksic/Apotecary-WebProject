@@ -65,7 +65,6 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-
         axios.post("/api/pharmacist-vacation/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.vacations = response.data;

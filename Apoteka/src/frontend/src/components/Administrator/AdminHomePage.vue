@@ -38,12 +38,13 @@ components:{
       userId : Number,
       apotecary_id : null,
 
-      component: 'apotecary-profile',
+      component: '',
     }
   },
 
   mounted() {
     this.userId = this.userInfo.userId;
+
     axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
           .then((response) => {
             this.apotecary_id = response.data;

@@ -67,6 +67,8 @@ export default {
 
   mounted() {
       this.userId = this.adminINF.userId;
+
+      alert(this.userId);
   },
 
   methods:{

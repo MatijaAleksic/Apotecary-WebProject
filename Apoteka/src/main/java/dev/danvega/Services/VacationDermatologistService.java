@@ -1,6 +1,7 @@
 package dev.danvega.Services;
 
 import dev.danvega.Model.VacationDermatologist;
+import dev.danvega.Model.VacationPharmacist;
 import dev.danvega.Repository.VacationDermatologistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,13 @@ public class VacationDermatologistService implements ServiceInterface<VacationDe
 
     @Override
     public VacationDermatologist update(VacationDermatologist entity, Long id) throws Exception {
-        return null;
+        VacationDermatologist existingVacationDermatologist =  vacationDermatologistRepository.findById(id).orElse(null);
+        if(existingVacationDermatologist == null){
+            throw new Exception("Dermatolog vacation with given id doesn't exist");
+        }
+        existingVacationDermatologist.setApproved(entity.getApproved());
+
+        return vacationDermatologistRepository.save(existingVacationDermatologist);
     }
 
     @Override
