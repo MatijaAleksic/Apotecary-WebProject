@@ -12,7 +12,7 @@
 
     <pharmacist-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></pharmacist-homepage>
     <admin-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
-    <dermatologist-homepage v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"> </dermatologist-homepage>
+    <dermatologist-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"></dermatologist-homepage>
     <patient-homepage v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
 
     

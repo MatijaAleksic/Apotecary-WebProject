@@ -5,14 +5,11 @@ import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.*;
-import dev.danvega.Services.ApotecaryService;
-import dev.danvega.Services.DermatologistRatingService;
-import dev.danvega.Services.VisitService;
+import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import dev.danvega.Services.DermathologistService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -22,6 +19,8 @@ import java.util.List;
 @RequestMapping("/api/dermatologist")
 public class DermatologistContoller {
 
+    @Autowired
+    VacationDermatologistService vacationDermatologistService = new VacationDermatologistService();
     @Autowired
     DermathologistService dermathologistService = new DermathologistService();
 
@@ -45,6 +44,42 @@ public class DermatologistContoller {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return ResponseEntity.ok(toDermatologistSearchDTOList(dermatologists));
+    }
+
+    @PostMapping("/get-apotecary-id")
+    public ResponseEntity<Long> get_apotecary(@RequestBody UserIDDTO userIDDTO)
+    {
+        Dermatologist dermatologist;
+        try {
+            dermatologist = dermathologistService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(dermatologist.getApotecary().getId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/vacation")
+    public ResponseEntity<String>request_vacation(@RequestBody VacationDermatologistDTO vacationDermatologistDTO)
+    {
+        System.out.println(vacationDermatologistDTO.getStartDate());
+        System.out.println(vacationDermatologistDTO.getFinishDate());
+        System.out.println(vacationDermatologistDTO.getDescription());
+        VacationDermatologist vacationDermatologist = new VacationDermatologist(vacationDermatologistDTO.getDermatologist_id(),
+                vacationDermatologistDTO.getStartDate(), vacationDermatologistDTO.getFinishDate(), vacationDermatologistDTO.getDescription(),
+                vacationDermatologistDTO.getApprodved());
+
+
+        vacationDermatologist.setDermatologist(dermathologistService.findOne(vacationDermatologistDTO.getDermatologist_id()));
+
+        try{
+            vacationDermatologistService.create(vacationDermatologist);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Uspesno ste poslali zahtev za godisnji odmor!", HttpStatus.CREATED);
     }
 
     @PostMapping("/view-patients")
