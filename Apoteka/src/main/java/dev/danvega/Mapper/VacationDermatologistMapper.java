@@ -26,4 +26,3 @@ public class VacationDermatologistMapper implements MapperInterface<VacationDerm
                 entity.getApproved().toString());
     }
 }
-

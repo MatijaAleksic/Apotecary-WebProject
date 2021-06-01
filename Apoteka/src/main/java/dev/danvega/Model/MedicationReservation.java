@@ -31,7 +31,7 @@ public class MedicationReservation {
     @JoinColumn(name = "consultation_id")
     private Consultation consultation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "visit_id")
     private Visit visit;
 

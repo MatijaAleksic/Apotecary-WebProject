@@ -1,5 +1,6 @@
 package dev.danvega.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.danvega.Model.Enums.StatusCV;
 
 import javax.persistence.*;
@@ -15,9 +16,11 @@ public class Consultation {
     private Long id;
 
     @Column(unique = false, nullable = true)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @Column(unique = false, nullable = true)
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
     @Column(unique = false, nullable = true)
@@ -62,6 +65,23 @@ public class Consultation {
         this.patient = patient;
         this.apotecary = apotecary;
         this.medicationReservation = medicationReservation;
+    }
+
+    public Consultation(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Long pharmacist_id, Long patient_id, Long apotecary_id, Long medication_reservation_id) {
+    }
+
+    public Consultation(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Pharmacist a, Patient b, Apotecary c, MedicationReservation mc) {
+        this.id = id;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.price = price;
+        this.status = StatusCV.fromInteger(status);
+        this.report = report;
+        this.pharmacist = a;
+        this.patient = b;
+        this.apotecary = c;
+        this.medicationReservation = mc;
     }
 
     public Long getId() {
