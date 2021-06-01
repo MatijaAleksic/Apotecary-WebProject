@@ -46,8 +46,8 @@ public class Visit {
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToMany(mappedBy = "visit", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<MedicationReservation> medicationReservation;
+    @OneToOne(mappedBy = "visit", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private MedicationReservation medicationReservation;
 
     public Visit(Long id, LocalDate startDate, int duration, double price, StatusCV status) {
         this.id = id;
@@ -60,13 +60,13 @@ public class Visit {
     public Visit() {
     }
 
-    public Visit(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, StatusCV status, String report, Dermatologist dermatologist, Patient patient, Apotecary apotecary, List<MedicationReservation> medicationReservation) {
+    public Visit(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Dermatologist dermatologist, Patient patient, Apotecary apotecary, MedicationReservation medicationReservation) {
         this.id = id;
         this.startDate = startDate;
         this.startTime = startTime;
         this.duration = duration;
         this.price = price;
-        this.status = status;
+        this.status = StatusCV.fromInteger(status);
         this.report = report;
         this.dermatologist = dermatologist;
         this.patient = patient;
@@ -146,11 +146,11 @@ public class Visit {
         this.apotecary = apotecary;
     }
 
-    public List<MedicationReservation> getMedicationReservation() {
+    public MedicationReservation getMedicationReservation() {
         return medicationReservation;
     }
 
-    public void setMedicationReservation(List<MedicationReservation> medicationReservation) {
+    public void setMedicationReservation(MedicationReservation medicationReservation) {
         this.medicationReservation = medicationReservation;
     }
 

@@ -75,7 +75,7 @@ export default {
 
 
     refresh(){
-      axios.post("/api/pharmacist/view-patients", {id : 20})
+      axios.post("/api/pharmacist/view-patients", {id : 19})
           .then(response => {
             this.patients = response.data;
           })
