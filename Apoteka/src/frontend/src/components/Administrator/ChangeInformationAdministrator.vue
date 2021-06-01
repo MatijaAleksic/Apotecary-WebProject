@@ -62,11 +62,11 @@ export default {
   },
 
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
 
   mounted() {
-      this.userId = this.adminINFO.userId;
+      this.userId = this.adminINF.userId;
   },
 
   methods:{

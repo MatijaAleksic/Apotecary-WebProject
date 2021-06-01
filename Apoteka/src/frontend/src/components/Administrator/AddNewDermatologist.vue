@@ -91,11 +91,11 @@ export default {
   },
 
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
 
   mounted() {
-      this.apotecary_id = this.adminINFO.apotecary_id;
+      this.apotecary_id = this.adminINF.apotecary_id;
   },
 
 
