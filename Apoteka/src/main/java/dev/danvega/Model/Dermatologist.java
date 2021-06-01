@@ -26,6 +26,9 @@ public class Dermatologist extends User{
     @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Visit> visits;
 
+    @OneToMany(mappedBy = "dermatologist", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    private List<VacationDermatologist> vacations;
+
     public Dermatologist(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         super(id, firstname, lastname, username, password, email, adress, city, country, phone);
     }

@@ -74,3 +74,11 @@ INSERT INTO medication_specification(id,contradictions,composition,daily_intake,
 INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (25,0 ,'Odo se kupati u Grcku','05/07/2021', '10/07/2021',19);
 INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (26,0 ,'Description2','02/01/2021', '15/11/2021',20);
 INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (27,0 ,'Description3','07/09/2021', '07/04/2021',21);
+
+INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (31,0 ,'Description4','05/07/2021', '10/07/2021',16);
+INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (32,0 ,'Description1','07/07/2021', '11/07/2021',16);
+INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (33,0 ,'Description2','05/08/2021', '9/09/2021',17);
+INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (34,0 ,'Description3','05/07/2021', '10/07/2021',18);
+
+
+
