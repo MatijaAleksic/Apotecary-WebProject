@@ -1,7 +1,10 @@
 package dev.danvega.Services;
 import dev.danvega.Model.Alergies;
 import dev.danvega.Model.Apotecary;
+import dev.danvega.Model.ApotecaryRating;
+import dev.danvega.Model.DermatologistRating;
 import dev.danvega.Repository.AlergiesRepository;
+import dev.danvega.Repository.ApotecaryRatingRepository;
 import dev.danvega.Repository.ApotecaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +19,9 @@ public class ApotecaryService implements ServiceInterface<Apotecary>{
 
     @Autowired
     private ApotecaryRepository apotecaryRepository;
+
+    @Autowired
+    private ApotecaryRatingRepository apotecaryRatingRepository;
 
 
     @Override
@@ -48,10 +54,8 @@ public class ApotecaryService implements ServiceInterface<Apotecary>{
         }
         existingApotecary.setAdress(entity.getAdress());
         existingApotecary.setDescription(entity.getDescription());
+        existingApotecary.setName(entity.getName());
 
-        if(apotecaryRepository.findByName(entity.getName()) != null){
-            throw new Exception("Apotecary with given name already exists");
-        }
         return apotecaryRepository.save(existingApotecary);
     }
 
@@ -81,4 +85,18 @@ public class ApotecaryService implements ServiceInterface<Apotecary>{
             }
         }
     }
+
+    public double findRatingByApotecary(Long id) {
+        List<ApotecaryRating> ratings =  apotecaryRatingRepository.findByApotecary_Id(id);
+        double sum = 0;
+        for(ApotecaryRating temp : ratings) {
+            sum = sum + temp.getRating();
+        }
+        if(ratings.size() == 0)
+        {
+            return 0;
+        }
+        return sum / ratings.size();
+    }
+
 }

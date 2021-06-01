@@ -64,12 +64,12 @@ export default {
   },
 
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
 
   mounted() {
-    this.apotecary_id = this.adminINFO.apotecary_id;
-    this.userId = this.adminINFO.userId;
+    this.apotecary_id = this.adminINF.apotecary_id;
+    this.userId = this.adminINF.userId;
 
 
     axios.post("/api/pharmacist/view-patients", {id :this.userId})

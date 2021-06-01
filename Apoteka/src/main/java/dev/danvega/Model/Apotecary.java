@@ -84,6 +84,12 @@ public class Apotecary {
         this.medicationInfos = medicationInfos;
     }
 
+    public Apotecary(String name, String adress, String description) {
+        this.name = name;
+        this.adress = adress;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }

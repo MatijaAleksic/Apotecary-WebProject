@@ -62,11 +62,11 @@ export default {
   },
 
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
 
   mounted() {
-      this.userId = this.adminINFO.userId;
+      this.userId = this.adminINF.userId;
   },
 
   methods:{
@@ -75,6 +75,7 @@ export default {
       address: this.address, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;
+            this.$emit('refresh-component');
           });
     }
   }}

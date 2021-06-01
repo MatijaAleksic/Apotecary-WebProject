@@ -1,20 +1,10 @@
 <template>
   <div>
-      <div >
-        <h1>Admin homepage</h1>
-        <button v-on:click="component ='change-information'">Change Personal Information</button>
-        <button v-on:click="component ='change-password'">Change Password</button>
-        <button v-on:click="component ='add-new-medication'">Add new Medication</button> 
-        <button v-on:click="component ='register-new-administrator'">Register new Administrator</button>
-        <button v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</button>
-        <button v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</button>
-        <button v-on:click="component ='pharmacist-table'">Pharmacist Table</button>
-        <button v-on:click="component ='dermatologist-table'">Dermatologist Table</button>
-        <button v-on:click="component ='medication-table'">Medication Table</button>
-        <button v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</button>
-        <button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</button>
-      </div>
-      <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <header>
+      <admin-nav-bar v-on:change-main-component="changeMainComponent"/>
+    </header>
+
+      <component :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 
     </div>
     
@@ -23,19 +13,10 @@
 <script>
 import axios from "axios";
 
-import ChangePersonalInformation from './ChangeInformationAdministrator.vue'
-import ChangeAdminPassword from './ChangeAdminPassword.vue'
-import AddNewMedication from './AddNewMedication.vue'
-import AddNewAdministrator from './AddNewAdministrator.vue'
-import AddNewDermatologist from './AddNewDermatologist.vue'
-import AddNewPharmacist from './AddNewPharmacist.vue'
-import AdminPharmacistTable from '@/components/Tables/AdminPharmacistTable.vue'
-import AdminDermatologistTable from '@/components/Tables/AdminDermatologistTable.vue'
-import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
-import AdminPharmacistVacationTableVue from '../Tables/AdminPharmacistVacationTable.vue';
-import AdminDermatologistVacationTableVue from '../Tables/AdminDermatologistVacationTable.vue';
 
-
+import AdminNavBar from "./AdminNavBar";
+import AdminProfile from "@/components/Profiles/AdminProfile.vue";
+import ApotecaryProfile from "@/components/Profiles/ApotecaryProfile.vue";
 
 export default {
   name: "AdminHomePage",
@@ -45,19 +26,11 @@ export default {
   },
 
 components:{
-  'change-information' : ChangePersonalInformation,
-  'change-password': ChangeAdminPassword,
-  'add-new-medication': AddNewMedication,
-  'register-new-administrator' : AddNewAdministrator,
-  'register-new-dermatologist' : AddNewDermatologist,
-  'register-new-pharmacist' : AddNewPharmacist,
+  'admin-nav-bar' : AdminNavBar,
 
-  'pharmacist-table' : AdminPharmacistTable,
-  'dermatologist-table' : AdminDermatologistTable,
-  'medication-table' : AdminMedicationTable,
+  'admin-profile' : AdminProfile,
+  'apotecary-profile' : ApotecaryProfile,
 
-  'pharmacist-vacation-table' : AdminPharmacistVacationTableVue,
-  'dermatologist-vacation-table' : AdminDermatologistVacationTableVue
 },
 
  data(){
@@ -65,21 +38,47 @@ components:{
       userId : Number,
       apotecary_id : null,
 
-      component:null,
+      component: '',
     }
   },
 
   mounted() {
     this.userId = this.userInfo.userId;
+
     axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
           .then((response) => {
             this.apotecary_id = response.data;
           });
-    }
+    },
+
+  methods: {
+    changeMainComponent(value)
+    {
+      if(value == 'profile')
+      {
+        this.component = 'admin-profile';
+      }
+      else{
+        this.component = 'apotecary-profile';
+      }
+    },
+  }
 }
 
 </script>
 
 <style scoped>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header{
+  width: 100vw;
+  background-color: #5f9ea0;
+  padding: 15px;
+}
 
 </style>
