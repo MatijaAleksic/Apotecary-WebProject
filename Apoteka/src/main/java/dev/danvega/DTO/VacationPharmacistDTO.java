@@ -13,9 +13,9 @@ public class VacationPharmacistDTO {
     private LocalDate finishDate;
     private String description;
     private Long pharmacist_id;
-    private Boolean approdved;
+    private String approdved;
 
-    public VacationPharmacistDTO(Long id, LocalDate startDate, LocalDate finishDate, String description, Long pharmacist_id, Boolean approdved) {
+    public VacationPharmacistDTO(Long id, LocalDate startDate, LocalDate finishDate, String description, Long pharmacist_id, String approdved) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -64,11 +64,11 @@ public class VacationPharmacistDTO {
         this.pharmacist_id = pharmacist_id;
     }
 
-    public Boolean getApprodved() {
+    public String getApprodved() {
         return approdved;
     }
 
-    public void setApprodved(Boolean approdved) {
+    public void setApprodved(String approdved) {
         this.approdved = approdved;
     }
 }

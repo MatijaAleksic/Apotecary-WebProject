@@ -8,7 +8,7 @@
             <th><div @click="sortBy('finishDate')" class="sortBy">End Date</div></th>
             <th><div @click="sortBy('description')" class="sortBy">Description</div></th>
             <th><div @click="sortBy('pharmacist_id')" class="sortBy">PharmacistID</div></th>
-            <th><div @click="sortBy('approdved')" class="sortBy">Odobren</div></th>
+            <th><div @click="sortBy('approdved')" class="sortBy">Status</div></th>
         </tr>
 
         <tr v-for="vacation in vacations"  v-bind:key="vacation.id"> 
@@ -18,8 +18,7 @@
             <td> {{vacation.description}}</td>
             <td> {{vacation.pharmacist_id}}</td>
             <td> {{vacation.approdved}}</td>
-            <td><button @click="Accept(vacation.id)">Accept</button></td>
-            <td><button @click="Decline(vacation.id)">Decline</button></td>
+            <td><button @click="Answer(vacation.id)">Answer</button></td>
 
         </tr>
     </table>
@@ -27,27 +26,36 @@
         <h5>{{ msg }}</h5>
     </div>
 
+    <component v-on:close-component="closeComponet"  v-bind:is="component"> </component>
+
+
 </template>
 
 <script>
 
 import axios from "axios";
+
+import AnswerToVacation from "@/components/Administrator/AnswerToVacation.vue"
+
 export default {
     name: "AdminPharmacistVacationTable",
+
+    components: {
+        'answer-vacation': AnswerToVacation,
+    },
 
     data(){
         return{
         vacations : [],
-
-        searchName: "",
-
         apotecary_id : null,
-        medication_id: null,
 
         medInfoId: null,
 
         msg: "",
-        component:null
+        component:null,
+
+        reason: null,
+        vacation_id: null
         }
     },
 
@@ -67,15 +75,41 @@ export default {
 
     methods: {
 
-        Accept(vacID)
+        Accept()
         {
-            alert("Accept!" + vacID);
+            axios.post("/api/pharmacist-vacation/vacation-response", {answer: true, reason: this.reason, vacation_id : this.vacation_id})
+            .then(response => {
+                this.msg = response.data;
+                this.refresh();
+            })
         },
 
-        Decline(vacID)
+        Decline()
         {
-           alert("Decline!" + vacID);
-            
+           axios.post("/api/pharmacist-vacation/vacation-response", {answer: false, reason: this.reason, vacation_id : this.vacation_id})
+            .then(response => {
+                this.msg = response.data;
+                this.refresh();
+            })
+        },
+
+        Answer(vacId)
+        {
+            this.vacation_id = vacId;
+            this.component ='answer-vacation';
+        },
+
+        closeComponet(value){
+            this.reason = value.answer;
+
+            if(value.decision == true){
+                this.Accept();
+            }
+            else{
+                this.Decline();
+            }
+
+            this.component = null;
         },
 
         refresh(){

@@ -2,6 +2,7 @@ package dev.danvega.Model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import dev.danvega.Model.Enums.StatusCV;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,8 +22,9 @@ public class VacationPharmacist {
     private LocalDate finishDate;
     @Column(unique = false, nullable = true)
     private String description;
+
     @Column(unique = false, nullable = true)
-    private boolean approved;
+    private StatusCV approved;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pharmacist_id")
@@ -34,7 +36,7 @@ public class VacationPharmacist {
 
     }
 
-    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, Pharmacist pharmacist,boolean approved) {
+    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, Pharmacist pharmacist,StatusCV approved) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -44,7 +46,7 @@ public class VacationPharmacist {
 
     }
 
-    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, Boolean approved) {
+    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, StatusCV approved) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -52,17 +54,17 @@ public class VacationPharmacist {
         this.approved = approved;
     }
 
-    public VacationPharmacist(LocalDate startDate, LocalDate finishDate, String description, Pharmacist pharmacist_id, Boolean approdved) {
+    public VacationPharmacist(LocalDate startDate, LocalDate finishDate, String description, Pharmacist pharmacist_id, StatusCV approdved) {
     }
 
-    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, Long pharmacist_id, Boolean approdved) {
+    public VacationPharmacist(Long id, LocalDate startDate, LocalDate finishDate, String description, Long pharmacist_id, StatusCV approdved) {
     }
 
-    public boolean isApproved() {
+    public StatusCV getApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(StatusCV approved) {
         this.approved = approved;
     }
 

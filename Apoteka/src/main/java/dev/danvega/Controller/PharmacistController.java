@@ -6,6 +6,7 @@ import dev.danvega.Mapper.PharmacistMapper;
 import dev.danvega.Mapper.PharmacistPatientsMapper;
 import dev.danvega.Mapper.VacationPharmacistMapper;
 import dev.danvega.Model.*;
+import dev.danvega.Model.Enums.StatusCV;
 import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,7 +98,7 @@ public class PharmacistController {
         System.out.println(vacationPharmacistDTO.getDescription());
         VacationPharmacist vacationPharmacist = new VacationPharmacist(vacationPharmacistDTO.getPharmacist_id(),
                 vacationPharmacistDTO.getStartDate(), vacationPharmacistDTO.getFinishDate(), vacationPharmacistDTO.getDescription(),
-                vacationPharmacistDTO.getApprodved());
+                StatusCV.PENDING);
 
 
         vacationPharmacist.setPharmacist(pharmacistService.findOne(vacationPharmacistDTO.getPharmacist_id()));

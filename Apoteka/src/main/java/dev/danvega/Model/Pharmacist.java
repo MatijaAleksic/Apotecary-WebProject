@@ -20,7 +20,7 @@ public class Pharmacist extends User{
 
 
 
-    @OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pharmacist", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<VacationPharmacist> vacations;
 
     @ManyToOne(fetch = FetchType.LAZY)

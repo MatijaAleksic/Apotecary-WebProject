@@ -71,6 +71,6 @@ INSERT INTO medication_specification(id,contradictions,composition,daily_intake,
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (14, 'Contradictions5', 'Composition5', 'Daily_Intake5', 'Replacement_drugs5',14);
 
 
-INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (25,FALSE ,'Odo se kupati u Grcku','05/07/2021', '10/07/2021',19);
-INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (26,FALSE ,'Description2','02/01/2021', '15/11/2021',20);
-INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (27,FALSE ,'Description3','07/09/2021', '07/04/2021',21);
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (25,0 ,'Odo se kupati u Grcku','05/07/2021', '10/07/2021',19);
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (26,0 ,'Description2','02/01/2021', '15/11/2021',20);
+INSERT INTO vacation_pharmacist(id,approved ,description, finish_date, start_date, pharmacist_id) VALUES (27,0 ,'Description3','07/09/2021', '07/04/2021',21);
