@@ -12,6 +12,7 @@
         <button v-on:click="component ='dermatologist-table'">Dermatologist Table</button>
         <button v-on:click="component ='medication-table'">Medication Table</button>
         <button v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</button>
+        <button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</button>
       </div>
       <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 
@@ -32,6 +33,8 @@ import AdminPharmacistTable from '@/components/Tables/AdminPharmacistTable.vue'
 import AdminDermatologistTable from '@/components/Tables/AdminDermatologistTable.vue'
 import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
 import AdminPharmacistVacationTableVue from '../Tables/AdminPharmacistVacationTable.vue';
+import AdminDermatologistVacationTableVue from '../Tables/AdminDermatologistVacationTable.vue';
+
 
 
 export default {
@@ -53,7 +56,8 @@ components:{
   'dermatologist-table' : AdminDermatologistTable,
   'medication-table' : AdminMedicationTable,
 
-  'pharmacist-vacation-table' : AdminPharmacistVacationTableVue
+  'pharmacist-vacation-table' : AdminPharmacistVacationTableVue,
+  'dermatologist-vacation-table' : AdminDermatologistVacationTableVue
 },
 
  data(){

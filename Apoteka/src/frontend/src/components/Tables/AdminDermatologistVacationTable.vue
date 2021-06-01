@@ -1,5 +1,5 @@
 <template>
-    <h3> Pharmacist Vacations </h3>
+    <h3> Dermatologist Vacations </h3>
 
     <table>
         <tr bgcolor='lightgrey'>
@@ -7,7 +7,7 @@
             <th><div @click="sortBy('startDate')" class="sortBy">Start Date</div></th>
             <th><div @click="sortBy('finishDate')" class="sortBy">End Date</div></th>
             <th><div @click="sortBy('description')" class="sortBy">Description</div></th>
-            <th><div @click="sortBy('pharmacist_id')" class="sortBy">PharmacistID</div></th>
+            <th><div @click="sortBy('dermatologist_id')" class="sortBy">DermatologistID</div></th>
             <th><div @click="sortBy('approdved')" class="sortBy">Status</div></th>
         </tr>
 
@@ -16,7 +16,7 @@
             <td> {{vacation.startDate}}</td>
             <td> {{vacation.finishDate}}</td>
             <td> {{vacation.description}}</td>
-            <td> {{vacation.pharmacist_id}}</td>
+            <td> {{vacation.dermatologist_id}}</td>
             <td> {{vacation.approdved}}</td>
             <td><button @click="Answer(vacation.id)">Answer</button></td>
 
@@ -38,7 +38,7 @@ import axios from "axios";
 import AnswerToVacation from "@/components/Administrator/AnswerToVacation.vue"
 
 export default {
-    name: "AdminPharmacistVacationTable",
+    name: "AdminDermatologistVacationTable",
 
     components: {
         'answer-vacation': AnswerToVacation,
@@ -55,7 +55,9 @@ export default {
         component:null,
 
         reason: null,
-        vacation_id: null
+        vacation_id: null,
+
+        last_sort : null
         }
     },
 
@@ -66,7 +68,7 @@ export default {
     mounted() {
         this.apotecary_id = this.adminINFO.apotecary_id;
 
-        axios.post("/api/pharmacist-vacation/get-all-admin", {id : this.apotecary_id})
+        axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.vacations = response.data;
             })
@@ -77,7 +79,7 @@ export default {
 
         Accept()
         {
-            axios.post("/api/pharmacist-vacation/vacation-response", {answer: true, reason: this.reason, vacation_id : this.vacation_id})
+            axios.post("/api/dermatologist-vacation/vacation-response", {answer: true, reason: this.reason, vacation_id : this.vacation_id})
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -86,7 +88,7 @@ export default {
 
         Decline()
         {
-           axios.post("/api/pharmacist-vacation/vacation-response", {answer: false, reason: this.reason, vacation_id : this.vacation_id})
+           axios.post("/api/dermatologist-vacation/vacation-response", {answer: false, reason: this.reason, vacation_id : this.vacation_id})
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -113,13 +115,15 @@ export default {
         },
 
         refresh(){
-            axios.post("/api/pharmacist-vacation/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id})
             .then(response => {
                 this.vacations = response.data;
+                this.sortBy(this.last_sort);
             })
         },
 
         sortBy(prop) {
+            this.last_sort = prop;
             this.vacations.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
         },
 
