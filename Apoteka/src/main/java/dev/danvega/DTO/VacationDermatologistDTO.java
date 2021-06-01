@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 public class VacationDermatologistDTO {
+
     private Long id;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
@@ -12,9 +13,12 @@ public class VacationDermatologistDTO {
     private LocalDate finishDate;
     private String description;
     private Long dermatologist_id;
-    private Boolean approdved;
+    private String approdved;
 
-    public VacationDermatologistDTO(Long id, LocalDate startDate, LocalDate finishDate, String description, Long dermatologist_id, Boolean approdved) {
+    public VacationDermatologistDTO() {
+    }
+
+    public VacationDermatologistDTO(Long id, LocalDate startDate, LocalDate finishDate, String description, Long dermatologist_id, String approdved) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -63,11 +67,11 @@ public class VacationDermatologistDTO {
         this.dermatologist_id = dermatologist_id;
     }
 
-    public Boolean getApprodved() {
+    public String getApprodved() {
         return approdved;
     }
 
-    public void setApprodved(Boolean approdved) {
+    public void setApprodved(String approdved) {
         this.approdved = approdved;
     }
 }

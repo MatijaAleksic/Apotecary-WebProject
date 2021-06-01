@@ -1,26 +1,24 @@
 package dev.danvega.Model.Enums;
 
 public enum StatusCV {
-    CREATED(0),
-    BOOKED(1),
-    CANCELED(2),
-    FINISHED(3);
+    PENDING(0),
+    ACCEPTED(1),
+    DECLINED(2);
 
     private final int value;
 
     StatusCV(int value) {
         this.value = value;
     }
+
     public static StatusCV fromInteger(int x) {
         switch(x) {
             case 0:
-                return CREATED;
+                return PENDING;
             case 1:
-                return BOOKED;
+                return ACCEPTED;
             case 2:
-                return CANCELED;
-            case 3:
-                return FINISHED;
+                return DECLINED;
         }
         return null;
     }

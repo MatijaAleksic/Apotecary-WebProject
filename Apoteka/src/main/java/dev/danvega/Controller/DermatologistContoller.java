@@ -5,6 +5,7 @@ import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Model.*;
+import dev.danvega.Model.Enums.StatusCV;
 import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,7 +69,7 @@ public class DermatologistContoller {
         System.out.println(vacationDermatologistDTO.getDescription());
         VacationDermatologist vacationDermatologist = new VacationDermatologist(vacationDermatologistDTO.getDermatologist_id(),
                 vacationDermatologistDTO.getStartDate(), vacationDermatologistDTO.getFinishDate(), vacationDermatologistDTO.getDescription(),
-                vacationDermatologistDTO.getApprodved());
+                StatusCV.PENDING);
 
 
         vacationDermatologist.setDermatologist(dermathologistService.findOne(vacationDermatologistDTO.getDermatologist_id()));

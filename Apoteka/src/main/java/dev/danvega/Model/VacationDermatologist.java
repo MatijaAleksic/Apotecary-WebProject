@@ -1,6 +1,7 @@
 package dev.danvega.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import dev.danvega.Model.Enums.StatusCV;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,13 +21,13 @@ public class VacationDermatologist {
     @Column(unique = false, nullable = true)
     private String description;
     @Column(unique = false, nullable = true)
-    private boolean approved;
+    private StatusCV approved;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dermatologist_id")
     private Dermatologist dermatologist;
 
-    public VacationDermatologist(Long id, LocalDate startDate, LocalDate finishDate, String description, boolean approved, Dermatologist dermatologist) {
+    public VacationDermatologist(Long id, LocalDate startDate, LocalDate finishDate, String description, StatusCV approved, Dermatologist dermatologist) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -35,7 +36,7 @@ public class VacationDermatologist {
         this.dermatologist = dermatologist;
     }
 
-    public VacationDermatologist(Long id, LocalDate startDate,LocalDate finishDate, String description, boolean approved)
+    public VacationDermatologist(Long id, LocalDate startDate,LocalDate finishDate, String description, StatusCV approved)
     {
         this.id = id;
         this.startDate = startDate;
@@ -49,6 +50,9 @@ public class VacationDermatologist {
 
     public VacationDermatologist() {
 
+    }
+
+    public VacationDermatologist(Long id, LocalDate startDate, LocalDate finishDate, String description, Long dermatologist_id, StatusCV valueOf) {
     }
 
     public Long getId() {
@@ -83,11 +87,11 @@ public class VacationDermatologist {
         this.description = description;
     }
 
-    public boolean isApproved() {
+    public StatusCV getApproved() {
         return approved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(StatusCV approved) {
         this.approved = approved;
     }
 
