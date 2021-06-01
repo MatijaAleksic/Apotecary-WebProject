@@ -40,7 +40,8 @@ public class PatientDTO {
         this.time = time;
         this.apotecary_id = apotecary_id;
     }
-    public PatientDTO(String name, String lastName, String address, String city, String country, String phone) {
+    public PatientDTO(Long id,String name, String lastName, String address, String city, String country, String phone) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.address = address;

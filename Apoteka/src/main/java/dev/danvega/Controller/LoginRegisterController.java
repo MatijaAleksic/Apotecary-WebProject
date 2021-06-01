@@ -45,7 +45,7 @@ public class LoginRegisterController {
         }if(user.getClass() == Pharmacist.class){
             ret = "pharmacist";
         }if(user.getClass() == Dermatologist.class){
-            ret = "dermatoligist";
+            ret = "dermatologist";
         }
 
         LoginResponseDTO response = new LoginResponseDTO(ret,Boolean.toString(user.getFirstTimeLogin()),user.getId());

@@ -12,7 +12,7 @@ public class PharmacistPatientsMapper implements MapperInterface<Patient, Patien
 
     @Override
     public PatientDTO toDto(Patient entity) {
-        return new PatientDTO(entity.getFirstname(), entity.getLastname(), entity.getCity(), entity.getAdress(), entity.getPhone(),
+        return new PatientDTO(entity.getId(),entity.getFirstname(), entity.getLastname(), entity.getCity(), entity.getAdress(), entity.getPhone(),
                 entity.getCountry());
     }
 }

@@ -30,9 +30,9 @@ import FirstLogIn from "./components/Unsigned/FirstLogIn.vue";
 
 import PharmacistHomePage from "@/components/Pharmacist/PharmacistHomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
-import DermatologistHomePage from "@/components/Dermatologist/DermatologistHomePage.vue";
 import PatientHomePage from "@/components/Patient/PatientHomePage";
 import PatientProfileCard from "@/components/Patient/PatientProfileCard";
+import NewDermatologistHomePage from "@/components/Dermatologist/NewDermatologistHomePage";
 
 export default {
   name: 'App',
@@ -44,7 +44,7 @@ export default {
 
     'pharmacist-homepage': PharmacistHomePage,
     'admin-homepage': AdminHomePage,
-    'dermatologist-homepage' : DermatologistHomePage,
+    'dermatologist-homepage' : NewDermatologistHomePage,
     'patient-homepage':PatientHomePage,
     
     'patient-profile':PatientProfileCard

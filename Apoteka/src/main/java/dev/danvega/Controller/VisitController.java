@@ -33,13 +33,20 @@ public class VisitController {
     @Transactional
     public ResponseEntity<String> new_visit(@RequestBody VisitDTO vDTO)
     {
+
         Dermatologist a = dermathologistService.findOne(vDTO.getDermatologis_id());
         Patient b = patientService.findOne(vDTO.getPatient_id());
         Apotecary c = apotecaryService.findOne(vDTO.getApotecary_id());
-        MedicationReservation mc = medicationReservationService.findOne(vDTO.getMedication_reservation_id());
-        Visit visit = new Visit(vDTO.getId(),vDTO.getStartDate(),vDTO.getStartTime(),vDTO.getDuration(),
-                vDTO.getPrice(),vDTO.getStatus(),vDTO.getReport(),a,b, c,mc);
 
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+
+
+        Visit visit = new Visit(vDTO.getId(),vDTO.getStartDate(),vDTO.getStartTime(),vDTO.getDuration(),
+                vDTO.getPrice(),vDTO.getStatus(),vDTO.getReport(),a,b, c);
+
+        System.out.println(visit.getId());
         try{
             visitService.create(visit);
         }catch(Exception e){

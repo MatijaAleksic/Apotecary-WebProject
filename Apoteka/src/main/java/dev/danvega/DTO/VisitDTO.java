@@ -18,9 +18,8 @@ public class VisitDTO {
     private Long dermatologis_id;
     private Long patient_id;
     private Long apotecary_id;
-    private Long medication_reservation_id;
 
-    public VisitDTO(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Long dermatologis_id, Long patient_id, Long apotecary_id, Long medication_reservation_id) {
+    public VisitDTO(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Long dermatologis_id, Long patient_id, Long apotecary_id) {
         this.id = id;
         this.startDate = startDate;
         this.startTime = startTime;
@@ -31,7 +30,6 @@ public class VisitDTO {
         this.dermatologis_id = dermatologis_id;
         this.patient_id = patient_id;
         this.apotecary_id = apotecary_id;
-        this.medication_reservation_id = medication_reservation_id;
     }
 
     public Long getId() {
@@ -114,11 +112,5 @@ public class VisitDTO {
         this.apotecary_id = apotecary_id;
     }
 
-    public Long getMedication_reservation_id() {
-        return medication_reservation_id;
-    }
 
-    public void setMedication_reservation_id(Long medication_reservation_id) {
-        this.medication_reservation_id = medication_reservation_id;
-    }
 }

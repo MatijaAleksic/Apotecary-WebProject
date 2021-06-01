@@ -1,29 +1,28 @@
 <template>
   <div>
-    <div >
-      <h1>Pharmacist homepage</h1>
-      <button v-on:click="component ='pharmacist-profile'">Profile</button>
+    <div>
+      <h1>Dermatologist homepage</h1>
+      <button v-on:click="component ='dermatologist-profile'">Profile</button>
       <button v-on:click="component ='patient-table'">Patient table</button>
       <button v-on:click="component ='vacation'">Vacation</button>
-
     </div>
     <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
-
   </div>
 
 </template>
 
 <script>
+import DermatologistProfilePage from "@/components/Dermatologist/DermatologistProfilePage";
+import DermatologistPatientTable from "@/components/Tables/DermatologistPatientTable";
 import axios from "axios";
-import PharmacistProfilPage from "@/components/Pharmacist/PharmacistProfilPage";
-import PharmacistPatientTable from "@/components/Tables/PharmacistPatientTable";
-import PharmacistVacation from "@/components/Pharmacist/PharmacistVacation";
+import DermatologistVacation from "@/components/Dermatologist/DermatologistVacation";
+
 export default {
-  name: "PharmacistHomePage",
-  components: {
-    'pharmacist-profile': PharmacistProfilPage,
-    'patient-table': PharmacistPatientTable,
-    'vacation': PharmacistVacation,
+  name: "DermatologistHomePage",
+  components:{
+    'dermatologist-profile': DermatologistProfilePage,
+    'patient-table': DermatologistPatientTable,
+    'vacation': DermatologistVacation,
   },
   props: {
     userInfo: Object
@@ -40,7 +39,7 @@ export default {
   mounted() {
     this.userId = this.userInfo.userId;
     alert(this.userId)
-    axios.post("/api/pharmacist/get-apotecary-id", {id : this.userId})
+    axios.post("/api/dermatologist/get-apotecary-id", {id : this.userId})
         .then((response) => {
           this.apotecary_id = response.data;
         });

@@ -31,12 +31,15 @@ public class ConsultationController {
     @Transactional
     public ResponseEntity<String>new_counsultation(@RequestBody ConsultationDTO cDTO)
     {
+        System.out.println(cDTO.getId());
+        System.out.println(cDTO.getPatient_id());
+        System.out.println(cDTO.getApotecary_id());
         Pharmacist a = pharmacistService.findOne(cDTO.getPharmacist_id());
         Patient b = patientService.findOne(cDTO.getPatient_id());
         Apotecary c = apotecaryService.findOne(cDTO.getApotecary_id());
-        MedicationReservation mc = medicationReservationService.findOne(cDTO.getMedication_reservation_id());
+
         Consultation consultation = new Consultation(cDTO.getId(),cDTO.getStartDate(),cDTO.getStartTime(),cDTO.getDuration(),
-                cDTO.getPrice(),cDTO.getStatus(),cDTO.getReport(),a,b, c,mc);
+                cDTO.getPrice(),cDTO.getStatus(),cDTO.getReport(),a,b, c);
 
         try{
             consultationService.create(consultation);

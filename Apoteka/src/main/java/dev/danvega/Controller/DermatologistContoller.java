@@ -83,7 +83,37 @@ public class DermatologistContoller {
         return new ResponseEntity<>("Uspesno ste poslali zahtev za godisnji odmor!", HttpStatus.CREATED);
     }
 
+    @PostMapping("/change-information")
+    public ResponseEntity<String> changeInformation(@RequestBody DermatologistChangeInfoDTO pci){
+        Dermatologist dermatologist = new Dermatologist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
+        System.out.println(dermatologist.getId());
+        try{
+            dermatologist = dermathologistService.updateInfo(dermatologist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
+        System.out.println(cpr.getId());
+        Dermatologist dermatologist = new Dermatologist(cpr.getId(), cpr.getNewPassword());
+        try{
+            System.out.println(dermatologist.getId());
+            dermatologist = dermathologistService.updatePassword(dermatologist);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
+
     @PostMapping("/view-patients")
+    @Transactional
     public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
     {
         List<Patient> patients = visitService.viewPatients(id.getId());

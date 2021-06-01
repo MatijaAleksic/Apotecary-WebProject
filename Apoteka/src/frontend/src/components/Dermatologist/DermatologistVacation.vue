@@ -33,7 +33,7 @@
 import axios from "axios";
 
 export default {
-  name: "PharmacistVacation",
+  name: "DermatologistVacation",
   data(){
     return{
       msg: '',
@@ -41,7 +41,7 @@ export default {
       startDate : '',
       finishDate: '',
       description:'',
-      pharmacist_id: null
+      dermatologist_id: null
 
     }
   },
@@ -49,13 +49,13 @@ export default {
     adminINFO: Object
   },
   mounted() {
-    this.pharmacist_id = this.adminINFO.userId;
+    this.dermatologist_id = this.adminINFO.userId;
 
   },
   methods:{
     submit(){
-      axios.post(axios.post("/api/pharmacist/vacation",{startDate : this.startDate, finishDate : this.finishDate,
-        description:this.description, pharmacist_id: this.pharmacist_id, approdved:false})
+      axios.post(axios.post("/api/dermatologist/vacation",{startDate : this.startDate, finishDate : this.finishDate,
+        description:this.description, dermatologist_id: this.dermatologist_id, approdved:false})
           .then((response) => {
             this.msg = response.data;
           }));

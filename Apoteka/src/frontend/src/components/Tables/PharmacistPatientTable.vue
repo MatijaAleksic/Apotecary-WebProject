@@ -6,6 +6,7 @@
 
   <table>
     <tr bgcolor='lightgrey'>
+      <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
       <th><div @click="sortBy('name')" class="sortBy">Firstname</div></th>
       <th><div @click="sortBy('lastName')" class="sortBy">Lastname</div></th>
       <th><div @click="sortBy('address')" class="sortBy">Address</div></th>
@@ -16,13 +17,16 @@
 
     <tr v-for="patient in fillteredPharmacist"  v-bind:key="patient.id">
       <!-- v-on:click="selectPharmacist(p)" -->
+      <td> {{patient.id}}</td>
       <td> {{patient.name}}</td>
       <td> {{patient.lastName}}</td>
       <td> {{patient.address}}</td>
       <td> {{patient.city}}</td>
       <td> {{patient.country}}</td>
       <td> {{patient.phone}}</td>
+      <td><button v-on:click="component ='counsultation'">Consultation</button></td>
     </tr>
+    <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
   </table>
   <div>
     <h5>{{ msg }}</h5>
@@ -31,10 +35,14 @@
 
 <script>
 
-
+import NewConsultation from "@/components/Pharmacist/NewConsultation";
 import axios from "axios";
 export default {
   name: "PharmacistPatientTable",
+  components:{
+    'counsultation': NewConsultation,
+  },
+
 
   data(){
     return{
@@ -50,6 +58,7 @@ export default {
       apotecary_id : null,
       userId : null,
 
+      component:null,
       msg: ""
     }
   },
@@ -62,7 +71,6 @@ export default {
     this.apotecary_id = this.adminINFO.apotecary_id;
     this.userId = this.adminINFO.userId;
 
-    alert(this.userId);
 
     axios.post("/api/pharmacist/view-patients", {id :this.userId})
         .then(response => {

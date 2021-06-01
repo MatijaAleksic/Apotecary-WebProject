@@ -40,6 +40,8 @@ public class Dermatologist extends User{
     public Dermatologist() {
     }
 
+
+
     public Dermatologist(String firstname, String lastname, Apotecary apotecary) {
         super(firstname, lastname);
         this.apotecary = apotecary;
@@ -58,6 +60,13 @@ public class Dermatologist extends User{
         super(firstname, lastname, username, password, email, adress, city, country, phone);
         this.startHours = startHours;
         this.endHours = endHours;
+    }
+
+    public Dermatologist(Long id, String name, String lastName, String city, String address, String phone, String country) {
+        super(id,name,lastName,city,address,phone,country);
+    }
+
+    public Dermatologist(Long id, String newPassword) {
     }
 
     public Time getStartHours() {

@@ -15,7 +15,7 @@ public class DermatologistPatientsMapper implements MapperInterface<Patient, Pat
 
     @Override
     public PatientDTO toDto(Patient entity) {
-        return new PatientDTO(entity.getFirstname(), entity.getLastname(), entity.getCity(), entity.getAdress(), entity.getPhone(),
+        return new PatientDTO(entity.getId(),entity.getFirstname(), entity.getLastname(), entity.getCity(), entity.getAdress(), entity.getPhone(),
                 entity.getCountry());
     }
 }

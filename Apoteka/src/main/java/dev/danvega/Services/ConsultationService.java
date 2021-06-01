@@ -35,9 +35,7 @@ public class ConsultationService implements ServiceInterface<Consultation>{
 
     @Override
     public Consultation create(Consultation entity) throws Exception {
-        if(consultationRepository.findByApotecary_IdAndPatient_IdAndPharmacist_Id(entity.getApotecary().getId(),entity.getPatient().getId(),entity.getPharmacist().getId()) != null){
-            throw new Exception("Consultation for given patient, pharmacist, apotecary already exists");
-        }
+
         return consultationRepository.save(entity);
     }
 
