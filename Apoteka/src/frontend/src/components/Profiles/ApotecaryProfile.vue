@@ -13,10 +13,14 @@
         </div>
 
         <div>
-            <label><h4>Average Rating:</h4>          {{averageRating}} </label>
+            <label><h4>Average Rating:</h4>          {{rating}} </label>
         </div>
 
     </form>
+
+    <div>
+        <button v-on:refresh-component="refresh" v-on:click="component ='change-apotecary-info'">Change Apotecary Info</button> 
+    </div>
 
     <div >
         <button v-on:click="component ='add-new-medication'">Add new Medication</button> 
@@ -30,7 +34,7 @@
         <button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</button>
       </div>
 
-    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 
 </template>
 
@@ -46,6 +50,9 @@ import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
 import AdminPharmacistVacationTableVue from '@/components/Tables/AdminPharmacistVacationTable.vue';
 import AdminDermatologistVacationTableVue from '@/components/Tables/AdminDermatologistVacationTable.vue';
 
+import ChangeApotecaryInfo from '@/components/Administrator/ChangeApotecaryInfo.vue';
+
+import axios from "axios";
 export default {
   name: "ApotecaryProfile",
 
@@ -58,6 +65,7 @@ export default {
     'register-new-administrator' : AddNewAdministrator,
     'register-new-dermatologist' : AddNewDermatologist,
     'register-new-pharmacist' : AddNewPharmacist,
+    'change-apotecary-info' : ChangeApotecaryInfo,
 
     'pharmacist-table' : AdminPharmacistTable,
     'dermatologist-table' : AdminDermatologistTable,
@@ -70,10 +78,10 @@ export default {
 
   data(){
     return{
-      name: 'name',
-      adress: 'adress',
-      description: 'description',
-      averageRating: 4.5,
+      name: null,
+      adress: null,
+      description: null,
+      rating: null,
 
       component: null,
 
@@ -85,6 +93,34 @@ export default {
   mounted() {
     this.userId = this.adminINFO.userId;
     this.apotecary_id = this.adminINFO.apotecary_id;
+
+    axios.post("/api/apotecary/get-info", {id : this.apotecary_id})
+            .then(response => {
+                this.name = response.data.name;
+                this.adress= response.data.adress;
+                this.description= response.data.description;
+                this.rating= response.data.rating;
+            })
+    },
+
+    methods: {
+
+        refresh(){
+            axios.post("/api/apotecary/get-info", {id : this.apotecary_id})
+            .then(response => {
+                this.name = response.data.name;
+                this.adress= response.data.adress;
+                this.description= response.data.description;
+                this.rating= response.data.rating;
+
+                this.refresh();
+            })
+        },
+
+        refreshComponent(){
+            this.component = null;
+            this.refresh();
+        }
     }
 }
 </script>

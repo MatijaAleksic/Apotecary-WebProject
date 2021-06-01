@@ -31,7 +31,7 @@
     <button v-on:click="component ='change-information'">Change Personal Information</button>
     <button v-on:click="component ='change-password'">Change Password</button>
 
-    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 
 </template>
 
@@ -39,7 +39,8 @@
 
 import ChangePersonalInformation from '@/components/Administrator/ChangeInformationAdministrator.vue'
 import ChangeAdminPassword from '@/components/Administrator/ChangeAdminPassword.vue'
-// import AdminPharmacistTable from '@/components/Tables/AdminPharmacistTable.vue'
+import axios from "axios";
+
 
 export default {
   name: "AdminProfile",
@@ -56,14 +57,14 @@ export default {
 
   data(){
     return{
-      firstname: 'firstname',
-      lastname: 'lastname',
-      username: 'username',
-      email: 'email',
-      adress: 'adress',
-      city: 'city',
-      country: 'country',
-      phone: 'phone',
+      firstname: null,
+      lastname: null,
+      username: null,
+      email: null,
+      adress: null,
+      city: null,
+      country: null,
+      phone: null,
 
       component: null,
 
@@ -75,7 +76,47 @@ export default {
   mounted() {
     this.userId = this.adminINFO.userId;
     this.apotecary_id = this.adminINFO.apotecary_id;
-    }
+
+    axios.post("/api/administrator/get-personal-info", {id : this.userId})
+            .then(response => {
+                this.firstname = response.data.firstname;
+                this.lastname= response.data.lastname;
+                this.username= response.data.username;
+                this.email= response.data.email;
+                this.adress= response.data.adress;
+                this.city= response.data.city;
+                this.country= response.data.country;
+                this.phone= response.data.phone;
+            })
+    },
+
+    methods: {
+
+        refresh(){
+            axios.post("/api/administrator/get-personal-info", {id : this.userId})
+            .then(response => {
+                this.firstname = response.data.firstname;
+                this.lastname= response.data.lastname;
+                this.username= response.data.username;
+                this.email= response.data.email;
+                this.adress= response.data.adress;
+                this.city= response.data.city;
+                this.country= response.data.country;
+                this.phone= response.data.phone;
+
+                this.refresh();
+            })
+        },
+
+        refreshComponent(){
+            this.component = null;
+            this.refresh();
+        }
+
+
+    },
+
+
 }
 </script>
 

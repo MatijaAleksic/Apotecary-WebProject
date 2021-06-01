@@ -108,4 +108,18 @@ public class AdministratorController {
 
         return new ResponseEntity<>(admin.getApotecary().getId(), HttpStatus.OK);
     }
+
+    @PostMapping("/get-personal-info")
+    public ResponseEntity<AdministratorDTO> get_personal_info(@RequestBody UserIDDTO userIDDTO)
+    {
+        Administrator admin;
+        try {
+            admin = administratorService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(administratorMapper.toDto(admin), HttpStatus.OK);
+    }
 }
