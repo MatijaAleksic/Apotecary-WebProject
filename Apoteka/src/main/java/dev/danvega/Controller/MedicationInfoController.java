@@ -179,4 +179,54 @@ public class MedicationInfoController {
             return new ResponseEntity<>(medsReturn, HttpStatus.OK);
         }
     }
+
+    @Transactional
+    @PostMapping("/get-all")
+    public ResponseEntity<List<MedicationAdminDTO>> get_all(@RequestBody ApotecaryIDDTO apotecaryIDDTO){
+        List<Medication> medications = medicationService.findAll();
+        if(medications == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else{
+
+            Medication medTemp = new Medication();
+            MedicationSpecification medSpecTemp = new MedicationSpecification();
+            MedicationInfo medInfoTemp = new MedicationInfo();
+
+            List<MedicationAdminDTO> medsReturn = new ArrayList<>();
+
+            for(Medication med : medications)
+            {
+                medInfoTemp = medicationInfoService.findByApotecary_IdAndMedication_Id(apotecaryIDDTO.getId(),med.getId());
+
+                if(medInfoTemp != null){
+                    MedicationAdminDTO temp = new MedicationAdminDTO();
+
+                    medTemp = med;
+                    medSpecTemp = medicationSpecificationService.findByMedication_Id(med.getId());
+
+                    temp.setId(medTemp.getId());
+                    temp.setType(medTemp.getMedicationType().toString());
+                    temp.setName(medTemp.getName());
+
+                    temp.setComposition(medSpecTemp.getComposition());
+                    temp.setContradiction(medSpecTemp.getContradictions());
+                    temp.setDailyIntake(medSpecTemp.getDailyIntake());
+                    temp.setReplacement(medSpecTemp.getReplacementDrugs());
+
+                    temp.setInStorage(medInfoTemp.getInStorage());
+                    temp.setPrice(medInfoTemp.getPrice());
+                    temp.setPriceDurationEndTime(medInfoTemp.getPriceDurationEndTime());
+                    temp.setPriceDurationEndDate(medInfoTemp.getPriceDurationEndDate());
+
+                    temp.setApotecary_id(apotecaryIDDTO.getId());
+
+                    medsReturn.add(temp);
+                }
+            }
+            return new ResponseEntity<>(medsReturn, HttpStatus.OK);
+        }
+    }
+
 }

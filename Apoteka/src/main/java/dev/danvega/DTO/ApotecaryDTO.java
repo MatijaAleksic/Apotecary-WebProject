@@ -28,6 +28,13 @@ public class ApotecaryDTO {
         this.rating = rating;
     }
 
+    public ApotecaryDTO(String name, String adress, String description, double rating) {
+        this.name = name;
+        this.adress = adress;
+        this.description = description;
+        this.rating = rating;
+    }
+
     public Long getId() {
         return id;
     }

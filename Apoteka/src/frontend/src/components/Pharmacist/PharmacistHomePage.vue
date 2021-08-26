@@ -39,7 +39,6 @@ export default {
 
   mounted() {
     this.userId = this.userInfo.userId;
-    alert(this.userId)
     axios.post("/api/pharmacist/get-apotecary-id", {id : this.userId})
         .then((response) => {
           this.apotecary_id = response.data;

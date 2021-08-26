@@ -63,6 +63,15 @@ public class ApotecaryController {
         return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
     }
 
+    @GetMapping("/get-all")
+    public ResponseEntity<List<ApotecaryDTO>> get_all(){
+        List<Apotecary> apotecaries = apothecaryService.findAll();
+        if(apotecaries == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toApothecaryDTOList(apotecaries), HttpStatus.OK);
+    }
+
 
     private List<ApotecaryDTO> toApothecaryDTOList(List<Apotecary> apothecaries){
         List<ApotecaryDTO> apothecaryDTOS = new ArrayList<>();
