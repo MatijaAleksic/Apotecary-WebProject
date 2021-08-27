@@ -1,12 +1,12 @@
 <template>
   <div>
     <header>
-      <admin-nav-bar v-on:change-main-component="changeMainComponent"/>
+      <admin-nav-bar v-on:change-main-component="changeMainComponent"></admin-nav-bar>
     </header>
 
       <component :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 
-    </div>
+  </div>
     
 </template>
 
@@ -48,8 +48,10 @@ components:{
     axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
           .then((response) => {
             this.apotecary_id = response.data;
+            this.component = 'apotecary-profile';
           });
     },
+    
 
   methods: {
     changeMainComponent(value)

@@ -1,9 +1,11 @@
 <template>
+<div>
     <nav>
         <h3 class="title"> Admin Homepage </h3>
         <div class="menu-item"><a @click="ChangeComponent('profile')">Profile</a></div>
         <div class="menu-item"><a @click="ChangeComponent('apotecary')">Apotecary</a></div>
     </nav>
+</div>
 </template>
 
 <script>

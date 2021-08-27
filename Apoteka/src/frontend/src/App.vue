@@ -3,7 +3,7 @@
     <div style="background-color: #5f9ea0; height: 20% "></div>
     <div style="background-color: cadetblue; height: 80px;">
       <div>
-        <h1 @click="this.component = ''; this.selectedApotecary=''" style="font-family: sans-serif; color: white; position:absolute; left: 40px; top: 10px;">A p o t e k a</h1>
+        <h1 @click="homePage()" style="font-family: sans-serif; color: white; position:absolute; left: 40px; top: 10px;">A p o t e k a</h1>
         <button  v-if="logged_user == ''" v-on:click="component ='login'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:110px">Login</button>
         <button  v-if="logged_user == ''" v-on:click="component ='register-patient'" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Register</button>
         <button v-if="logged_user != ''" v-on:click="logout" style="height: 50px; width: 80px; background: azure; border-radius: 8px; margin: 5px; position: absolute; top:15px; right:20px">Logout</button>
@@ -85,6 +85,10 @@ export default {
     selectApotecary(value)
     {
       this.selectedApotecary = value;
+    },
+    homePage(){
+      this.component = '';
+      this.selectedApotecary = '';
     }
   },
 }

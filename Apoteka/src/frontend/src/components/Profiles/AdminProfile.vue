@@ -28,8 +28,8 @@
             </div>
         </form>
 
-        <v-button v-on:click="component ='change-information'">Change Personal Information</v-button>
-        <v-button v-on:click="component ='change-password'">Change Password</v-button>
+        <v-btn v-on:click="component ='change-information'">Change Personal Information</v-btn>
+        <v-btn v-on:click="component ='change-password'">Change Password</v-btn>
 
         <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
     </div>

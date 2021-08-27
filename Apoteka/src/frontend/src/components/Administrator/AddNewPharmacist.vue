@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="container"><div id="container-inner">
     <h1>Register new Pharmacist</h1>
     <form>
@@ -63,7 +64,7 @@
         </div>
       </fieldset>
     </form>
-  </div></div>
+</div>
 </template>
 
 <script>

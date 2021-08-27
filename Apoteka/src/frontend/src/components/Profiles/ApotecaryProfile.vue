@@ -1,41 +1,38 @@
 <template>
-    <div>
-    <form>
-        <h1>Apotecary Information</h1>
+<div>
+        <form>
+            <h1>Apotecary Information</h1>
+            <div>
+                <label> <h4>Name:</h4>  {{name}} </label>
+            </div>
+            <div>
+                <label> <h4>Address:</h4>         {{adress}} </label>
+            </div>  
+            <div>
+                <label><h4>Description:</h4>          {{description}} </label>
+            </div>
+
+            <div>
+                <label><h4>Average Rating:</h4>          {{rating}} </label>
+            </div>
+
+        </form>
+
         <div>
-            <label> <h4>Name:</h4>  {{name}} </label>
+            <v-btn v-on:refresh-component="refresh" v-on:click="component ='change-apotecary-info'">Change Apotecary Info</v-btn> 
         </div>
-        <div>
-            <label> <h4>Address:</h4>         {{adress}} </label>
-        </div>  
-        <div>
-            <label><h4>Description:</h4>          {{description}} </label>
-        </div>
 
-        <div>
-            <label><h4>Average Rating:</h4>          {{rating}} </label>
-        </div>
-
-    </form>
-
-    <div>
-        <button v-on:refresh-component="refresh" v-on:click="component ='change-apotecary-info'">Change Apotecary Info</button> 
-    </div>
-
-    <div >
-        <button v-on:click="component ='add-new-medication'">Add new Medication</button> 
-        <v-button v-on:click="component ='register-new-administrator'">Register new Administrator</v-button>
-        <v-button v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</v-button>
-        <v-button v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</v-button>
-        <v-button v-on:click="component ='pharmacist-table'">Pharmacist Table</v-button>
-        <v-button v-on:click="component ='dermatologist-table'">Dermatologist Table</v-button>
-        <v-button v-on:click="component ='medication-table'">Medication Table</v-button>
-        <v-button v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</v-button>
-        <v-button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</v-button>
-        <v-button v-on:click="component ='calendar'">Calendar</v-button>
-      </div>
-
-    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+            <v-btn v-on:click="component ='add-new-medication'" style="left: 40px; top: 10px;" >Add new Medication</v-btn> 
+            <v-btn v-on:click="component ='register-new-administrator'">Register new Administrator</v-btn>
+            <v-btn v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</v-btn>
+            <v-btn v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</v-btn>
+            <v-btn v-on:click="component ='pharmacist-table'">Pharmacist Table</v-btn>
+            <v-btn v-on:click="component ='dermatologist-table'">Dermatologist Table</v-btn>
+            <v-btn v-on:click="component ='medication-table'">Medication Table</v-btn>
+            <v-btn v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</v-btn>
+            <v-btn v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</v-btn>
+            <v-btn v-on:click="component ='calendar'">Calendar</v-btn>
+        <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 </div>
 </template>
 
@@ -99,7 +96,7 @@ export default {
     this.userId = this.adminINFO.userId;
     this.apotecary_id = this.adminINFO.apotecary_id;
 
-    axios.post("/api/apotecary/get-info", {id : this.apotecary_id})
+    axios.post("/api/apotecary/get-info", {id : this.adminINFO.apotecary_id})
             .then(response => {
                 this.name = response.data.name;
                 this.adress= response.data.adress;

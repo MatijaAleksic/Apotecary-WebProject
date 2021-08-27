@@ -64,7 +64,12 @@ public class AdministratorController {
     {
 
         Administrator admin = administratorMapper.toEntity(administratorDTO);
-        admin.setApotecary(apotecaryService.findOne(administratorDTO.getApotecary_id()));
+
+        Apotecary temp = apotecaryService.findOne(administratorDTO.getApotecary_id());
+        if(temp==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         admin.setFirstTimeLogin(true);
 
         try {

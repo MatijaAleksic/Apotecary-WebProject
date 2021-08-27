@@ -3,6 +3,19 @@
     border:1px solid black;
 }
 
+.v-btn{
+    
+    position:relative;
+    margin:10px;
+    width:300px;
+    color:black;
+    padding:0 0px 0px 0px;
+    text-align:center;
+    margin-left:10px;
+    display: inline-block;
+    vertical-align: left;
+}
+
 form {
     
     padding: 10px 10px;

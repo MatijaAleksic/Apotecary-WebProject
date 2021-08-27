@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="container"><div id="container-inner">
     <h1>Add new Medication</h1>
     <form >
@@ -64,14 +65,13 @@
         </div>
       </fieldset>
     </form>
-
-  </div></div>
+</div></div></div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: 'Change Information Pharmacist',
+  name: 'AddNewMedication',
 
   data() {
     return {
