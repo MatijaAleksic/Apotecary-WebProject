@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="container"><div id="container-inner">
     <h1>Register new Administrator</h1>
     <form>
@@ -57,6 +58,7 @@
       </fieldset>
     </form>
   </div></div>
+  </div>
 </template>
 
 <script>

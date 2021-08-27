@@ -1,4 +1,5 @@
 <template>
+<div>
     <h3> Pharmacist Table </h3>
 
     <input type="text" v-model="searchFirstname" placeholder="Firstname"/>
@@ -42,6 +43,7 @@
     <div>
           <h5>{{ msg }}</h5>
         </div>
+</div>
 </template>
 
 <script>

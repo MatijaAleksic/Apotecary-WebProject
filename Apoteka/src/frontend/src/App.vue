@@ -22,6 +22,7 @@
 
     <component v-bind:is="component"  v-on:update-logged-user="updatLoggedUser" > </component>
 
+
   </div>
 </template>
 
@@ -29,66 +30,58 @@
 import LoginForm from "./components/Unsigned/LoginForm.vue";
 import RegisterPatientForm from "./components/Unsigned/RegisterPatientForm.vue";
 import FirstLogIn from "./components/Unsigned/FirstLogIn.vue";
-
 import PharmacistHomePage from "@/components/Pharmacist/PharmacistHomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
 import PatientHomePage from "@/components/Patient/PatientHomePage";
 import PatientProfileCard from "@/components/Patient/PatientProfileCard";
 import NewDermatologistHomePage from "@/components/Dermatologist/NewDermatologistHomePage";
-
 import ApotecaryTable from "@/components/Tables/ApotecaryTable";
 import UnsignedMedicationTable from "@/components/Tables/UnsignedMedicationTable";
 
+import Calendar from "@/components/Calendar"
+
 export default {
   name: 'App',
-
   components: {
     'login': LoginForm,
     'register-patient' : RegisterPatientForm,
     'first-login' : FirstLogIn,
-
     'pharmacist-homepage': PharmacistHomePage,
     'admin-homepage': AdminHomePage,
     'dermatologist-homepage' : NewDermatologistHomePage,
     'patient-homepage':PatientHomePage,
-
     'apotecary-table' : ApotecaryTable,
     'unsigned-medication-table':UnsignedMedicationTable,
-
     'patient-profile':PatientProfileCard,
-  },
 
+    'calendar' : Calendar,
+    Calendar
+  },
   data(){
     return{
       component: '',
       logged_user : '', //'administrator', //'',
       first_time_login: 'false',
       user_id : null,
-
       selectedApotecary : '',
     }
   },
-
   methods: {
-
     updatLoggedUser (value) {
       this.logged_user = value.userType;
       this.first_time_login = value.firstTimeLogin;
       this.user_id = value.userId;
       this.component = null;
     },
-
     updateInformation(value){
       this.first_time_login = value;
     },
-
     logout()
     {
       this.component= ''
       this.selectedApotecary=''
       this.logged_user = ''
     },
-
     selectApotecary(value)
     {
       this.selectedApotecary = value;
@@ -98,5 +91,4 @@ export default {
 </script>
 
 <style>
-
 </style>

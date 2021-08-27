@@ -1,4 +1,5 @@
 <template>
+<div>
     <h3> Apotecaries </h3>
 
     <input type="text" v-model="searchName" placeholder="Name"/>
@@ -23,7 +24,7 @@
     <div>
           <h5>{{ msg }}</h5>
     </div>
-
+</div>
 </template>
 
 <script>

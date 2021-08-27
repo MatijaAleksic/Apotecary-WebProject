@@ -1,38 +1,38 @@
 <template>
-    
-    <form>
-        <h1>Personal Information</h1>
-        <div>
-            <label class="personal"> <h4>First Name:</h4>  {{firstname}} </label>
-        </div>
-        <div>
-            <label  class="personal"> <h4>Last Name:</h4>         {{lastname}} </label>
-        </div>  
-        <div>
-            <label  class="personal"><h4>Username:</h4>          {{username}} </label>
-        </div>
-        <div>
-            <label  class="personal"><h4>Email:</h4>         {{email}} </label>
-        </div>
-        <div>
-            <label  class="personal"><h4>Address:</h4>           {{adress}} </label>
-        </div>
-        <div>
-            <label  class="personal"><h4>City:</h4>          {{city}} </label>
-        </div>
-        <div>
-            <label  class="personal"><h4>Country:</h4>           {{country}} </label>
-        </div>
-        <div>
-            <label  class="personal"><h4>Phone:</h4>  {{phone}} </label>
-        </div>
-    </form>
+    <div>
+        <form>
+            <h1>Personal Information</h1>
+            <div>
+                <label class="personal"> <h4>First Name:</h4>  {{firstname}} </label>
+            </div>
+            <div>
+                <label  class="personal"> <h4>Last Name:</h4>         {{lastname}} </label>
+            </div>  
+            <div>
+                <label  class="personal"><h4>Username:</h4>          {{username}} </label>
+            </div>
+            <div>
+                <label  class="personal"><h4>Email:</h4>         {{email}} </label>
+            </div>
+            <div>
+                <label  class="personal"><h4>Address:</h4>           {{adress}} </label>
+            </div>
+            <div>
+                <label  class="personal"><h4>City:</h4>          {{city}} </label>
+            </div>
+            <div>
+                <label  class="personal"><h4>Country:</h4>           {{country}} </label>
+            </div>
+            <div>
+                <label  class="personal"><h4>Phone:</h4>  {{phone}} </label>
+            </div>
+        </form>
 
-    <button v-on:click="component ='change-information'">Change Personal Information</button>
-    <button v-on:click="component ='change-password'">Change Password</button>
+        <v-button v-on:click="component ='change-information'">Change Personal Information</v-button>
+        <v-button v-on:click="component ='change-password'">Change Password</v-button>
 
-    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
-
+        <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    </div>
 </template>
 
 <script>

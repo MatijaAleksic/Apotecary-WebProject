@@ -1,4 +1,5 @@
 <template>
+    <div>
     <h3> Medication Table </h3>
 
     <input type="text" v-model="searchName" placeholder="Name"/>
@@ -42,7 +43,7 @@
     </div>
           
     <component v-on:close-component="closeComponet" :apotecaryID ="{apotecary_id : apotecary_id,medication_id : medication_id }" v-bind:is="component"> </component>
-
+</div>
 </template>
 
 <script>

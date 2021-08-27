@@ -1,4 +1,5 @@
 <template>
+<div>
     <h3> Dermatologist Vacations </h3>
 
     <table>
@@ -28,7 +29,7 @@
 
     <component v-on:close-component="closeComponet"  v-bind:is="component"> </component>
 
-
+</div>
 </template>
 
 <script>

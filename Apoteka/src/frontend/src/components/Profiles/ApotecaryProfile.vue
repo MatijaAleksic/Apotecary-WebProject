@@ -1,5 +1,5 @@
 <template>
-    
+    <div>
     <form>
         <h1>Apotecary Information</h1>
         <div>
@@ -24,18 +24,19 @@
 
     <div >
         <button v-on:click="component ='add-new-medication'">Add new Medication</button> 
-        <button v-on:click="component ='register-new-administrator'">Register new Administrator</button>
-        <button v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</button>
-        <button v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</button>
-        <button v-on:click="component ='pharmacist-table'">Pharmacist Table</button>
-        <button v-on:click="component ='dermatologist-table'">Dermatologist Table</button>
-        <button v-on:click="component ='medication-table'">Medication Table</button>
-        <button v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</button>
-        <button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</button>
+        <v-button v-on:click="component ='register-new-administrator'">Register new Administrator</v-button>
+        <v-button v-on:click="component ='register-new-dermatologist'">Register new Dermatologist</v-button>
+        <v-button v-on:click="component ='register-new-pharmacist'">Register new Pharmacist</v-button>
+        <v-button v-on:click="component ='pharmacist-table'">Pharmacist Table</v-button>
+        <v-button v-on:click="component ='dermatologist-table'">Dermatologist Table</v-button>
+        <v-button v-on:click="component ='medication-table'">Medication Table</v-button>
+        <v-button v-on:click="component ='pharmacist-vacation-table'">Pharmacist Vacation Table</v-button>
+        <v-button v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</v-button>
+        <v-button v-on:click="component ='calendar'">Calendar</v-button>
       </div>
 
     <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
-
+</div>
 </template>
 
 <script>
@@ -49,6 +50,8 @@ import AdminDermatologistTable from '@/components/Tables/AdminDermatologistTable
 import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
 import AdminPharmacistVacationTableVue from '@/components/Tables/AdminPharmacistVacationTable.vue';
 import AdminDermatologistVacationTableVue from '@/components/Tables/AdminDermatologistVacationTable.vue';
+
+import Calendar from '@/components/Calendar.vue';
 
 import ChangeApotecaryInfo from '@/components/Administrator/ChangeApotecaryInfo.vue';
 
@@ -72,7 +75,9 @@ export default {
     'medication-table' : AdminMedicationTable,
 
     'pharmacist-vacation-table' : AdminPharmacistVacationTableVue,
-    'dermatologist-vacation-table' : AdminDermatologistVacationTableVue
+    'dermatologist-vacation-table' : AdminDermatologistVacationTableVue,
+
+    'calendar' : Calendar
   },
 
 
