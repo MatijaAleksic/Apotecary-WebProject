@@ -74,6 +74,17 @@ public class Visit {
         this.medicationReservation = medicationReservation;
     }
 
+    public Visit(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report) {
+        this.id = id;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.price = price;
+        this.status = StatusCV.fromInteger(status);
+        this.report = report;
+
+    }
+
     public Visit(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Dermatologist a, Patient b, Apotecary c) {
         this.id = id;
         this.startDate = startDate;
@@ -82,10 +93,11 @@ public class Visit {
         this.price = price;
         this.status = StatusCV.fromInteger(status);
         this.report = report;
-        this.dermatologist = dermatologist;
-        this.patient = patient;
-        this.apotecary = apotecary;
+        this.dermatologist = a;
+        this.patient = b;
+        this.apotecary = c;
     }
+
 
     public Long getId() {
         return id;

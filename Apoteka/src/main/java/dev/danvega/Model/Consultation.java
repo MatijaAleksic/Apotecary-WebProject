@@ -97,6 +97,16 @@ public class Consultation {
         this.apotecary = c;
     }
 
+    public Consultation(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report) {
+        this.id = id;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.price = price;
+        this.status = StatusCV.fromInteger(status);
+        this.report = report;
+    }
+
 
     public Long getId() {
         return id;

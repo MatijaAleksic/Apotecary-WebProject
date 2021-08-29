@@ -18,7 +18,6 @@ INSERT INTO patients(id, firstname, lastname, username, password, email, adress,
 
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (1,3.5,16,20);
 INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (2,5,16,21);
-INSERT INTO dermatologist_ratings(id,rating,dermatologist_id,patient_id) VALUES (3,5,17,21);
 
 INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (10,4, 19,20);
 INSERT INTO pharmacist_ratings(id,rating,pharmacist_id,patient_id) VALUES (11,5, 19,21);
@@ -27,10 +26,18 @@ INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (1,5, 10
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (2,4, 10,21);
 
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(51, 20, 100.00, 'Report', '12/04/2021','07:00', 1, 10,20,19);
+(51, 20, 100.00, 'Report', '29/08/2021','07:00', 1, 10,20,19);
+INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
+(52, 30, 150.00, 'Report', '30/08/2021','09:00', 1, 10,21,19);
+INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
+(53, 40, 125.00, 'Report', '31/08/2021','10:00', 1, 10,20,19);
 
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(51, 20, 100.00, 'Report', '12/04/2021','07:00', 1, 10,17,20);
+(61, 20, 199.00, 'Report', '29/08/2021','06:00', 1, 10,17,20);
+INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
+(62, 30, 200.00, 'Report', '30/08/2021','16:00', 1, 10,17,21);
+INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
+(63, 40, 175.00, 'Report', '31/08/2021','23:00', 1, 10,17,20);
 
 
 INSERT INTO medications(id,medication_type,name) VALUES (10,1,'Antibiotik1');
@@ -62,7 +69,7 @@ VALUES (31,7,'10/09/2021','07:00',1,10,null,15,20,null);
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
 VALUES (32,10,'12/09/2021','08:00',1,10,51,16,20,null);
 INSERT INTO medication_reservation(id,quantity,reservation_end_date, reservation_end_time,status,apotecary_id,consultation_id,medication_info_id,patient_id,visit_id)
-VALUES (33,5,'11/06/2021','09:00',1,12,null,17,21,51);
+VALUES (33,5,'11/06/2021','09:00',1,12,null,17,21,61);
 
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (10, 'Contradictions2', 'Composition2', 'Daily_Intake2', 'Replacement_drugs1',10);
 INSERT INTO medication_specification(id,contradictions,composition,daily_intake,replacement_drugs,medication_id) VALUES (11, 'Contradictions1', 'Composition3', 'Daily_Intake2', 'Replacement_drugs2',11);

@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
 
-    Visit findByApotecary_IdAndPatient_IdAndDermatologist_Id(Long user_id, Long medication_id, Long dermatologist_id);
+    Visit findByApotecary_IdAndPatient_IdAndDermatologist_Id(Long apotecary_id, Long medication_id, Long dermatologist_id);
 
     List<Visit> findByDermatologist_Id(Long dermatologist_id);
+
+    List<Visit> findByApotecary_Id(Long apotecary_id);
 }

@@ -1,6 +1,10 @@
 package dev.danvega.Controller;
 
+import dev.danvega.DTO.ApotecaryIDDTO;
 import dev.danvega.DTO.ConsultationDTO;
+import dev.danvega.DTO.VisitDTO;
+import dev.danvega.Mapper.ConsultationMapper;
+import dev.danvega.Mapper.VisitMapper;
 import dev.danvega.Model.*;
 import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/consultation")
@@ -26,6 +33,9 @@ public class ConsultationController {
     ApotecaryService apotecaryService = new ApotecaryService();
     @Autowired
     MedicationReservationService medicationReservationService = new MedicationReservationService();
+
+    private final ConsultationMapper consultationMapper = new ConsultationMapper();
+
 
     @PostMapping("new-consultation")
     @Transactional
@@ -49,6 +59,24 @@ public class ConsultationController {
         }
         return new ResponseEntity<>("Uspesno ste zakazali novi pregled!", HttpStatus.CREATED);
 
+    }
+
+    @PostMapping("get-all-consultations")
+    public ResponseEntity<List<ConsultationDTO>> get_all_visits(@RequestBody ApotecaryIDDTO apotecaryIDDTO)
+    {
+        List<Consultation> consultations = consultationService.findByApotecary_Id(apotecaryIDDTO.getId());
+        if(consultations == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toVisitDTOList(consultations), HttpStatus.CREATED);
+    }
+
+    private List<ConsultationDTO> toVisitDTOList(List<Consultation> consultations){
+        List<ConsultationDTO> consultationsDTOS = new ArrayList<>();
+        for (Consultation consultation : consultations) {
+            consultationsDTOS.add(consultationMapper.toDto(consultation));
+        }
+        return consultationsDTOS;
     }
 
 }

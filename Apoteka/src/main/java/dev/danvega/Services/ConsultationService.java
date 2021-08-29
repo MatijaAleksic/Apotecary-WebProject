@@ -28,6 +28,8 @@ public class ConsultationService implements ServiceInterface<Consultation>{
         return consultationRepository.findAll(pageable);
     }
 
+    public List<Consultation> findByApotecary_Id(Long apotecary_id) { return consultationRepository.findByApotecary_Id(apotecary_id);}
+
     @Override
     public Consultation findOne(Long id) {
         return consultationRepository.findById(id).orElse(null);

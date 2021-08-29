@@ -48,7 +48,8 @@ import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
 import AdminPharmacistVacationTableVue from '@/components/Tables/AdminPharmacistVacationTable.vue';
 import AdminDermatologistVacationTableVue from '@/components/Tables/AdminDermatologistVacationTable.vue';
 
-import Calendar from '@/components/Calendar.vue';
+
+import Calendar from '@/components/Graphical/Calendar.vue';
 
 import ChangeApotecaryInfo from '@/components/Administrator/ChangeApotecaryInfo.vue';
 

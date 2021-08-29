@@ -38,8 +38,6 @@ import NewDermatologistHomePage from "@/components/Dermatologist/NewDermatologis
 import ApotecaryTable from "@/components/Tables/ApotecaryTable";
 import UnsignedMedicationTable from "@/components/Tables/UnsignedMedicationTable";
 
-import Calendar from "@/components/Calendar"
-
 export default {
   name: 'App',
   components: {
@@ -54,8 +52,6 @@ export default {
     'unsigned-medication-table':UnsignedMedicationTable,
     'patient-profile':PatientProfileCard,
 
-    'calendar' : Calendar,
-    Calendar
   },
   data(){
     return{
