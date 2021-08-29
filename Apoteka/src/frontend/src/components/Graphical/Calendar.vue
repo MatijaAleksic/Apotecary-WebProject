@@ -5,6 +5,16 @@
       <v-sheet height="64">
         <v-toolbar flat>
           <v-btn
+            class="mr-4"
+            color="blue"
+            @click="component = 'add-visit'"
+          >
+            Dodaj Pregled
+          </v-btn>
+          <v-flex>
+            <Popup/>
+          </v-flex>
+          <v-btn
             outlined
             class="mr-4"
             color="grey darken-2"
@@ -83,7 +93,6 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
-          @change="updateRange"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
@@ -103,18 +112,32 @@
               <v-btn icon>
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
+
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
+
               <v-btn icon>
                 <v-icon>mdi-heart</v-icon>
               </v-btn>
+
               <v-btn icon>
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </v-toolbar>
+
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              Start: <span v-html="new Date(selectedEvent.start).toLocaleString()"></span>
+              <v-spacer></v-spacer>
+              End: <span v-html="new Date(selectedEvent.end).toLocaleString()"></span>
+              <v-spacer></v-spacer>
+              Duration: <span v-html="selectedEvent.duration"></span> min
+              <v-spacer></v-spacer>
+              Price: <span v-html="selectedEvent.price"></span> din
+              <v-spacer></v-spacer>
+              Status: <span v-html="selectedEvent.status"></span>
             </v-card-text>
+
+            
             <v-card-actions>
               <v-btn
                 text
@@ -129,6 +152,9 @@
       </v-sheet>
     </v-col>
   </v-row>
+
+  <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}"  v-bind:is="component"> </component>
+
 </v-app>
 </template>
 
@@ -136,7 +162,13 @@
 
 import axios from "axios";
 
+import AddNewVisit from "@/components/Administrator/AddNewVisit";
+
 export default ({
+  components: {
+    'add-visit' : AddNewVisit,
+  },
+
     name: 'Calendar',
 
     data: () => ({
@@ -177,7 +209,9 @@ export default ({
         dialog: false,
 
         visits : [],
-        consultations : []
+        consultations : [],
+
+        component: '',
     }),
     mounted(){
       axios.post("/api/consultation/get-all-consultations", {id: 10})
@@ -201,6 +235,9 @@ export default ({
                     color: "blue",
                     timed: 60,
                     category: "Konsultacija",
+                    duration: consultation.duration,
+                    price: consultation.price,
+                    status: consultation.status,
                   })
                 }
 
@@ -217,6 +254,9 @@ export default ({
                     color: "red",
                     timed: 60,
                     category: "Poseta",
+                    duration: visit.duration,
+                    price: visit.price,
+                    status: visit.status,
                   })
                 }
               });
