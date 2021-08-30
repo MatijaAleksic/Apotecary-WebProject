@@ -9,11 +9,8 @@
             color="blue"
             @click="component = 'add-visit'"
           >
-            Dodaj Pregled
+            Add Consultation
           </v-btn>
-          <v-flex>
-            <Popup/>
-          </v-flex>
           <v-btn
             outlined
             class="mr-4"
@@ -109,20 +106,19 @@
               :color="selectedEvent.color"
               dark
             >
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
 
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
 
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
+              <v-btn
+                class="ma-1"
+                color="error"
+                plain
+                @click="removeVisit()"
+              >
+                Delete
               </v-btn>
 
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
             </v-toolbar>
 
             <v-card-text>
@@ -134,7 +130,9 @@
               <v-spacer></v-spacer>
               Price: <span v-html="selectedEvent.price"></span> din
               <v-spacer></v-spacer>
-              Status: <span v-html="selectedEvent.status"></span>
+              Status: <span v-html="this.status"></span>
+              <v-spacer></v-spacer>
+              Staff: <span v-html="new String(this.selected_staff.firstname + ' ' + this.selected_staff.lastname)"></span>
             </v-card-text>
 
             
@@ -153,7 +151,7 @@
     </v-col>
   </v-row>
 
-  <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}"  v-bind:is="component"> </component>
+  <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component" v-on:refresh="refreshCalendar"> </component>
 
 </v-app>
 </template>
@@ -211,9 +209,27 @@ export default ({
         visits : [],
         consultations : [],
 
+        dermatologists: [],
+        pharmacists: [],
+
         component: '',
+
+        user_id : Number,
+        apotecary_id : Number,
+
+        selected_staff: '',
+        status: ''
+
     }),
+    props: {
+      adminINF: Object
+    },
+
     mounted(){
+
+      this.apotecary_id = this.adminINF.apotecary_id;
+      this.user_id = this.adminINF.userId;
+
       axios.post("/api/consultation/get-all-consultations", {id: 10})
           .then((response) => {
             this.consultations = response.data;
@@ -238,6 +254,7 @@ export default ({
                     duration: consultation.duration,
                     price: consultation.price,
                     status: consultation.status,
+                    staff_id: consultation.pharmacist_id
                   })
                 }
 
@@ -257,12 +274,88 @@ export default ({
                     duration: visit.duration,
                     price: visit.price,
                     status: visit.status,
+                    staff_id: visit.dermatologis_id
                   })
                 }
               });
           });
     },
     methods:{
+
+      refreshCalendar(){
+        this.event = [];
+        alert("refresh")
+        axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
+          .then((response) => {
+            this.consultations = response.data;
+
+            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id})
+              .then((response) => {
+                this.visits = response.data;
+
+                for (let consultation of this.consultations) {
+
+                  let startDate = new Date(consultation.startDate + ' ' +  consultation.startTime);
+                  let endDate = new Date(startDate);
+                  endDate.setMinutes(startDate.getMinutes() + consultation.duration);
+
+                  this.events.push({
+                    id: consultation.id,
+                    name: "Konsultacija",
+                    start: startDate,
+                    end: endDate,
+                    color: "blue",
+                    timed: 60,
+                    category: "Konsultacija",
+                    duration: consultation.duration,
+                    price: consultation.price,
+                    status: consultation.status,
+                    staff_id: consultation.pharmacist_id
+                  })
+                }
+
+                for (let visit of this.visits) {
+
+                  let startDate = new Date(visit.startDate + ' ' +  visit.startTime);
+                  let endDate = new Date(startDate);
+                  endDate.setMinutes(startDate.getMinutes() + visit.duration);
+
+                  this.events.push({
+                    id: visit.id,
+                    name: "Poseta",
+                    start: startDate,
+                    end: endDate,
+                    color: "red",
+                    timed: 60,
+                    category: "Poseta",
+                    duration: visit.duration,
+                    price: visit.price,
+                    status: visit.status,
+                    staff_id: visit.dermatologis_id
+                  })
+                }
+              });
+          });
+      },
+
+      removeVisit(){
+        axios.post("/api/visit/delete", {id: this.selectedEvent.id})
+          .then(() => {
+            
+            for (let visit of this.events) {
+
+              if(visit == this.selectedEvent.id){
+                this.events = this.events.filter(obj => obj !== visit);
+              }
+            }
+
+            }).catch(err => {
+              if (err.response.status === 406) {
+                alert("Removing visit not possible!");
+              }
+            })
+      },
+
       setToday () {
         this.focus = ''
       },
@@ -272,60 +365,6 @@ export default ({
       next () {
         this.$refs.calendar.next()
       },
-      /*fetchEvents ({ start, end }) {
-        const events = []
-
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
-
-          events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: first,
-            end: second,
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
-            timed: !allDay,
-            category: this.categories[this.rnd(0, this.categories.length - 1)],
-          })
-        }
-
-        this.events = events
-      },*/
-
-      /*updateRange ({ start, end }) {
-        const events = []
-
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
-
-          events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: first,
-            end: second,
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
-            timed: !allDay,
-          })
-        }
-
-        this.events = events
-      },*/
 
       showEvent({nativeEvent, event}){
         const open = () => {
@@ -341,9 +380,34 @@ export default ({
             open();
           }
 
+          if(this.selectedEvent.name == "Konsultacija"){
+            axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id})
+                        .then(response => {
+                            this.selected_staff = response.data;
+                        })
+        }else if(this.selectedEvent.name == "Poseta"){
+            axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id})
+                  .then(response => {
+                        this.selected_staff = response.data;
+                      })     
+        }
+
+        let temp = new Number(this.selectedEvent.status);
+
+        if(temp == 0){
+          this.status = "Pending"
+        }
+        else if (temp == 1){
+          this.status = "Accepted"
+        }
+        else if (temp == 3){
+          this.status = "Delined"
+        }
+
           nativeEvent.stopPropagation();
         
       },
+
 
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a

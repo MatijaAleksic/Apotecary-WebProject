@@ -46,9 +46,7 @@ public class AdministratorController {
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
-        System.out.println(cpr.getId());
         Administrator admin = new Administrator(cpr.getId(), cpr.getNewPassword());
-        System.out.println(cpr.getId());
         try{
             administratorService.updatePassword(admin);
         } catch (Exception e) {

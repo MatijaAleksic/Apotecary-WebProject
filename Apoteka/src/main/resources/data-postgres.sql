@@ -26,18 +26,18 @@ INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (1,5, 10
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (2,4, 10,21);
 
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(51, 20, 100.00, 'Report', '29/08/2021','07:00', 1, 10,20,19);
+(51, 20, 100.00, 'Report', '29/08/2021','07:00', 0, 10,20,19);
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(52, 30, 150.00, 'Report', '30/08/2021','09:00', 1, 10,21,19);
+(52, 30, 150.00, 'Report', '30/08/2021','09:00', 0, 10,21,19);
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(53, 40, 125.00, 'Report', '31/08/2021','10:00', 1, 10,20,19);
+(53, 40, 125.00, 'Report', '31/08/2021','10:00', 0, 10,20,19);
 
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(61, 20, 199.00, 'Report', '29/08/2021','06:00', 1, 10,17,20);
+(61, 20, 199.00, 'Report', '29/08/2021','06:00', 0, 10,17,20);
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(62, 30, 200.00, 'Report', '30/08/2021','16:00', 1, 10,17,21);
+(62, 30, 200.00, 'Report', '30/08/2021','16:00', 0, 10,17,21);
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(63, 40, 175.00, 'Report', '31/08/2021','23:00', 1, 10,17,20);
+(63, 40, 175.00, 'Report', '31/08/2021','23:00', 0, 10,17,20);
 
 
 INSERT INTO medications(id,medication_type,name) VALUES (10,1,'Antibiotik1');

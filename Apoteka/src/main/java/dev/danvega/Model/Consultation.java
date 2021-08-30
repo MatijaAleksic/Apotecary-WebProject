@@ -43,11 +43,11 @@ public class Consultation {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 
-    @OneToOne(mappedBy = "consultation", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "consultation", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private MedicationReservation medicationReservation;
 
     public Consultation() {

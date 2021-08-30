@@ -16,7 +16,7 @@ public class Dermatologist extends User{
     @Column(unique = false, nullable = true)
     private Time endHours;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apotecary_id")
     private Apotecary apotecary;
 

@@ -47,6 +47,22 @@ public class PharmacistController {
         return ResponseEntity.ok(toPatientDTOList(patients));
     }
 
+    @PostMapping("/get-one")
+    public ResponseEntity<PharmacistDTO> getOne(@RequestBody UserIDDTO userIDDTO){
+        try{
+            if(pharmacistService.findOne(userIDDTO.getId()) == null){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else
+            {
+                return new ResponseEntity<>(pharmacistMapper.toDTO(pharmacistService.findOne(userIDDTO.getId())), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/get-apotecary-id")
     public ResponseEntity<Long> get_apotecary(@RequestBody UserIDDTO userIDDTO)
     {
@@ -77,10 +93,8 @@ public class PharmacistController {
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
-        System.out.println(cpr.getId());
         Pharmacist pharmacist = new Pharmacist(cpr.getId(), cpr.getNewPassword());
         try{
-            System.out.println(pharmacist.getId());
             pharmacist = pharmacistService.updatePassword(pharmacist);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,9 +107,6 @@ public class PharmacistController {
     @PostMapping("/vacation")
     public ResponseEntity<String>request_vacation(@RequestBody VacationPharmacistDTO vacationPharmacistDTO)
     {
-        System.out.println(vacationPharmacistDTO.getStartDate());
-        System.out.println(vacationPharmacistDTO.getFinishDate());
-        System.out.println(vacationPharmacistDTO.getDescription());
         VacationPharmacist vacationPharmacist = new VacationPharmacist(vacationPharmacistDTO.getPharmacist_id(),
                 vacationPharmacistDTO.getStartDate(), vacationPharmacistDTO.getFinishDate(), vacationPharmacistDTO.getDescription(),
                 StatusCV.PENDING);
@@ -168,7 +179,7 @@ public class PharmacistController {
 
         for (Pharmacist pharma : pharmacists) {
             temp = pharmacistMapper.toDTO(pharma);
-            System.out.println(pharmacistRatingService.findRatingByPharmacist(pharma.getId()));
+            System.out.println(pharmacistRatingService.findRatingByPharmacist(pharma.getId()) + "HELLO");
             temp.setPharmacistRating(pharmacistRatingService.findRatingByPharmacist(pharma.getId()));
             pharmacistDTOS.add(temp);
         }

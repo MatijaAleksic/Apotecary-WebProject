@@ -63,6 +63,10 @@ public class VisitService implements ServiceInterface<Visit>{
         if(existingVisit == null){
             throw new Exception("Visit with given id doesn't exist");
         }
+        if(existingVisit.getPatient() != null)
+        {
+            throw new Exception("Visit with given id has patient for it and thus cannot be deleted");
+        }
         visitRepository.delete(existingVisit);
     }
 

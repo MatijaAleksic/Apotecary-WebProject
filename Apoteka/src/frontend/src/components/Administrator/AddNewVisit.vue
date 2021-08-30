@@ -24,9 +24,17 @@
           <input type="number"  min = "1" max = "100000" step="0.01" name="price" id="price" v-model="price" required />
         </div>
 
-        <div>
-          <label for="dermatologist">Dermatologist</label>
-          <input type="text" name="dermatologist" id="dermatologist" v-model="dermatologist"/>
+        <div class="text-center">
+              <v-select
+                v-model="select"
+                :items="items"
+                :item-text="text"
+                label="Solo field"
+                solo
+                return-object
+                single-line
+              >
+              </v-select>
         </div>
 
         <div class="controls">
@@ -50,13 +58,20 @@ export default {
   data() {
     return {
       msg: '',
-      apotecary_id: null, 
 
       startDate: '',
       startTime: '',
       duration: '',
       price: '',
-      dermatologist: ''
+      dermatologist: '',
+
+      apotecary_id: Number,
+      user_id : Number,
+
+      items: [],
+      dermatologists: [],
+
+      select: null,
     }
   },
 
@@ -66,18 +81,26 @@ export default {
 
   mounted() {
       this.apotecary_id = this.adminINF.apotecary_id;
+      this.user_id = this.adminINF.userId;
+      
+      axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+          .then((response) => {
+            this.items = response.data;
+          });
   },
 
 
   methods:{
+    text: item => item.firstname + ' ' + item.lastname,
+    
     submit(){
-      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
-      username: this.username, password: this.password, email: this.email, adress : this.adress,
-       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
-       startHours: this.startHours, endHours:this.endHours})
+      axios.post("/api/visit/new-visit", {startDate: this.startDate, startTime: this.startTime, duration : this.duration, price : this.price,
+                                          dermatologis_id: this.select.id, apotecary_id : this.apotecary_id })
           .then((response) => {
             this.msg = response.data;
+            this.$emit('refresh');
           });
+
     }
   }
 }

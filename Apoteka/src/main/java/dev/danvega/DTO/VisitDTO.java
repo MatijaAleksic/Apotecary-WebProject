@@ -16,6 +16,8 @@ public class VisitDTO {
     private int status;
     private String report;
     private Long dermatologis_id;
+
+
     private Long patient_id;
     private Long apotecary_id;
 

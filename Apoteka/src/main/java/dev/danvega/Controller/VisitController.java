@@ -1,5 +1,6 @@
 package dev.danvega.Controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistSearchMapper;
 import dev.danvega.Mapper.VisitMapper;
@@ -34,17 +35,17 @@ public class VisitController {
 
     private final VisitMapper visitMapper = new VisitMapper();
 
+
     @PostMapping("new-visit")
     @Transactional
     public ResponseEntity<String> new_visit(@RequestBody VisitDTO vDTO)
     {
 
         Dermatologist a = dermathologistService.findOne(vDTO.getDermatologis_id());
-        Patient b = patientService.findOne(vDTO.getPatient_id());
         Apotecary c = apotecaryService.findOne(vDTO.getApotecary_id());
 
         Visit visit = new Visit(vDTO.getId(),vDTO.getStartDate(),vDTO.getStartTime(),vDTO.getDuration(),
-                vDTO.getPrice(),vDTO.getStatus(),vDTO.getReport(),a,b, c);
+                vDTO.getPrice(),0,vDTO.getReport(),a,null, c);
 
         try{
             visitService.create(visit);
@@ -52,8 +53,7 @@ public class VisitController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Uspesno ste zakazali novi pregled!", HttpStatus.CREATED);
-
+        return new ResponseEntity<>("Uspesno ste zakazali novu posetu!", HttpStatus.CREATED);
     }
 
     @PostMapping("get-all-visits")
@@ -65,6 +65,20 @@ public class VisitController {
         }
         return new ResponseEntity<>(toVisitDTOList(visits), HttpStatus.CREATED);
     }
+
+    @PostMapping("delete")
+    public ResponseEntity<String> remove_visit(@RequestBody VisitDTO vDTO)
+    {
+        try{
+            visitService.delete(vDTO.getId());
+        }catch(Exception e){
+            return new ResponseEntity<>("Nije moguce izbrisati", HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("Uspesno brisanje posete!", HttpStatus.OK);
+
+    }
+
+
 
     private List<VisitDTO> toVisitDTOList(List<Visit> visits){
         List<VisitDTO> visitsDTOS = new ArrayList<>();

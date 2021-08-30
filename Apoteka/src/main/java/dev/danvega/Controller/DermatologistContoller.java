@@ -64,9 +64,6 @@ public class DermatologistContoller {
     @PostMapping("/vacation")
     public ResponseEntity<String>request_vacation(@RequestBody VacationDermatologistDTO vacationDermatologistDTO)
     {
-        System.out.println(vacationDermatologistDTO.getStartDate());
-        System.out.println(vacationDermatologistDTO.getFinishDate());
-        System.out.println(vacationDermatologistDTO.getDescription());
         VacationDermatologist vacationDermatologist = new VacationDermatologist(vacationDermatologistDTO.getDermatologist_id(),
                 vacationDermatologistDTO.getStartDate(), vacationDermatologistDTO.getFinishDate(), vacationDermatologistDTO.getDescription(),
                 StatusCV.PENDING);
@@ -86,7 +83,6 @@ public class DermatologistContoller {
     @PostMapping("/change-information")
     public ResponseEntity<String> changeInformation(@RequestBody DermatologistChangeInfoDTO pci){
         Dermatologist dermatologist = new Dermatologist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
-        System.out.println(dermatologist.getId());
         try{
             dermatologist = dermathologistService.updateInfo(dermatologist);
         } catch (Exception e) {
@@ -99,10 +95,8 @@ public class DermatologistContoller {
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
-        System.out.println(cpr.getId());
         Dermatologist dermatologist = new Dermatologist(cpr.getId(), cpr.getNewPassword());
         try{
-            System.out.println(dermatologist.getId());
             dermatologist = dermathologistService.updatePassword(dermatologist);
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,6 +164,22 @@ public class DermatologistContoller {
         return new ResponseEntity<>("Uspesno brisanje dermatologa!", HttpStatus.OK);
 
     }
+
+    @PostMapping("/get-one")
+    public ResponseEntity<DermatologistDTO> getOne(@RequestBody UserIDDTO userIDDTO){
+        try{
+            if(dermathologistService.findOne(userIDDTO.getId()) == null){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else{
+                return new ResponseEntity<>(dermatologistMapper.toDto(dermathologistService.findOne(userIDDTO.getId())), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     private List<DermatologistDTO> toDermatologistDTOList(List<Dermatologist> dermatologists){
         List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();

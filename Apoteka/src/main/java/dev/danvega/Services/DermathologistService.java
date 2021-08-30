@@ -30,7 +30,6 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
 
     @Override
     public Dermatologist findOne(Long id) {
-        System.out.println(id);
         return dermatologistRepository.findById(id).orElse(null);
     }
 

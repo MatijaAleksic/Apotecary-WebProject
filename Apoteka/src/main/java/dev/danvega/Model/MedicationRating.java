@@ -13,11 +13,11 @@ public class MedicationRating {
     @Column(unique = false, nullable = true)
     private double rating;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
     private Medication medication;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
