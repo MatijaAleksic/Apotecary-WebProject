@@ -31,6 +31,9 @@ public class Medication {
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicationRating> ratings;
 
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
+    private List<MedicationInquiry> medicationInquiry;
+
     public Medication(Long id, String name, MedicationType type) {
         this.id = id;
         this.name = name;
@@ -55,6 +58,13 @@ public class Medication {
         this.medicationType = medicationType;
     }
 
+    public List<MedicationInquiry> getMedicationInquiry() {
+        return medicationInquiry;
+    }
+
+    public void setMedicationInquiry(List<MedicationInquiry> medicationInquiry) {
+        this.medicationInquiry = medicationInquiry;
+    }
     public Long getId() {
         return id;
     }

@@ -46,6 +46,9 @@ public class Apotecary {
     @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<MedicationInfo> medicationInfos;
 
+    @OneToMany(mappedBy = "apotecary", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<MedicationInquiry> medicationInquiries;
+
 //INSERT INTO dermatologists(id, first_name, lastname, username, password, email, adress, city, country, phone, start_hours, end_hours, apotecary_id) VALUES (2,'c','dasdf','dasdf','ae','ff','g','h','i','j','8:00:00','16:00:00',1);
     public Apotecary(Long id, String name, String adress, String description, Set<Dermatologist> dermatologists) {
         this.id = id;
@@ -88,6 +91,14 @@ public class Apotecary {
         this.name = name;
         this.adress = adress;
         this.description = description;
+    }
+
+    public List<MedicationInquiry> getMedicationInquiries() {
+        return medicationInquiries;
+    }
+
+    public void setMedicationInquiries(List<MedicationInquiry> medicationInquiries) {
+        this.medicationInquiries = medicationInquiries;
     }
 
     public Long getId() {

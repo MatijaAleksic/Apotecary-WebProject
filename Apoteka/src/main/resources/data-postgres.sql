@@ -86,3 +86,9 @@ INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_
 INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (32,0 ,'Description1','07/07/2021', '11/07/2021',16);
 INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (33,0 ,'Description2','05/08/2021', '9/09/2021',17);
 INSERT INTO vacation_dermatologist(id,approved ,description, finish_date, start_date, dermatologist_id) VALUES (34,0 ,'Description3','05/07/2021', '10/07/2021',18);
+
+INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (91, 10, 10, 100 );
+INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (92, 11, 10, 10 );
+INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (93, 12, 10, 5 );
+INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (94, 13, 10, 25 );
+INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (95, 14, 10, 75 );
