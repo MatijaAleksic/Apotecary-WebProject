@@ -33,6 +33,7 @@
             <v-btn v-on:click="component ='dermatologist-vacation-table'">Dermatologist Vacation Table</v-btn>
             <v-btn v-on:click="component ='calendar'">Calendar</v-btn>
             <v-btn v-on:click="component ='medication-inquiry-table'">Medication Inquiry Table</v-btn>
+            <v-btn v-on:click="component ='medication-action-table'">Medication Action Table</v-btn>
         <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
 </div>
 </template>
@@ -49,7 +50,7 @@ import AdminMedicationTable from '@/components/Tables/AdminMedicationTable.vue'
 import AdminPharmacistVacationTableVue from '@/components/Tables/AdminPharmacistVacationTable.vue';
 import AdminDermatologistVacationTableVue from '@/components/Tables/AdminDermatologistVacationTable.vue';
 import AdminMedicationInquiryTable from '@/components/Tables/AdminMedicationInquiryTable.vue';
-
+import AdminMedicationActionTable from '@/components/Tables/AdminMedicationActionTable.vue';
 
 import Calendar from '@/components/Graphical/Calendar.vue';
 
@@ -79,7 +80,8 @@ export default {
 
     'calendar' : Calendar,
 
-    'medication-inquiry-table' : AdminMedicationInquiryTable
+    'medication-inquiry-table' : AdminMedicationInquiryTable,
+    'medication-action-table' : AdminMedicationActionTable
   },
 
 

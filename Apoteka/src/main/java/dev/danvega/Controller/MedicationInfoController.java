@@ -1,13 +1,11 @@
 package dev.danvega.Controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.danvega.DTO.*;
 import dev.danvega.Mapper.MedicationInfoMapper;
 import dev.danvega.Mapper.MedicationMapper;
 import dev.danvega.Model.*;
-import dev.danvega.Services.ApotecaryService;
-import dev.danvega.Services.MedicationInfoService;
-import dev.danvega.Services.MedicationService;
-import dev.danvega.Services.MedicationSpecificationService;
+import dev.danvega.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +33,9 @@ public class MedicationInfoController {
 
     @Autowired
     ApotecaryService apotecaryService = new ApotecaryService();
+
+    @Autowired
+    MedicationActionService medicationActionService = new MedicationActionService();
 
     @Autowired
     MedicationSpecificationService medicationSpecificationService = new MedicationSpecificationService();
@@ -132,10 +135,12 @@ public class MedicationInfoController {
         else{
             List<MedicationInfo> medInfos = new ArrayList<>();
             List<MedicationSpecification> medicationSpecifications = new ArrayList<>();
+            List<MedicationAction> medicationActions = new ArrayList<>();
 
-            Medication medTemp = new Medication();
-            MedicationSpecification medSpecTemp = new MedicationSpecification();
-            MedicationInfo medInfoTemp = new MedicationInfo();
+            Medication medTemp;
+            MedicationSpecification medSpecTemp;
+            MedicationInfo medInfoTemp;
+            MedicationAction medActionTemp;
 
             for(Medication med : medications)
             {
@@ -144,8 +149,14 @@ public class MedicationInfoController {
                 if(medInfoTemp == null){
                     medInfoTemp = new MedicationInfo(0,null,null,0,null,null);
                 }
+                medActionTemp = medicationActionService.findAllByMedicationInfo_id(medInfoTemp.getId());
+                if(medActionTemp == null){
+                    medActionTemp = new MedicationAction(null,null,null,null,null,0);
+                }
+
                 medInfos.add(medInfoTemp);
                 medicationSpecifications.add(medicationSpecificationService.findByMedication_Id(med.getId()));
+                medicationActions.add(medActionTemp);
             }
 
             List<MedicationAdminDTO> medsReturn = new ArrayList<>();
@@ -156,6 +167,7 @@ public class MedicationInfoController {
                 medTemp = medications.get(i);
                 medSpecTemp = medicationSpecifications.get(i);
                 medInfoTemp = medInfos.get(i);
+                medActionTemp = medicationActions.get(i);
 
                 temp.setId(medTemp.getId());
                 temp.setType(medTemp.getMedicationType().toString());
@@ -171,9 +183,78 @@ public class MedicationInfoController {
                 temp.setPriceDurationEndTime(medInfoTemp.getPriceDurationEndTime());
                 temp.setPriceDurationEndDate(medInfoTemp.getPriceDurationEndDate());
 
+                temp.setProcentage(medActionTemp.getProcentage());
+
                 temp.setApotecary_id(apotecaryIDDTO.getId());
 
                 medsReturn.add(temp);
+            }
+
+            return new ResponseEntity<>(medsReturn, HttpStatus.OK);
+        }
+    }
+
+    @Transactional
+    @PostMapping("/get-all-admin-actions")
+    public ResponseEntity<List<MedicationAdminActionDTO>> get_all_admin_actions(@RequestBody ApotecaryIDDTO apotecaryIDDTO){
+        List<Medication> medications = medicationService.findAll();
+        if(medications == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else{
+            List<MedicationInfo> medInfos = new ArrayList<>();
+            List<MedicationAction> medicationActions = new ArrayList<>();
+
+            Medication medTemp;
+            MedicationInfo medInfoTemp;
+            MedicationAction medActionTemp;
+
+            for(Medication med : medications)
+            {
+                medInfoTemp = medicationInfoService.findByApotecary_IdAndMedication_Id(apotecaryIDDTO.getId(),med.getId());
+
+                if(medInfoTemp == null){
+                    medInfoTemp = new MedicationInfo(0,null,null,0,null,null);
+                }
+                medActionTemp = medicationActionService.findAllByMedicationInfo_id(medInfoTemp.getId());
+                if(medActionTemp == null){
+                    medActionTemp = new MedicationAction(null,null,null,null,null,0);
+                }
+
+                medInfos.add(medInfoTemp);
+                medicationActions.add(medActionTemp);
+            }
+
+            List<MedicationAdminActionDTO> medsReturn = new ArrayList<>();
+
+            for (int i = 0; i < medications.size(); i++) {
+                if(medInfos.get(i).getApotecary() != null) {
+                    MedicationAdminActionDTO temp = new MedicationAdminActionDTO();
+
+                    medTemp = medications.get(i);
+                    medInfoTemp = medInfos.get(i);
+                    medActionTemp = medicationActions.get(i);
+
+                    temp.setId(medInfoTemp.getId());
+                    temp.setType(medTemp.getMedicationType().toString());
+                    temp.setName(medTemp.getName());
+
+
+                    temp.setInStorage(medInfoTemp.getInStorage());
+                    temp.setPrice(medInfoTemp.getPrice());
+
+                    temp.setProcentage(medActionTemp.getProcentage());
+                    temp.setActionStartDate(medActionTemp.getActionStartDate());
+                    temp.setActionStartTime(medActionTemp.getActionStartTime());
+                    temp.setActionEndDate(medActionTemp.getActionEndDate());
+                    temp.setActionEndTime(medActionTemp.getActionEndTime());
+
+                    temp.setApotecary_id(apotecaryIDDTO.getId());
+
+                    medsReturn.add(temp);
+                }
+
             }
 
             return new ResponseEntity<>(medsReturn, HttpStatus.OK);

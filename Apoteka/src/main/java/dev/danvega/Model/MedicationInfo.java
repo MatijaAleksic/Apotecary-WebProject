@@ -43,8 +43,9 @@ public class MedicationInfo {
     @JsonIgnore
     private Apotecary apotecary;
 
-    @OneToMany(mappedBy = "medicationInfo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<MedicationAction> medicationActions;
+    @OneToOne(mappedBy = "medicationInfo", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonIgnore
+    private MedicationAction medicationActions;
 
 
 
@@ -78,7 +79,7 @@ public class MedicationInfo {
         this.inStorage = inStorage;
     }
 
-    public MedicationInfo(Long id, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, List<MedicationReservation> medicationReservation, Medication medication, Apotecary apotecary, List<MedicationAction> medicationActions) {
+    public MedicationInfo(Long id, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime, int inStorage, List<MedicationReservation> medicationReservation, Medication medication, Apotecary apotecary, MedicationAction medicationActions) {
         this.id = id;
         this.price = price;
         this.priceDurationEndDate = priceDurationEndDate;
@@ -154,11 +155,11 @@ public class MedicationInfo {
         this.priceDurationEndTime = priceDurationEndTime;
     }
 
-    public List<MedicationAction> getMedicationActions() {
+    public MedicationAction getMedicationActions() {
         return medicationActions;
     }
 
-    public void setMedicationActions(List<MedicationAction> medicationActions) {
+    public void setMedicationActions(MedicationAction medicationActions) {
         this.medicationActions = medicationActions;
     }
 }

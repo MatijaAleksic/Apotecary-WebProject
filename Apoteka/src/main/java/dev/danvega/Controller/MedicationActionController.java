@@ -1,5 +1,6 @@
 package dev.danvega.Controller;
 
+import dev.danvega.DTO.ApoMedIDDTO;
 import dev.danvega.DTO.MedicationActionDTO;
 import dev.danvega.DTO.UserIDDTO;
 import dev.danvega.Mapper.MedicationActionMapper;
@@ -71,6 +72,16 @@ public class MedicationActionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(toMedicationInquiryDTOList(medicationActions), HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping("/get")
+    public ResponseEntity<MedicationAction> get(@RequestBody UserIDDTO userIDDTO){
+        MedicationAction medAction = medicationActionService.findAllByMedicationInfo_id(userIDDTO.getId());
+        if(medAction == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(medAction, HttpStatus.OK);
     }
 
     private List<MedicationActionDTO> toMedicationInquiryDTOList(List<MedicationAction> medicationActions){

@@ -2,12 +2,10 @@ package dev.danvega.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class MedicationAdminDTO {
-
+public class MedicationAdminActionDTO {
     private Long id;
     private String type;
     private String name;
@@ -22,15 +20,21 @@ public class MedicationAdminDTO {
 
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate priceDurationEndDate;
+    private LocalDate actionStartDate;
 
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime priceDurationEndTime;
+    private LocalTime actionStartTime;
 
-    public MedicationAdminDTO() {
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate actionEndDate;
+
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime actionEndTime;
+
+    public MedicationAdminActionDTO() {
     }
 
-    public MedicationAdminDTO(Long id, String type, String name, String composition, String contradiction, String dailyIntake, String replacement, int inStorage, double price, LocalDate priceDurationEndDate, LocalTime priceDurationEndTime,int procentage, Long apotecary_id) {
+    public MedicationAdminActionDTO(Long id, String type, String name, String composition, String contradiction, String dailyIntake, String replacement, int inStorage, double price, int procentage, Long apotecary_id, LocalDate actionStartDate, LocalTime actionStartTime, LocalDate actionEndDate, LocalTime actionEndTime) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -40,10 +44,12 @@ public class MedicationAdminDTO {
         this.replacement = replacement;
         this.inStorage = inStorage;
         this.price = price;
-        this.priceDurationEndDate = priceDurationEndDate;
-        this.priceDurationEndTime = priceDurationEndTime;
         this.procentage = procentage;
         this.apotecary_id = apotecary_id;
+        this.actionStartDate = actionStartDate;
+        this.actionStartTime = actionStartTime;
+        this.actionEndDate = actionEndDate;
+        this.actionEndTime = actionEndTime;
     }
 
     public Long getId() {
@@ -118,22 +124,6 @@ public class MedicationAdminDTO {
         this.price = price;
     }
 
-    public LocalDate getPriceDurationEndDate() {
-        return priceDurationEndDate;
-    }
-
-    public void setPriceDurationEndDate(LocalDate priceDurationEndDate) {
-        this.priceDurationEndDate = priceDurationEndDate;
-    }
-
-    public LocalTime getPriceDurationEndTime() {
-        return priceDurationEndTime;
-    }
-
-    public void setPriceDurationEndTime(LocalTime priceDurationEndTime) {
-        this.priceDurationEndTime = priceDurationEndTime;
-    }
-
     public int getProcentage() {
         return procentage;
     }
@@ -148,5 +138,37 @@ public class MedicationAdminDTO {
 
     public void setApotecary_id(Long apotecary_id) {
         this.apotecary_id = apotecary_id;
+    }
+
+    public LocalDate getActionStartDate() {
+        return actionStartDate;
+    }
+
+    public void setActionStartDate(LocalDate actionStartDate) {
+        this.actionStartDate = actionStartDate;
+    }
+
+    public LocalTime getActionStartTime() {
+        return actionStartTime;
+    }
+
+    public void setActionStartTime(LocalTime actionStartTime) {
+        this.actionStartTime = actionStartTime;
+    }
+
+    public LocalDate getActionEndDate() {
+        return actionEndDate;
+    }
+
+    public void setActionEndDate(LocalDate actionEndDate) {
+        this.actionEndDate = actionEndDate;
+    }
+
+    public LocalTime getActionEndTime() {
+        return actionEndTime;
+    }
+
+    public void setActionEndTime(LocalTime actionEndTime) {
+        this.actionEndTime = actionEndTime;
     }
 }

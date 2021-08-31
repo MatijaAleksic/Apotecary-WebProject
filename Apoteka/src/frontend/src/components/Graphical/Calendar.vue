@@ -230,11 +230,11 @@ export default ({
       this.apotecary_id = this.adminINF.apotecary_id;
       this.user_id = this.adminINF.userId;
 
-      axios.post("/api/consultation/get-all-consultations", {id: 10})
+      axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
           .then((response) => {
             this.consultations = response.data;
 
-            axios.post("/api/visit/get-all-visits", {id: 10})
+            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id})
               .then((response) => {
                 this.visits = response.data;
 

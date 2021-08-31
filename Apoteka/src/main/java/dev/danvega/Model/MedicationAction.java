@@ -1,6 +1,7 @@
 package dev.danvega.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,8 +31,9 @@ public class MedicationAction {
     @Column(unique = false, nullable = true)
     private LocalTime actionEndTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_info_id")
+    @JsonIgnore
     private MedicationInfo medicationInfo;
 
     @Column(unique = false, nullable = true)

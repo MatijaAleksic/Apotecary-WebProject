@@ -1,6 +1,6 @@
 <template>
     <div>
-    <h3> Medication Table </h3>
+    <h3> Actions </h3>
 
     <input type="text" v-model="searchName" placeholder="Name"/>
 
@@ -9,34 +9,31 @@
             <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
             <th><div @click="sortBy('type')" class="sortBy">Type</div></th>
             <th><div @click="sortBy('name')" class="sortBy">Name</div></th>
-            <th><div @click="sortBy('composition')" class="sortBy">Composition</div></th>
-            <th><div @click="sortBy('contradiction')" class="sortBy">Contradiction</div></th>
-            <th><div @click="sortBy('dailyIntake')" class="sortBy">Daily Intake</div></th>
-            <th><div @click="sortBy('replacement')" class="sortBy">Replacement</div></th>
             <th><div @click="sortBy('inStorage')" class="sortBy">In Storage</div></th>
             <th><div @click="sortBy('price')" class="sortBy">Price</div></th>
             <th><div @click="sortBy('apotecary_id')" class="sortBy">ApotecaryID</div></th>
-            <th><div @click="sortBy('priceDurationEndDate')" class="sortBy">Price Duration EndDate</div></th>
-            <th><div @click="sortBy('priceDurationEndTime')" class="sortBy">Price Duration EndTime</div></th>
-            <th><div @click="sortBy('procentage')" class="sortBy">Action</div></th>
+            <th><div @click="sortBy('actionStartDate')" class="sortBy">Action Start Date</div></th>
+            <th><div @click="sortBy('actionStartTime')" class="sortBy">Action Start Time</div></th>
+            <th><div @click="sortBy('actionEndDate')" class="sortBy">Action End Date</div></th>
+            <th><div @click="sortBy('actionEndTime')" class="sortBy">Action End Time</div></th>
+            <th><div @click="sortBy('procentage')" class="sortBy">Procentage</div></th>
         </tr>
 
-        <tr v-for="medication in fillteredMedications"  v-bind:key="medication.id"> 
+        <tr v-for="medication in fillteredActions"  v-bind:key="medication.id"> 
             <td> {{medication.id}}</td>
             <td> {{medication.type}}</td>
             <td> {{medication.name}}</td>
-            <td> {{medication.composition}}</td>
-            <td> {{medication.contradiction}}</td>
-            <td> {{medication.dailyIntake}}</td>
-            <td> {{medication.replacement}}</td>
             <td> {{medication.inStorage}}</td>
             <td> {{medication.price}}</td>
             <td> {{medication.apotecary_id}}</td>
-            <td> {{medication.priceDurationEndDate}}</td>
-            <td> {{medication.priceDurationEndTime}}</td>
+            <td> {{medication.actionStartDate}}</td>
+            <td> {{medication.actionStartTime}}</td>
+            <td> {{medication.actionEndDate}}</td>
+            <td> {{medication.actionEndTime}}</td>
             <td> {{medication.procentage}}%</td>
-            <td><button @click="EditInfo(medication.id)">Edit</button></td>
-            <td><button @click="Delete(medication.id)">Delete</button></td>
+
+            <td><button @click="Edit(medication.id)">Edit Action</button></td>
+            <td><button @click="Delete(medication.id)">Delete Action</button></td>
 
         </tr>
     </table>
@@ -50,24 +47,19 @@
 
 <script>
 
-import EditMedicationInfo from '@/components/Administrator/EditMedicationInfo.vue'
+import EditMedicationAction from '@/components/Administrator/EditMedicationAction.vue'
 
 import axios from "axios";
 export default {
-    name: "AdminMedicationTable",
+    name: "AdminMedicationActionTable",
 
     components: {
-        'edit-medication':EditMedicationInfo
+        'edit-action':EditMedicationAction
     },
 
     data(){
         return{
         medications : [],
-
-        mode: "BROWSE",
-        selectedPharmacist: {},
-        searchField: "",
-
         searchName: "",
 
         apotecary_id : null,
@@ -86,7 +78,8 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-        axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
+
+        axios.post("/api/medication-info/get-all-admin-actions", {id : this.apotecary_id})
             .then(response => {
                 this.medications = response.data;
             })
@@ -95,15 +88,17 @@ export default {
 
     methods: {
 
-        EditInfo(medId)
+        Edit(medId)
         {
-            this.medication_id = medId;
-            this.component ='edit-medication'; 
+            alert("Edit" + medId)
+            //this.medication_id = medId;
+            //this.component ='edit-action'; 
         },
 
         Delete(medId)
         {
-            this.medication_id = medId;
+            alert("Delete" + medId)
+            /*this.medication_id = medId;
 
             axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id})
             .then(response => {
@@ -120,12 +115,12 @@ export default {
                 else{
                     this.refresh();
                 }
-            })
+            })*/
             
         },
 
         refresh(){
-            axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/medication-info/get-all-admin-actions", {id : this.apotecary_id})
             .then(response => {
                 this.medications = response.data;
             })
@@ -142,7 +137,7 @@ export default {
     },
 
     computed: {
-        fillteredMedications: function() {
+        fillteredActions: function() {
             return this.medications.filter( (elem) => {
                 return elem.name.toLowerCase().match(this.searchName.toLowerCase())
             });
