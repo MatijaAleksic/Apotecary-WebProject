@@ -20,6 +20,6 @@ public class MedicationInquiryMapper implements MapperInterface<MedicationInquir
 
     @Override
     public MedicationInquiryDTO toDto(MedicationInquiry entity) {
-        return new MedicationInquiryDTO(entity.getId(), entity.getMedication().getId(), entity.getApotecary().getId(), entity.getQuantity());
+        return new MedicationInquiryDTO(entity.getId(), entity.getMedication().getId(), entity.getApotecary().getId(), entity.getQuantity(), entity.getMedication().getName());
     }
 }

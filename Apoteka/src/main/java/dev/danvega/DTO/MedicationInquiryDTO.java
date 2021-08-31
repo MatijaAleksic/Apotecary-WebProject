@@ -5,15 +5,14 @@ public class MedicationInquiryDTO {
     private Long medication_id;
     private Long apotecary_id;
     private int quantity;
+    private String name;
 
-    public MedicationInquiryDTO() {
-    }
-
-    public MedicationInquiryDTO(Long id, Long medication_id, Long apotecary_id, int quantity) {
+    public MedicationInquiryDTO(Long id, Long medication_id, Long apotecary_id, int quantity, String name) {
         this.id = id;
         this.medication_id = medication_id;
         this.apotecary_id = apotecary_id;
         this.quantity = quantity;
+        this.name = name;
     }
 
     public Long getId() {
@@ -46,5 +45,13 @@ public class MedicationInquiryDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

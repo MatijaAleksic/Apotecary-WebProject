@@ -56,7 +56,7 @@ INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_d
 INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (16,50,1000,'11/09/2021','07:00', 10, 11);
 INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (17,75,500,'10/07/2021','07:00', 10, 12);
 INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (18,150,750,'03/06/2021','07:00', 10, 13);
-INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (19,25,100,'08/06/2021','09:00', 11, 13);
+INSERT INTO medication_info(id,in_storage,price,price_duration_end_date, price_duration_end_time,apotecary_id,medication_id) VALUES (19,25,100,'08/06/2021','09:00', 11, 14);
 
 
 INSERT INTO medication_ratings(id,rating,medication_id,patient_id) VALUES (10,4, 10,20);
@@ -91,4 +91,3 @@ INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (92, 11, 10, 10 );
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (93, 12, 10, 5 );
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (94, 13, 10, 25 );
-INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (95, 14, 10, 75 );
