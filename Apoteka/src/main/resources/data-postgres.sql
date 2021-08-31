@@ -91,3 +91,7 @@ INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (92, 11, 10, 10 );
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (93, 12, 10, 5 );
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (94, 13, 10, 25 );
+
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (101, '01/08/2021','07:00','29/10/2021','07:00',15,20);
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (102, '01/08/2021','07:00','29/10/2021','07:00',17,20);
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (103, '01/08/2021','07:00','29/10/2021','07:00',18,20);
