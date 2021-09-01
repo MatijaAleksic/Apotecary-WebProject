@@ -2,8 +2,11 @@ package dev.danvega.Controller;
 
 import dev.danvega.DTO.ApoMedIDDTO;
 import dev.danvega.DTO.MedicationActionDTO;
+import dev.danvega.DTO.MedicationInfoDTO;
 import dev.danvega.DTO.UserIDDTO;
 import dev.danvega.Mapper.MedicationActionMapper;
+import dev.danvega.Model.Apotecary;
+import dev.danvega.Model.Medication;
 import dev.danvega.Model.MedicationAction;
 import dev.danvega.Model.MedicationInfo;
 import dev.danvega.Services.MedicationActionService;
@@ -11,6 +14,7 @@ import dev.danvega.Services.MedicationInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/medication_action")
+@RequestMapping("/api/medication-action")
 public class MedicationActionController {
 
     @Autowired
@@ -34,7 +38,8 @@ public class MedicationActionController {
     public ResponseEntity<String> delete(@RequestBody UserIDDTO userIDDTO)
     {
         try{
-            medicationActionService.delete(userIDDTO.getId());
+
+            medicationActionService.delete(medicationActionService.findAllByMedicationInfo_id(userIDDTO.getId()).getId());
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -46,23 +51,33 @@ public class MedicationActionController {
     @Transactional
     public ResponseEntity<String> addNew(@RequestBody MedicationActionDTO medicationActionDTO)
     {
-        try{
-            MedicationAction existingMedicationAction = medicationActionService.findAllByMedicationInfo_id(medicationActionDTO.getMedicationInfo_id());
-            if(existingMedicationAction == null){
-
-                MedicationInfo medInfoTemp = medicationInfoService.findOne(medicationActionDTO.getMedicationInfo_id());
-                MedicationAction newAction = medicationActionMapper.toEntity(medicationActionDTO, medInfoTemp);
+        MedicationAction existingMedicationAction = medicationActionService.findAllByMedicationInfo_id(medicationActionDTO.getMedicationInfo_id());
+        if(existingMedicationAction == null){
+            MedicationInfo medInfoTemp = medicationInfoService.findOne(medicationActionDTO.getMedicationInfo_id());
+            MedicationAction newAction = medicationActionMapper.toEntity(medicationActionDTO, medInfoTemp);
+            try{
                 medicationActionService.create(newAction);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
 
-                return new ResponseEntity<>("Uspesno kreirana nova akcija", HttpStatus.OK);
-            }
-            else{
-                return new ResponseEntity<>("Vec postoji akcija za dati lek!", HttpStatus.NOT_ACCEPTABLE);
-            }
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Uspesno kreirana nova akcija", HttpStatus.OK);
         }
 
+        else{
+                MedicationInfo medInfoTemp = medicationInfoService.findOne(medicationActionDTO.getMedicationInfo_id());
+                MedicationAction newAction = medicationActionMapper.toEntity(medicationActionDTO, medInfoTemp);
+
+            try{
+                medicationActionService.update(newAction, medicationActionDTO.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+                return new ResponseEntity<>("Uspesno azurirana akcija!", HttpStatus.OK);
+        }
     }
 
     @GetMapping("/get-all")
@@ -78,9 +93,6 @@ public class MedicationActionController {
     @PostMapping("/get")
     public ResponseEntity<MedicationAction> get(@RequestBody UserIDDTO userIDDTO){
         MedicationAction medAction = medicationActionService.findAllByMedicationInfo_id(userIDDTO.getId());
-        if(medAction == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(medAction, HttpStatus.OK);
     }
 

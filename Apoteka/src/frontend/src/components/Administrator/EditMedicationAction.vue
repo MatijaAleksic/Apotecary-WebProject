@@ -1,45 +1,36 @@
 <template>
   <div id="container"><div id="container-inner">
-    <h1>Edit Medication Info</h1>
+    <h1>Edit Medication Action</h1>
     <form>
       <fieldset>
 
           <div>
-          <label for="priceDurationEndDate">Action Start Date</label>
-          <input type="date" id="priceDurationEndDate" name="priceDurationEndDate" v-model="priceDurationEndDate" required>
+          <label for="actionStartDate">Action Start Date</label>
+          <input type="date" id="actionStartDate" name="actionStartDate" v-model="actionStartDate" required>
         </div>
 
         <div>
-          <label for="priceDurationEndDate">Price End Date</label>
-          <input type="date" id="priceDurationEndDate" name="priceDurationEndDate" v-model="priceDurationEndDate" required>
+          <label for="actionStartTime">Action Start Time</label>
+          <input type="time" id="actionStartTime" name="actionStartTime" min="00:00" max="24:00"  v-model="actionStartTime" required>
         </div>
 
         <div>
-          <label for="priceDurationEndDate">Price End Date</label>
-          <input type="date" id="priceDurationEndDate" name="priceDurationEndDate" v-model="priceDurationEndDate" required>
-        </div>
-        <div>
-          <label for="price">Price</label>
-          <input type="number"  min = "1" max = "100000" step="0.01" name="price" id="price" v-model="price" required />
+          <label for="actionEndDate">Action End Date</label>
+          <input type="date" id="actionEndDate" name="actionEndDate" v-model="actionEndDate" required>
         </div>
 
         <div>
-          <label for="priceDurationEndDate">Price End Date</label>
-          <input type="date" id="priceDurationEndDate" name="priceDurationEndDate" v-model="priceDurationEndDate" required>
+          <label for="actionEndTime">Action End Time</label>
+          <input type="time" id="actionEndTime" name="actionEndTime" min="00:00" max="24:00"  v-model="actionEndTime" required>
         </div>
 
         <div>
-          <label for="priceDurationEndTime">Price End Time</label>
-          <input type="time" id="priceDurationEndTime" name="priceDurationEndTime" min="00:00" max="24:00"  v-model="priceDurationEndTime" required>
-        </div>
-
-        <div>
-          <label for="inStorage">In Storage</label>
-          <input type="number"  min = "1" max = "100000"  name="inStorage" id="inStorage" v-model="inStorage" required />
+          <label for="procentage">Procentage</label>
+          <input type="number"  min = "1" max = "100" name="procentage" id="procentage" v-model="procentage" required />
         </div>
         
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="editMedication" value="Edit Medication Info" />
+          <input id="submit" name="submit" type="button" @click="editAction" value="Edit Medication Action" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -65,6 +56,7 @@ export default {
       actionEndDate: null,
       actionEndTime: null,
       procentage: null,
+      medicationAction_id: null,
 
       medInfoId : null
     }
@@ -76,21 +68,23 @@ export default {
 
   mounted() {
       this.medInfoId = this.medInfoID.id;
-
-      axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id})
+      
+      axios.post("/api/medication-action/get", {id: this.medInfoId})
             .then(response => {
-                this.price = response.data.price;
-                this.priceDurationEndDate= response.data.priceDurationEndDate;
-                this.priceDurationEndTime= response.data.priceDurationEndTime;
-                this.inStorage= response.data.inStorage;
-                this.medInfoId = response.data.id;
+                this.medicationAction_id = response.data.id;
+                this.actionStartDate= response.data.actionStartDate;
+                this.actionStartTime= response.data.actionStartTime;
+                this.actionEndDate= response.data.actionEndDate;
+                this.actionEndTime= response.data.actionEndTime;
+
+                this.procentage= response.data.procentage;
             })
   },
 
   methods:{
-    editMedication(){
-      axios.post("/api/medication-info/change-information", {price: this.price, priceDurationEndDate : this.priceDurationEndDate,
-      priceDurationEndTime : this.priceDurationEndTime, inStorage : this.inStorage, medication_id : this.medication_id, apotecary_id : this.apotecary_id})
+    editAction(){
+      axios.post("/api/medication-action/add-new", {id: this.medicationAction_id, actionStartDate : this.actionStartDate, actionStartTime: this.actionStartTime, actionEndDate: this.actionEndDate, 
+      actionEndTime: this.actionEndTime, medicationInfo_id: this.medInfoId, procentage: this.procentage})
           .then((response) => {
             this.msg = response.data;
             this.$emit('close-component');
