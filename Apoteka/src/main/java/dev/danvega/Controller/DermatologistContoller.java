@@ -4,6 +4,7 @@ import dev.danvega.DTO.*;
 import dev.danvega.Mapper.DermatologistMapper;
 import dev.danvega.Mapper.DermatologistPatientsMapper;
 import dev.danvega.Mapper.DermatologistSearchMapper;
+import dev.danvega.Mapper.VisitMapper;
 import dev.danvega.Model.*;
 import dev.danvega.Model.Enums.StatusCV;
 import dev.danvega.Services.*;
@@ -37,6 +38,7 @@ public class DermatologistContoller {
     private final DermatologistSearchMapper dermatologistSearchMapper = new DermatologistSearchMapper();
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
     private final DermatologistPatientsMapper dermatologistPatientsMapper = new DermatologistPatientsMapper();
+    private final VisitMapper visitMapper = new VisitMapper();
 
     @RequestMapping(value="search/name={firstname}&lastname={lastname}", method=RequestMethod.GET)
     public ResponseEntity<List<DermatologistSearchDTO>> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
@@ -93,17 +95,29 @@ public class DermatologistContoller {
         return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
     }
 
+    @PostMapping("get-all-visits")
+    public ResponseEntity<List<VisitDTO>> get_all_visits(@RequestBody DermaApotecaryDTO da)
+    {
+        List<Visit> visits = visitService.findByApotecary_IdAnd_Dermatologist_Id(da.getApotecaryID(),da.getDermaID());
+        if(visits == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toVisitDTOList(visits), HttpStatus.CREATED);
+    }
+
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
         Dermatologist dermatologist = new Dermatologist(cpr.getId(), cpr.getNewPassword());
         try{
-            dermatologist = dermathologistService.updatePassword(dermatologist);
+            System.out.println(cpr.getId());
+            System.out.println(cpr.getNewPassword());
+            dermathologistService.updatePassword(cpr.getId(),cpr.getNewPassword());
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
-        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+        return new ResponseEntity<>("Uspesno ste promenili sifru", HttpStatus.OK);
     }
 
     @PostMapping("/view-patients")
@@ -151,6 +165,20 @@ public class DermatologistContoller {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(toDermatologistDTOList(dermatologists), HttpStatus.OK);
+    }
+
+    @PostMapping("/get-personal-info")
+    public ResponseEntity<DermatologistDTO> get_personal_info(@RequestBody UserIDDTO userIDDTO)
+    {
+        Dermatologist derma;
+        try {
+            derma = dermathologistService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(dermatologistMapper.toDto(derma), HttpStatus.OK);
     }
 
     @PostMapping("/delete")
@@ -207,5 +235,13 @@ public class DermatologistContoller {
             patientDTOS.add(dermatologistPatientsMapper.toDto(patient));
         }
         return patientDTOS;
+    }
+
+    private List<VisitDTO> toVisitDTOList(List<Visit> visits){
+        List<VisitDTO> visitsDTOS = new ArrayList<>();
+        for (Visit visit : visits) {
+            visitsDTOS.add(visitMapper.toDto(visit));
+        }
+        return visitsDTOS;
     }
 }

@@ -33,3 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+Apoteka/src/main/resources/data-postgres.sql

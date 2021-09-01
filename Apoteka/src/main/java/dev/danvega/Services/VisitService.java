@@ -24,6 +24,11 @@ public class VisitService implements ServiceInterface<Visit>{
 
     public List<Visit> findByApotecary_Id(Long apotecary_id) { return visitRepository.findByApotecary_Id(apotecary_id);}
 
+    public List<Visit> findByApotecary_IdAnd_Dermatologist_Id(Long apotecary_id, Long dermatologist_id)
+    {
+        return visitRepository.findByApotecary_IdAndDermatologist_Id(apotecary_id,dermatologist_id);
+    }
+
     public Page<Visit> findAll(Pageable pageable) {
         return visitRepository.findAll(pageable);
     }
