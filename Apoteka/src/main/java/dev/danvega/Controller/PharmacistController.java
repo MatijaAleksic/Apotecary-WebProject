@@ -36,6 +36,7 @@ public class PharmacistController {
     private final ConsultationMapper consultationMapper = new ConsultationMapper();
 
     @PostMapping("/view-patients")
+    @Transactional
     public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
     {
         List<Patient> patients = consultationService.viewPatients(id.getId());
@@ -129,7 +130,6 @@ public class PharmacistController {
     @PostMapping("/vacation")
     public ResponseEntity<String>request_vacation(@RequestBody VacationPharmacistDTO vacationPharmacistDTO)
     {
-        System.out.println(vacationPharmacistDTO.getPharmacist_id());
         VacationPharmacist vacationPharmacist = new VacationPharmacist(vacationPharmacistDTO.getPharmacist_id(),
                 vacationPharmacistDTO.getStartDate(), vacationPharmacistDTO.getFinishDate(), vacationPharmacistDTO.getDescription(),
                 StatusCV.PENDING);
@@ -215,7 +215,6 @@ public class PharmacistController {
 
         for (Pharmacist pharma : pharmacists) {
             temp = pharmacistMapper.toDTO(pharma);
-            System.out.println(pharmacistRatingService.findRatingByPharmacist(pharma.getId()) + "HELLO");
             temp.setPharmacistRating(pharmacistRatingService.findRatingByPharmacist(pharma.getId()));
             pharmacistDTOS.add(temp);
         }

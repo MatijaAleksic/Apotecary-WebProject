@@ -1,16 +1,13 @@
 <template>
 <div>
     <nav>
-        <h3 class="title"> Patient Homepage </h3>
+        <h3 class="title" @click="ChangeComponent('apotecary')"> Patient Homepage </h3>
         <div class="menu-item"><a @click="ChangeComponent('profile')">Profile</a></div>
-        <div class="menu-item"><a @click="ChangeComponent('apotecary')">Apotecary</a></div>
     </nav>
 </div>
 </template>
 
 <script>
-//import { defineComponent } from '@vue/composition-api'
-
 
 export default {
     name: 'AdminNavBar',

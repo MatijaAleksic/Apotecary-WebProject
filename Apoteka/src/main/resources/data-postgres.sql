@@ -26,36 +26,18 @@ INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (1,5, 10
 INSERT INTO apotecary_ratings(id,rating,apotecary_id,patient_id) VALUES (2,4, 10,21);
 
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(51, 20, 100.00, 'Report', '08/29/2021','07:00', 0, 10,20,19);
+(51, 20, 100.00, 'Report', '29/08/2021','07:00', 0, 10,20,19);
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(52, 30, 150.00, 'Report', '08/30/2021','09:00', 0, 10,21,19);
+(52, 30, 150.00, 'Report', '30/08/2021','09:00', 0, 10,21,19);
 INSERT INTO consultations(id, duration, price, report, start_date, start_time, status, apotecary_id, patient_id, pharmacist_id) values
-(53, 40, 125.00, 'Report', '08/31/2021','10:00', 0, 10,20,19);
+(53, 40, 125.00, 'Report', '31/08/2021','10:00', 0, 10,20,19);
 
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(61, 20, 199.00, 'Report', '08/29/2021','06:00', 1, 10,17,20);
+(61, 20, 199.00, 'Report', '29/08/2021','06:00', 0, 10,17,20);
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(62, 30, 200.00, 'Report', '08/30/2021','16:00', 1, 10,17,21);
+(62, 30, 200.00, 'Report', '30/08/2021','16:00', 0, 10,17,21);
 INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(63, 40, 175.00, 'Report', '08/31/2021','23:00', 1, 10,17,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(64, 20, 199.00, 'Report', '08/10/2021','06:00', 1, 10,18,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(65, 30, 200.00, 'Report', '08/12/2021','16:00', 0, 10,18,21);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(66, 40, 175.00, 'Report', '08/12/2021','23:00', 2, 10,16,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(67, 20, 199.00, 'Report', '08/24/2021','06:00', 1, 10,17,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(68, 30, 200.00, 'Report', '08/17/2021','16:00', 1, 10,17,21);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(69, 40, 175.00, 'Report', '08/18/2021','23:00', 0, 10,18,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(70, 20, 199.00, 'Report', '08/05/2021','06:00', 0, 10,16,20);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(71, 30, 200.00, 'Report', '08/06/2021','16:00', 0, 10,16,21);
-INSERT INTO visits(id, duration, price, report, start_date, start_time, status, apotecary_id, dermatologist_id, patient_id) values
-(72, 40, 175.00, 'Report', '08/22/2021','23:00', 0, 10,17,20);
+(63, 40, 175.00, 'Report', '31/08/2021','23:00', 0, 10,17,20);
 
 
 INSERT INTO medications(id,medication_type,name) VALUES (10,1,'Antibiotik1');
@@ -110,6 +92,6 @@ INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (93, 12, 10, 5 );
 INSERT INTO medication_inquiry(id, medication_id, apotecary_id, quantity) VALUES (94, 13, 10, 25 );
 
-INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (101, '01/08/2021','07:00','10/29/2021','07:00',15,20);
-INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (102, '01/08/2021','07:00','10/10/2021','07:00',17,20);
-INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (103, '01/08/2021','07:00','10/10/2021','07:00',18,20);
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (101, '01/08/2021','07:00','29/10/2021','07:00',15,20);
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (102, '01/08/2021','07:00','29/10/2021','07:00',17,20);
+INSERT INTO medication_action(id, action_start_date, action_start_time, action_end_date, action_end_time, medication_info_id,procentage) VALUES (103, '01/08/2021','07:00','29/10/2021','07:00',18,20);

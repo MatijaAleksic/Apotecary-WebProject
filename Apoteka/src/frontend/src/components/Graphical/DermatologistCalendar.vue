@@ -149,7 +149,7 @@
       </v-col>
     </v-row>
 
-    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component" v-on:refresh="refreshCalendar"> </component>
+    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component"> </component>
 
   </v-app>
 </template>

@@ -4,12 +4,12 @@
     <form >
       <fieldset>
         <div>
-          <label for="name">First Name</label>
-          <input type="text" name="name" id="name" v-model="name"/>
+          <label for="firstname">First Name</label>
+          <input type="text" name="firstname" id="firstname" v-model="firstname"/>
         </div>
         <div>
           <label for="lastname">Last Name</label>
-          <input type="text" name="lastName" id="lastName" v-model="lastName"/>
+          <input type="text" name="lastname" id="lastname" v-model="lastname"/>
         </div>
 
         <div>
@@ -45,12 +45,12 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'Change Information Pharmacist',
+  name: 'ChangeInformationPharmacist',
   data() {
     return {
       msg: '',
-      name: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       phone: '',
       address: '',
       city: '',
@@ -70,7 +70,7 @@ export default {
 
   methods:{
     submit(){
-      axios.post("/api/pharmacist/change-informations", {id: this.userId, name: this.name, lastName: this.lastName,
+      axios.post("/api/pharmacist/change-informations", {id: this.userId, name: this.firstname, lastName: this.lastname,
         address: this.address, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;

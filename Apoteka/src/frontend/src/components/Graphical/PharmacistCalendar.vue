@@ -149,7 +149,7 @@
       </v-col>
     </v-row>
 
-    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component" v-on:refresh="refreshCalendar"> </component>
+    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component" > </component>
 
   </v-app>
 </template>
@@ -268,18 +268,6 @@ export default {
       }
       else{
         open();
-      }
-
-      if(this.selectedEvent.name == "Konsultacija"){
-        axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id})
-            .then(response => {
-              this.selected_staff = response.data;
-            })
-      }else if(this.selectedEvent.name == "Poseta"){
-        axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id})
-            .then(response => {
-              this.selected_staff = response.data;
-            })
       }
 
       let temp = new Number(this.selectedEvent.status);

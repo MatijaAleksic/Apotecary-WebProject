@@ -8,8 +8,8 @@
   <table>
     <tr bgcolor='lightgrey'>
       <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
-      <th><div @click="sortBy('name')" class="sortBy">Firstname</div></th>
-      <th><div @click="sortBy('lastName')" class="sortBy">Lastname</div></th>
+      <th><div @click="sortBy('firstname')" class="sortBy">Firstname</div></th>
+      <th><div @click="sortBy('lastname')" class="sortBy">Lastname</div></th>
       <th><div @click="sortBy('address')" class="sortBy">Address</div></th>
       <th><div @click="sortBy('city')" class="sortBy">City</div></th>
       <th><div @click="sortBy('country')" class="sortBy">Country</div></th>
@@ -17,10 +17,9 @@
     </tr>
 
     <tr v-for="patient in fillteredDermatologist"  v-bind:key="patient.id">
-      <!-- v-on:click="selectPharmacist(p)" -->
       <td> {{patient.id}}</td>
-      <td> {{patient.name}}</td>
-      <td> {{patient.lastName}}</td>
+      <td> {{patient.firstname}}</td>
+      <td> {{patient.lastname}}</td>
       <td> {{patient.address}}</td>
       <td> {{patient.city}}</td>
       <td> {{patient.country}}</td>
@@ -87,7 +86,7 @@ export default {
 
 
     refresh(){
-      axios.post("/api/dermatologist/view-patients", {id : 19})
+      axios.post("/api/dermatologist/view-patients", {id : this.userId})
           .then(response => {
             this.patients = response.data;
           })
@@ -100,9 +99,10 @@ export default {
   computed: {
     fillteredDermatologist: function() {
       return this.patients.filter( (elem) => {
-        return elem.name.match(this.searchFirstname) && elem.lastName.match(this.searchLastname)
+        return elem.firstname.toLowerCase().match(this.searchFirstname) && elem.lastname.toLowerCase().match(this.searchLastname)
       });
     }
+
   }
 }
 </script>

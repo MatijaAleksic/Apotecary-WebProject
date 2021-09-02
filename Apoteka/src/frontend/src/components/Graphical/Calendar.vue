@@ -284,7 +284,6 @@ export default ({
 
       refreshCalendar(){
         this.event = [];
-        alert("refresh")
         axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
           .then((response) => {
             this.consultations = response.data;

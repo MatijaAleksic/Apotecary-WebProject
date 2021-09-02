@@ -13,21 +13,12 @@
 <script>
 export default {
   name: "DermatologistNavBar",
-  props: {
-    adminINFO: Object
-  },
   data(){
     return{
-      userId : Number,
-      apotecary_id : null,
-
       component: '',
     }
   },
 
-  mounted() {
-    alert(this.adminINFO.apotecary_id)
-  },
   methods:{
 
     ChangeComponent(value){

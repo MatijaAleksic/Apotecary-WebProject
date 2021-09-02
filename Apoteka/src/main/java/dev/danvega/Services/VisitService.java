@@ -79,7 +79,9 @@ public class VisitService implements ServiceInterface<Visit>{
         List<Visit> visits = visitRepository.findByDermatologist_Id(id);
         ArrayList<Patient> patients = new ArrayList<Patient>();
         for(Visit x : visits){
-            patients.add(x.getPatient());
+            if(x.getPatient() != null) {
+                patients.add(x.getPatient());
+            }
         }
         return patients;
     }

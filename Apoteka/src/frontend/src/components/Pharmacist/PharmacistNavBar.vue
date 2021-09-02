@@ -13,25 +13,17 @@
 <script>
 export default {
   name: "PharmacistNavBar",
-  props: {
-    adminINFO: Object
-  },
+
   data(){
     return{
-      userId : Number,
-      apotecary_id : null,
 
       component: '',
     }
   },
 
-  mounted() {
-    alert(this.adminINFO.apotecary_id)
-  },
   methods:{
 
     ChangeComponent(value){
-      //alert(value);
       this.$emit('change-main-component', value);
     }
   }

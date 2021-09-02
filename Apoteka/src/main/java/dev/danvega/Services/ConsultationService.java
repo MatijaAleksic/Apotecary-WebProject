@@ -79,7 +79,9 @@ public class ConsultationService implements ServiceInterface<Consultation>{
         List<Consultation> counsultations = consultationRepository.findByPharmacist_Id(id);
         ArrayList<Patient> patients = new ArrayList<Patient>();
         for(Consultation x : counsultations){
-            patients.add(x.getPatient());
+            if(x.getPatient() != null) {
+                patients.add(x.getPatient());
+            }
         }
         return patients;
     }
