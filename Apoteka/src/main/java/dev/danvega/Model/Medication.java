@@ -58,6 +58,9 @@ public class Medication {
         this.medicationType = medicationType;
     }
 
+    public Medication(Long id, String name) {
+    }
+
     public List<MedicationInquiry> getMedicationInquiry() {
         return medicationInquiry;
     }

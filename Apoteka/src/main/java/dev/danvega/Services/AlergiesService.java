@@ -24,6 +24,11 @@ public class AlergiesService implements ServiceInterface<Alergies>{
         return alergiesRepository.findAll(pageable);
     }
 
+    public List<Alergies> findALlByPatient_Id(Long patientID)
+    {
+        return alergiesRepository.findByPatient_Id(patientID);
+    }
+
     @Override
     public Alergies findOne(Long id) {
         return alergiesRepository.findById(id).orElse(null);

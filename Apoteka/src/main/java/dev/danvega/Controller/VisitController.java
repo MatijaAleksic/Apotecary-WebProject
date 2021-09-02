@@ -79,6 +79,27 @@ public class VisitController {
 
     }
 
+    @PostMapping("/change-information")
+    @Transactional
+    public ResponseEntity<String> changeInformation(@RequestBody VisitInfoDTO visitInfoDTO)  {
+
+        Visit visit = visitService.findOne(visitInfoDTO.getVisitID());
+
+            visit.setPrice(visitInfoDTO.getPrice());
+            visit.setReport(visitInfoDTO.getReport());
+
+            try{
+                visitService.updateReport(visit, visit.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>("Uspesno ste promenili informacije", HttpStatus.OK);
+
+
+
+    }
+
 
 
     private List<VisitDTO> toVisitDTOList(List<Visit> visits){

@@ -62,6 +62,20 @@ public class VisitService implements ServiceInterface<Visit>{
         return visitRepository.save(existingVisit);
     }
 
+    public Visit updateReport(Visit entity, Long id) throws Exception {
+        Visit existingVisit =  visitRepository.findById(id).orElse(null);
+        if(existingVisit == null){
+            throw new Exception("Visit with given id doesn't exist");
+        }
+        existingVisit.setPrice(entity.getPrice());
+        existingVisit.setReport(entity.getReport());
+
+        if(visitRepository.findByApotecary_IdAndPatient_IdAndDermatologist_Id(entity.getApotecary().getId(),entity.getPatient().getId(),entity.getDermatologist().getId()) != null){
+            throw new Exception("Visit for given patient, dermatologist, apotecary already exists");
+        }
+        return visitRepository.save(existingVisit);
+    }
+
     @Override
     public void delete(Long id) throws Exception {
         Visit existingVisit = visitRepository.findById(id).orElse(null);
@@ -85,4 +99,5 @@ public class VisitService implements ServiceInterface<Visit>{
         }
         return patients;
     }
+
 }

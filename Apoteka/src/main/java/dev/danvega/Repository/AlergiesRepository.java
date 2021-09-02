@@ -4,10 +4,13 @@ import dev.danvega.Model.Alergies;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AlergiesRepository extends JpaRepository<Alergies, Long> {
 
-    Alergies findByPatient_Id(Long id);
+    List<Alergies> findByPatient_Id(Long id);
+
 
     Alergies findByMedication_Id(Long id);
 

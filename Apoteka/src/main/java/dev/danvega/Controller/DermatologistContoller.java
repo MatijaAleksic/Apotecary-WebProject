@@ -1,10 +1,7 @@
 package dev.danvega.Controller;
 
 import dev.danvega.DTO.*;
-import dev.danvega.Mapper.DermatologistMapper;
-import dev.danvega.Mapper.DermatologistPatientsMapper;
-import dev.danvega.Mapper.DermatologistSearchMapper;
-import dev.danvega.Mapper.VisitMapper;
+import dev.danvega.Mapper.*;
 import dev.danvega.Model.*;
 import dev.danvega.Model.Enums.StatusCV;
 import dev.danvega.Services.*;
@@ -39,6 +36,9 @@ public class DermatologistContoller {
     private final DermatologistMapper dermatologistMapper = new DermatologistMapper();
     private final DermatologistPatientsMapper dermatologistPatientsMapper = new DermatologistPatientsMapper();
     private final VisitMapper visitMapper = new VisitMapper();
+    private final VisitTableMapper visitTableMapper = new VisitTableMapper();
+
+
 
     @RequestMapping(value="search/name={firstname}&lastname={lastname}", method=RequestMethod.GET)
     public ResponseEntity<List<DermatologistSearchDTO>> searchDermatologist(@PathVariable String firstname, @PathVariable String lastname){
@@ -104,6 +104,19 @@ public class DermatologistContoller {
         }
         return new ResponseEntity<>(toVisitDTOList(visits), HttpStatus.CREATED);
     }
+    @PostMapping("get-all-visits-table")
+    @Transactional
+    public ResponseEntity<List<VisitTableDTO>> get_all_visits_table(@RequestBody DermaApotecaryDTO da)
+    {
+        System.out.println(da.apotecaryID);
+        System.out.println(da.dermaID);
+        List<Visit> visits = visitService.findByApotecary_IdAnd_Dermatologist_Id(da.getApotecaryID(),da.getDermaID());
+        if(visits == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toVisitTableDTOList(visits), HttpStatus.CREATED);
+    }
+
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
@@ -244,4 +257,13 @@ public class DermatologistContoller {
         }
         return visitsDTOS;
     }
+
+    private List<VisitTableDTO> toVisitTableDTOList(List<Visit> visits){
+        List<VisitTableDTO> visitsDTOS = new ArrayList<>();
+        for (Visit visit : visits) {
+            visitsDTOS.add(visitTableMapper.toDto(visit));
+        }
+        return visitsDTOS;
+    }
+
 }
