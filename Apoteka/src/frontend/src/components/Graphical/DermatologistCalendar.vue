@@ -116,7 +116,7 @@
                     plain
                     @click="removeVisit()"
                 >
-                  Delete
+                  Report
                 </v-btn>
 
               </v-toolbar>
@@ -155,12 +155,13 @@
 </template>
 
 <script>
-import AddNewVisit from "@/components/Administrator/AddNewVisit";
+
 import axios from "axios";
+import AddVisitDermatologist from "@/components/Dermatologist/AddVisitDermatologist";
 
 export default {
   components: {
-    'add-visit' : AddNewVisit,
+    'add-visit' : AddVisitDermatologist,
   },
 
   name: 'DermatologistCalendar',
@@ -250,6 +251,7 @@ export default {
         });
   },
   methods:{
+
   setToday () {
     this.focus = ''
   },
