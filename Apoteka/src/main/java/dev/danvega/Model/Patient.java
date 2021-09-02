@@ -54,7 +54,7 @@ public class Patient extends User {
 
     public Patient(Long id, String firstname, String lastname, String city, String adress, String phone, String country)
     {
-        super(firstname, lastname,city,adress,phone, country);
+        super(id, firstname, lastname,city,adress,phone, country);
     }
 
     public Patient(Long id, String firstName, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
@@ -70,6 +70,10 @@ public class Patient extends User {
 
     public Patient(String firstname, String lastname, String username, String email, String adress, String city, String country, String phone) {
         super(firstname, lastname, username, email, adress, city, country, phone);
+    }
+
+    public Patient(Long id, String newPassword) {
+        super(id,newPassword);
     }
 
 

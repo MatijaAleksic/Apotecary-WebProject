@@ -78,4 +78,6 @@ public class AdminChangeInfo {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

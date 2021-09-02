@@ -13,7 +13,7 @@
     <pharmacist-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user =='pharmacist' && this.first_time_login == 'false' "></pharmacist-homepage>
     <admin-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user == 'administrator' && this.first_time_login == 'false'"> </admin-homepage>
     <dermatologist-homepage :userInfo ="{userId : this.user_id}" v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"></dermatologist-homepage>
-    <patient-homepage v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
+    <patient-homepage :userInfo ="{ logged_user : this.logged_user, userId : this.user_id }" v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
 
     <first-login :userInfo ="{ logged_user : this.logged_user, userId : this.user_id }" v-if="logged_user != '' && this.first_time_login == 'true'" v-on:updateinfo="updateInformation"></first-login>
 

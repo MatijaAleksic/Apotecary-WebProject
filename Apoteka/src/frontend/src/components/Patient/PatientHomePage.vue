@@ -1,40 +1,91 @@
 <template>
   <div>
-    <div>
-      <h1>Patient homepage</h1>
-      <input id="profile" type="button" name="profile" @click="component ='patient-profile'" value="User Profile" />
-    </div>
-    <div class="list">
-      <ol>
-        <li v-for="apothecary in apothecaryList" v-bind:key="apothecary">{{apothecary}}</li>
-      </ol>
-    </div>
-    <component v-bind:is="component"> </component>
+    <header>
+      <patient-nav-bar v-on:change-main-component="changeMainComponent"></patient-nav-bar>
+    </header>
+
+      <component :patiINFO ="{userId : this.userId}" v-bind:is="component"> </component>
+
   </div>
+    
 </template>
 
 <script>
-import PatientProfileCard from "@/components/Patient/PatientProfileCard";
-import axios from "axios";
+
+//import axios from "axios";
+
+import PatientNavBar from "./PatientNavBar";
+import PatientProfile from "@/components/Profiles/PatientProfile.vue";
+import ApotecaryPatientProfile from "@/components/Profiles/ApotecaryPatientProfile.vue";
 
 export default {
   name: "PatientHomePage",
-  components:{
-    'patient-profile': PatientProfileCard
+
+  props: {
+    userInfo: Object
   },
-  data(){
+
+components:{
+  'patient-nav-bar' : PatientNavBar,
+
+  'patient-profile' : PatientProfile,
+  'apotecary-profile' : ApotecaryPatientProfile,
+
+},
+
+ data(){
     return{
-      component:null,
-      apothecaryList : [],
+      userId : Number,
+
+      component: '',
+      
     }
   },
-  list() {
-    axios.get("/api/apotecary/apothecary-list/")
-        .then(response => this.apothecaryList = response.data);
-  },
+
+  mounted() {
+    this.userId = this.userInfo.userId;
+    this.component = 'apotecary-profile';
+    /*axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
+          .then((response) => {
+            this.apotecary_id = response.data;
+            this.component = 'apotecary-profile';
+          });*/
+    },
+    
+
+  methods: {
+    changeMainComponent(value)
+    {
+      if(value == 'profile')
+      {
+        this.component = 'patient-profile';
+      }
+      else{
+        this.component = 'apotecary-profile';
+      }
+    },
+
+    selectApotecary(value)
+    {
+      this.selectedApotecary = value;
+    },
+  }
 }
+
 </script>
 
 <style scoped>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header{
+  width: 100vw;
+  background-color: #5f9ea0;
+  padding: 15px;
+}
 
 </style>

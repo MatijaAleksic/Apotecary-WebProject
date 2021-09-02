@@ -7,72 +7,33 @@ import java.time.LocalTime;
 
 public class PatientDTO {
 
-
     private Long id;
-    private String name;
-    private String lastName;
-    private String address;
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String password;
+    private String email;
+    private String adress;
     private String city;
     private String country;
     private String phone;
-    private Long apotecary_id;
-
-
-
-    @JsonFormat(pattern = "dd/mm/yyyy")
-    private LocalDate date;
-    @JsonFormat(pattern = "HH:mm")
-    private LocalTime time;
-
-
 
     public PatientDTO() {
     }
-    public PatientDTO(Long id, String name, String lastName, String address, String city, String country, String phone, LocalDate date, LocalTime time, Long apotecary_id) {
+
+    public PatientDTO(Long id, String firstname, String lastname, String username, String password, String email, String adress, String city, String country, String phone) {
         this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.country = country;
-        this.phone = phone;
-        this.date = date;
-        this.time = time;
-        this.apotecary_id = apotecary_id;
-    }
-    public PatientDTO(Long id,String name, String lastName, String address, String city, String country, String phone) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.address = address;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.adress = adress;
         this.city = city;
         this.country = country;
         this.phone = phone;
     }
 
-    public Long getApotecary_id() {
-        return apotecary_id;
-    }
-
-    public void setApotecary_id(Long apotecary_id) {
-        this.apotecary_id = apotecary_id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
     public Long getId() {
         return id;
     }
@@ -81,28 +42,52 @@ public class PatientDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public String getCity() {

@@ -59,7 +59,6 @@ public class AdministratorService implements ServiceInterface<Administrator>{
     }
 
     public Administrator update_info(Administrator entity) throws Exception {
-        System.out.println(entity.getId());
         Administrator existingAdministrator =  administratorRepository.findById(entity.getId()).orElse(null);
 
         if(existingAdministrator == null){

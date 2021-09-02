@@ -4,29 +4,33 @@
     <form >
       <fieldset>
         <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" v-model="name"/>
+          <label for="name">First Name</label>
+          <input type="text" name="firstname" id="firstname" v-model="firstname"/>
         </div>
         <div>
-          <label for="lastName">Last Name</label>
-          <input type="text" name="lastName" id="lastName" v-model="lastName"/>
+          <label for="lastname">Last Name</label>
+          <input type="text" name="lastname" id="lastname" v-model="lastname"/>
         </div>
+
         <div>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" v-model="username"/>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" id="phone" v-model="phone"/>
         </div>
         <div>
           <label for="address">Address</label>
           <input type="text" name="address" id="address" v-model="address"/>
         </div>
         <div>
-          <label for="phoneNumber">Your new password</label>
-          <input type="text" name="phoneNumber" id="phoneNumber" v-model="phoneNumber"/>
+          <label for="city">City</label>
+          <input type="text" name="city" id="city" v-model="city"/>
+        </div>
+        <div>
+          <label for="country">Country</label>
+          <input type="text" name="country" id="country" v-model="country"/>
         </div>
 
-        <!-- Controls -->
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Save Info" />
+          <input id="submit" name="submit" type="button" @click="submit" value="Change info" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -39,24 +43,40 @@
 
 <script>
 import axios from "axios";
+
 export default {
-  name: 'Change Information',
+  name: 'ChangePersonalInformation',
   data() {
     return {
       msg: '',
-      name: '',
-      lastName: '',
-      username: '',
+      firstname: '',
+      lastname: '',
+      phone: '',
       address: '',
-      phoneNumber: ''
+      city: '',
+      country: '',
+
+      userId : Number
     }
   },
+
+  props: {
+    patientINF: Object
+  },
+
+  mounted() {
+    alert(this.patientINF.userId)
+      this.userId = this.patientINF.userId;
+      alert(this.userId);
+  },
+
   methods:{
     submit(){
-      axios.post("/api/patient/change-information", {name: this.name, lastName: this.lastName, username: this.username,
-      address: this.address, phoneNumber: this.phoneNumber})
+      axios.post("/api/patient/change-information", {id: this.userId, firstname: this.firstname, lastname: this.lastname,
+      address: this.address, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;
+            this.$emit('refresh-component');
           });
     }
   }}

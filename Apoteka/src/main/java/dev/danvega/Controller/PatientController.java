@@ -1,8 +1,9 @@
 package dev.danvega.Controller;
 
-import dev.danvega.DTO.ChangeInformationRequest;
-import dev.danvega.DTO.PatientDTO;
-import dev.danvega.DTO.PhrmacistChangeInfo;
+import dev.danvega.DTO.*;
+import dev.danvega.Mapper.AdministratorMapper;
+import dev.danvega.Mapper.PatienteMapper;
+import dev.danvega.Model.Administrator;
 import dev.danvega.Model.Patient;
 import dev.danvega.Model.Pharmacist;
 import dev.danvega.Services.ChangeInformation;
@@ -21,15 +22,18 @@ public class PatientController {
     @Autowired
     PatientService patientService = new PatientService();
 
+    PatienteMapper patientMapper = new PatienteMapper();
+
 
     ChangeInformation change = new ChangeInformation();
 
     @PostMapping("/change-information")
-    public ResponseEntity<String> changeInformation(@RequestBody ChangeInformationRequest cir){
-        Patient patient = new Patient(cir.getName(), cir.getLastName(), cir.getUsername(), cir.getAddress(), cir.getPhoneNumber());
-
+    public ResponseEntity<String> changeInformation(@RequestBody AdminChangeInfo cir){
+        System.out.println(cir.getId());
+        Patient patient = new Patient(cir.getId(), cir.getFirstname(), cir.getLastname(), cir.getAddress(),
+                cir.getCity(),cir.getCountry(), cir.getPhone());
         try{
-            patient = patientService.updateInfo(patient);
+            patientService.updateInfo(patient);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -37,11 +41,34 @@ public class PatientController {
         }
         return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
     }
-    /*public String change_information(@RequestBody ChangeInformationRequest cir)
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
+        Patient patient = new Patient(cpr.getId(), cpr.getNewPassword());
+        try{
+            patientService.updatePassword(patient);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
+
+    @PostMapping("/get-personal-info")
+    public ResponseEntity<PatientDTO> get_personal_info(@RequestBody UserIDDTO userIDDTO)
     {
-        change.changeInfo(cir.getName(), cir.getLastName(), cir.getUsername(), cir.getAddress(), cir.getPhoneNumber());
-        return "Uspesno ste promenili informacije";
-    }*/
+        Patient patient;
+        try {
+            patient = patientService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(patientMapper.toDto(patient), HttpStatus.OK);
+    }
+
 }
 
 

@@ -61,7 +61,16 @@ public class PatientService  implements ServiceInterface<Patient>{
         return patientRepository.save(existingPatient);
     }
 
+    public Patient updatePassword(Patient entity) throws Exception{
+        Patient existingPatient =  patientRepository.findById(entity.getId()).orElse(null);
+        if(existingPatient == null){
+            throw new Exception("Patient with given id doesn't exist");
+        }
 
+        existingPatient.setPassword(entity.getPassword());
+
+        return patientRepository.save(existingPatient);
+    }
 
     @Override
     public void delete(Long id) throws Exception {
@@ -84,16 +93,18 @@ public class PatientService  implements ServiceInterface<Patient>{
     }
 
     public Patient updateInfo(Patient entity) throws Exception {
-        Patient existingPatient=  patientRepository.findById(entity.getId()).orElse(null);
+
+        System.out.println(entity.getId());
+        Patient existingPatient =  patientRepository.findById(entity.getId()).orElse(null);
         if(existingPatient == null){
             throw new Exception("Patient with given id doesn't exist");
         }
         existingPatient.setFirstname(entity.getFirstname());
         existingPatient.setLastname(entity.getLastname());
-        existingPatient.setUsername(entity.getUsername());
-        existingPatient.setAdress(entity.getAdress());
         existingPatient.setPhone(entity.getPhone());
-
+        existingPatient.setAdress(entity.getAdress());
+        existingPatient.setCity(entity.getCity());
+        existingPatient.setCountry(entity.getCountry());
 
         if(patientRepository.findByEmail(entity.getEmail()) != null){
             throw new Exception("Patient with given email already exists");
