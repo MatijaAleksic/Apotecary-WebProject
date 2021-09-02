@@ -29,6 +29,10 @@ public class VisitService implements ServiceInterface<Visit>{
         return visitRepository.findByApotecary_IdAndDermatologist_Id(apotecary_id,dermatologist_id);
     }
 
+    public List<Visit> findByPatient_Id(Long patient_id){
+        return visitRepository.findByPatient_Id(patient_id);
+    }
+
     public Page<Visit> findAll(Pageable pageable) {
         return visitRepository.findAll(pageable);
     }
@@ -55,10 +59,8 @@ public class VisitService implements ServiceInterface<Visit>{
         existingVisit.setStartDate(entity.getStartDate());
         existingVisit.setStartTime(entity.getStartTime());
         existingVisit.setStatus(entity.getStatus());
+        existingVisit.setPatient(entity.getPatient());
 
-        if(visitRepository.findByApotecary_IdAndPatient_IdAndDermatologist_Id(entity.getApotecary().getId(),entity.getPatient().getId(),entity.getDermatologist().getId()) != null){
-            throw new Exception("Visit for given patient, dermatologist, apotecary already exists");
-        }
         return visitRepository.save(existingVisit);
     }
 

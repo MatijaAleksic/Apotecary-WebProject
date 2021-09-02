@@ -4,13 +4,7 @@
     <v-col>
       <v-sheet height="64">
         <v-toolbar flat>
-          <v-btn
-            class="mr-4"
-            color="blue"
-            @click="component = 'add-visit'"
-          >
-            Add Consultation
-          </v-btn>
+
           <v-btn
             outlined
             class="mr-4"
@@ -114,9 +108,9 @@
                 class="ma-1"
                 color="error"
                 plain
-                @click="removeVisit()"
+                @click="bookEvent()"
               >
-                Delete
+                Book Event
               </v-btn>
 
             </v-toolbar>
@@ -222,13 +216,13 @@ export default ({
 
     }),
     props: {
-      adminINF: Object
+      apotecaryID: Object
     },
 
     mounted(){
 
-      this.apotecary_id = this.adminINF.apotecary_id;
-      this.user_id = this.adminINF.userId;
+      this.apotecary_id = this.apotecaryID.apotecary_id;
+      this.user_id = this.apotecaryID.userId;
 
       axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
           .then((response) => {
@@ -245,6 +239,7 @@ export default ({
                   endDate.setMinutes(startDate.getMinutes() + consultation.duration);
 
                   this.events.push({
+                    id: consultation.id,
                     name: "Konsultacija",
                     start: startDate,
                     end: endDate,
@@ -265,6 +260,7 @@ export default ({
                   endDate.setMinutes(startDate.getMinutes() + visit.duration);
 
                   this.events.push({
+                    id: visit.id,
                     name: "Poseta",
                     start: startDate,
                     end: endDate,
@@ -284,6 +280,12 @@ export default ({
 
       refreshCalendar(){
         this.event = [];
+        this.events=  [];
+        this.currenlyEditing = null;
+        this.selectedEvent= {},
+        this.selectedElement = null,
+        this.selectedOpen = false,
+
         axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
           .then((response) => {
             this.consultations = response.data;
@@ -337,21 +339,16 @@ export default ({
           });
       },
 
-      removeVisit(){
-        axios.post("/api/visit/delete", {id: this.selectedEvent.id})
-          .then(() => {
-            
-            for (let visit of this.events) {
+      bookEvent(){
 
-              if(visit == this.selectedEvent.id){
-                this.events = this.events.filter(obj => obj !== visit);
-              }
-            }
-            
+          axios.post("/api/patient/book-event", {patId: new Number(this.user_id), eventId : this.selectedEvent.id, kategorija : this.selectedEvent.name })
+          .then(() => {
+
+                this.refreshCalendar();
 
             }).catch(err => {
-              if (err.response.status === 406) {
-                alert("Removing visit not possible!");
+              if (err.response.status === 400) {
+                alert("Event alredy booked by another patient!");
               }
             })
       },
@@ -395,10 +392,10 @@ export default ({
         let temp = new Number(this.selectedEvent.status);
 
         if(temp == 0){
-          this.status = "Pending"
+          this.status = "Free"
         }
         else if (temp == 1){
-          this.status = "Accepted"
+          this.status = "Booked"
         }
         else if (temp == 3){
           this.status = "Delined"
