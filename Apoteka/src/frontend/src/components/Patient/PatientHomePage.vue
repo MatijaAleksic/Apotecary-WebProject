@@ -4,7 +4,7 @@
       <patient-nav-bar v-on:change-main-component="changeMainComponent"></patient-nav-bar>
     </header>
 
-      <component :patiINFO ="{userId : this.userId}" v-bind:is="component"> </component>
+      <component v-on:refresh-component="refreshComponent" v-on:selected-apotecary="selectApotecary" :patiINFO ="{userId : this.userId, apotecary_id : this.selectedApotecary}" v-bind:is="component"> </component>
 
   </div>
     
@@ -18,6 +18,9 @@ import PatientNavBar from "./PatientNavBar";
 import PatientProfile from "@/components/Profiles/PatientProfile.vue";
 import ApotecaryPatientProfile from "@/components/Profiles/ApotecaryPatientProfile.vue";
 
+import PatientApotecaryTable from '@/components/Tables/PatientApotecaryTable.vue';
+
+
 export default {
   name: "PatientHomePage",
 
@@ -27,8 +30,9 @@ export default {
 
 components:{
   'patient-nav-bar' : PatientNavBar,
-
   'patient-profile' : PatientProfile,
+  'apotecary-table' : PatientApotecaryTable,
+
   'apotecary-profile' : ApotecaryPatientProfile,
 
 },
@@ -38,13 +42,14 @@ components:{
       userId : Number,
 
       component: '',
+      selectedApotecary: null,
       
     }
   },
 
   mounted() {
     this.userId = this.userInfo.userId;
-    this.component = 'apotecary-profile';
+    this.component = 'apotecary-table';
     /*axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
           .then((response) => {
             this.apotecary_id = response.data;
@@ -61,14 +66,20 @@ components:{
         this.component = 'patient-profile';
       }
       else{
-        this.component = 'apotecary-profile';
+        this.component = 'apotecary-table';
       }
     },
 
     selectApotecary(value)
-    {
-      this.selectedApotecary = value;
-    },
+      {
+        this.selectedApotecary = value;
+        this.component = 'apotecary-profile'
+      },
+
+    refreshComponent(){
+            this.component = null;
+            this.refresh();
+        },
   }
 }
 

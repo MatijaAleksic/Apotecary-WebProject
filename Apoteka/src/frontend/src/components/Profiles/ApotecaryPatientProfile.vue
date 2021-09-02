@@ -1,27 +1,30 @@
 <template>
 <div>
-            <v-btn v-on:click="component ='apotecary-table'">Apotecary Table</v-btn>
+        <v-btn>Medication Table</v-btn>
+        <v-btn>Calendar</v-btn>
+        <v-btn>Dermatologists</v-btn>
+        <v-btn>Pharmacists</v-btn>
 
-        <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+        <component v-on:refresh-component="refreshComponent" :apotecaryID ="{userId : userId, apotecary_id : this.selectApotecary}" v-bind:is="component"> </component>
 </div>
 </template>
 
 <script>
 
-import ApotecaryTable from '@/components/Tables/ApotecaryTable.vue';
-
+import UnsignedMedicationTable from '@/components/Tables/UnsignedMedicationTable.vue';
 
 //import axios from "axios";
+// <v-btn v-on:click="component ='apotecary-table'">Apotecary Table</v-btn>
 
 export default {
   name: "ApotecaryPatientProfile",
 
     props: {
-        adminINFO: Object
+        patiINFO: Object
     },
 
   components:{
-    'apotecary-table': ApotecaryTable,
+    'medication-table' : UnsignedMedicationTable,
   },
 
 
@@ -30,11 +33,14 @@ export default {
       component: null,
 
       userId : Number,
+      selectedApotecary : null
+      
     }
   },
 
   mounted() {
     this.userId = this.patiINFO.userId;
+    this.selectedApotecary = this.patiInfo.apotecary_id;
     },
 
     methods: {
@@ -46,8 +52,13 @@ export default {
         refreshComponent(){
             this.component = null;
             this.refresh();
-        }
-    }
+        },
+        selectApotecary(value)
+      {
+        this.selectedApotecary = value;
+        this.component = 'medication-table'
+      }
+    },
 }
 </script>
 
