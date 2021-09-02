@@ -31,7 +31,7 @@
 import axios from "axios";
 
 export default {
-  name: "ChangePasswordPharmacist",
+  name: "ChangePasswordDermatologist",
 
   data() {
     return {
@@ -55,8 +55,6 @@ export default {
 
   methods: {
     submit() {
-      alert(this.userId);
-      alert(this.newPassword);
       if (this.reNewPassword == this.newPassword) {
         axios.post("/api/dermatologist/change-password", {id: this.userId, newPassword: this.newPassword})
             .then((response) => {

@@ -46,10 +46,10 @@ export default {
     }
   },
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
   mounted() {
-    this.pharmacist_id = this.adminINFO.userId;
+    this.pharmacist_id = this.adminINF.userId;
 
   },
   methods:{

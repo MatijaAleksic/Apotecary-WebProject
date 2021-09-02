@@ -42,11 +42,10 @@ public class ConsultationController {
     public ResponseEntity<String>new_counsultation(@RequestBody ConsultationDTO cDTO)
     {
         Pharmacist a = pharmacistService.findOne(cDTO.getPharmacist_id());
-        Patient b = patientService.findOne(cDTO.getPatient_id());
         Apotecary c = apotecaryService.findOne(cDTO.getApotecary_id());
 
         Consultation consultation = new Consultation(cDTO.getId(),cDTO.getStartDate(),cDTO.getStartTime(),cDTO.getDuration(),
-                cDTO.getPrice(),cDTO.getStatus(),cDTO.getReport(),a,b, c);
+                cDTO.getPrice(),cDTO.getStatus(),cDTO.getReport(),a,null, c);
 
         try{
             consultationService.create(consultation);

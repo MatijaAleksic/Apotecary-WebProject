@@ -15,7 +15,6 @@ import DermatologistPatientTable from "@/components/Tables/DermatologistPatientT
 import DermatologistProfile from "@/components/Profiles/DermatologistProfile";
 import DermatologistCalendar from "@/components/Graphical/DermatologistCalendar";
 import axios from "axios";
-import Calendar from "@/components/Graphical/Calendar";
 
 export default {
   name: "DermatologistHomePage",
@@ -30,7 +29,6 @@ export default {
     'patients': DermatologistPatientTable,
     'derma-profile' : DermatologistProfile,
     'calendar':DermatologistCalendar,
-    'calendar2':Calendar,
   },
 
   data(){

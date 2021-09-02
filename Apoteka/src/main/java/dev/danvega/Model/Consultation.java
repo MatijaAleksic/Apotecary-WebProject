@@ -35,11 +35,11 @@ public class Consultation {
     @Column(unique = false, nullable = true)
     private String report;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pharmacist_id")
     private Pharmacist pharmacist;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
@@ -94,6 +94,18 @@ public class Consultation {
         this.report = report;
         this.pharmacist = a;
         this.patient = b;
+        this.apotecary = c;
+    }
+
+    public Consultation(Long id, LocalDate startDate, LocalTime startTime, int duration, double price, int status, String report, Pharmacist a, Apotecary c) {
+        this.id = id;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.price = price;
+        this.status = StatusCV.fromInteger(status);
+        this.report = report;
+        this.pharmacist = a;
         this.apotecary = c;
     }
 

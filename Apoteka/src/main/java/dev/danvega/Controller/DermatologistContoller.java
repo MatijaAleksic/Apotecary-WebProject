@@ -86,7 +86,7 @@ public class DermatologistContoller {
     public ResponseEntity<String> changeInformation(@RequestBody DermatologistChangeInfoDTO pci){
         Dermatologist dermatologist = new Dermatologist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
         try{
-            dermatologist = dermathologistService.updateInfo(dermatologist);
+            dermathologistService.updateInfo(dermatologist);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
