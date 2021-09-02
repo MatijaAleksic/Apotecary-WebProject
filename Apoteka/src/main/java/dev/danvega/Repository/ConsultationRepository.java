@@ -17,4 +17,6 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
     List<Consultation> findByPharmacist_Id(Long pharmacist_id);
 
     List<Consultation> findByApotecary_Id(Long apotecary_id);
+
+    List<Consultation> findByApotecary_IdAndPharmacist_Id(Long apotecary_id, Long dermatologist_id);
 }

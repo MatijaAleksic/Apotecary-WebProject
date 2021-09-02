@@ -30,6 +30,11 @@ public class ConsultationService implements ServiceInterface<Consultation>{
 
     public List<Consultation> findByApotecary_Id(Long apotecary_id) { return consultationRepository.findByApotecary_Id(apotecary_id);}
 
+    public List<Consultation> findByApotecary_IdAnd_Pharmacist_Id(Long apotecary_id, Long dermatologist_id)
+    {
+        return consultationRepository.findByApotecary_IdAndPharmacist_Id(apotecary_id,dermatologist_id);
+    }
+
     @Override
     public Consultation findOne(Long id) {
         return consultationRepository.findById(id).orElse(null);

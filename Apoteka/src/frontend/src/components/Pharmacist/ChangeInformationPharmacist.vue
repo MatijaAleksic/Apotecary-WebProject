@@ -1,39 +1,37 @@
 <template>
-  <div id="container"><div id="container-inner"  >
-    <form>
+  <div id="container"><div id="container-inner">
+    <h1>Change Information</h1>
+    <form >
       <fieldset>
-        <div class="field">
-          <label for="id">Id</label>
-          <input type="number" name="id" id="id" v-model="id"/>
-        </div>
-        <div class="field">
-          <label class="labela" for="name">Name</label>
+        <div>
+          <label for="name">First Name</label>
           <input type="text" name="name" id="name" v-model="name"/>
         </div>
-        <div class="field">
-          <label class="labela" for="lastName">Last Name</label>
+        <div>
+          <label for="lastname">Last Name</label>
           <input type="text" name="lastName" id="lastName" v-model="lastName"/>
         </div>
-        <div class="field">
-          <label class="labela" for="city">Username</label>
-          <input type="text" name="city" id="city" v-model="city"/>
+
+        <div>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" id="phone" v-model="phone"/>
         </div>
-        <div class="field">
-          <label class="labela" for="address">Address</label>
+        <div>
+          <label for="address">Address</label>
           <input type="text" name="address" id="address" v-model="address"/>
         </div>
-        <div class="field">
-          <label class="labela" for="country">Country</label>
-          <input class="labela" type="text" name="country" id="country" v-model="country"/>
+        <div>
+          <label for="city">City</label>
+          <input type="text" name="city" id="city" v-model="city"/>
         </div>
-        <div class="field">
-          <label class="labela" for="phone">Phone</label>
-          <input type="text" name="phone" id="phone" v-model="phone"/>
+        <div>
+          <label for="country">Country</label>
+          <input type="text" name="country" id="country" v-model="country"/>
         </div>
 
         <!-- Controls -->
-        <div class="field">
-          <input id="submit" name="submit" type="button" @click="submit" value="Save Info" />
+        <div class="controls">
+          <input id="submit" name="submit" type="button" @click="submit" value="Change info" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -53,19 +51,30 @@ export default {
       msg: '',
       name: '',
       lastName: '',
-      city: '',
-      address: '',
       phone: '',
+      address: '',
+      city: '',
       country: '',
 
+      userId : null
     }
   },
+
+  props: {
+    adminINF: Object
+  },
+
+  mounted() {
+    this.userId = this.adminINF.userId;
+  },
+
   methods:{
     submit(){
-      axios.post("/api/pharmacist/change-information", {id : this.id, name: this.name, lastName: this.lastName, city: this.city,
-      address: this.address, phone: this.phone, country: this.country})
+      axios.post("/api/pharmacist/change-informations", {id: this.userId, name: this.name, lastName: this.lastName,
+        address: this.address, city: this.city, country: this.country, phone: this.phone})
           .then((response) => {
             this.msg = response.data;
+            this.$emit('refresh-component');
           });
     }
   }}

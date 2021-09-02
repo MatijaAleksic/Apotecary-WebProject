@@ -1,10 +1,7 @@
 package dev.danvega.Controller;
 
 import dev.danvega.DTO.*;
-import dev.danvega.Mapper.DermatologistMapper;
-import dev.danvega.Mapper.PharmacistMapper;
-import dev.danvega.Mapper.PharmacistPatientsMapper;
-import dev.danvega.Mapper.VacationPharmacistMapper;
+import dev.danvega.Mapper.*;
 import dev.danvega.Model.*;
 import dev.danvega.Model.Enums.StatusCV;
 import dev.danvega.Services.*;
@@ -36,6 +33,7 @@ public class PharmacistController {
     private final PharmacistMapper pharmacistMapper = new PharmacistMapper();
     private final PharmacistPatientsMapper pharmacistPatientsMapper = new PharmacistPatientsMapper();
     private final VacationPharmacistMapper vacationPharmacistMapper = new VacationPharmacistMapper();
+    private final ConsultationMapper consultationMapper = new ConsultationMapper();
 
     @PostMapping("/view-patients")
     public ResponseEntity<List<PatientDTO>> view_patients(@RequestBody UserIDDTO id)
@@ -77,6 +75,20 @@ public class PharmacistController {
         return new ResponseEntity<>(pharmacist.getApotecary().getId(), HttpStatus.OK);
     }
 
+    @PostMapping("/get-personal-info")
+    public ResponseEntity<PharmacistDTO> get_personal_info(@RequestBody UserIDDTO userIDDTO)
+    {
+        Pharmacist pharm;
+        try {
+            pharm = pharmacistService.findOne(userIDDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(pharmacistMapper.toDTO(pharm), HttpStatus.OK);
+    }
+
     @PostMapping("/change-information")
     public ResponseEntity<String> changeInformation(@RequestBody PhrmacistChangeInfo pci){
         Pharmacist pharmacist = new Pharmacist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
@@ -93,20 +105,31 @@ public class PharmacistController {
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest cpr){
-        Pharmacist pharmacist = new Pharmacist(cpr.getId(), cpr.getNewPassword());
+        Pharmacist pharm = new Pharmacist(cpr.getId(), cpr.getNewPassword());
         try{
-            pharmacist = pharmacistService.updatePassword(pharmacist);
+            pharmacistService.updatePassword(cpr.getId(),cpr.getNewPassword());
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
-        return new ResponseEntity<String>("Uspesno ste promenili sifru", HttpStatus.OK);
+        return new ResponseEntity<>("Uspesno ste promenili sifru", HttpStatus.OK);
+    }
+
+    @PostMapping("get-all-consultations")
+    public ResponseEntity<List<ConsultationDTO>> get_all_visits(@RequestBody PharmaApotecaryDTO pa)
+    {
+        List<Consultation> consultations = consultationService.findByApotecary_IdAnd_Pharmacist_Id(pa.getApotecaryId(),pa.getPharmaId());
+        if(consultations == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(toConsultationDTOList(consultations), HttpStatus.CREATED);
     }
 
     @PostMapping("/vacation")
     public ResponseEntity<String>request_vacation(@RequestBody VacationPharmacistDTO vacationPharmacistDTO)
     {
+        System.out.println(vacationPharmacistDTO.getPharmacist_id());
         VacationPharmacist vacationPharmacist = new VacationPharmacist(vacationPharmacistDTO.getPharmacist_id(),
                 vacationPharmacistDTO.getStartDate(), vacationPharmacistDTO.getFinishDate(), vacationPharmacistDTO.getDescription(),
                 StatusCV.PENDING);
@@ -140,6 +163,19 @@ public class PharmacistController {
         }
 
         return new ResponseEntity<>("Uspesno registrovan farmaceut!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/change-informations")
+    public ResponseEntity<String> changeInformation(@RequestBody DermatologistChangeInfoDTO pci){
+        Pharmacist pharm = new Pharmacist(pci.getId(), pci.getName(), pci.getLastName(), pci.getCity(),pci.getAddress(), pci.getPhone(), pci.getCountry());
+        try{
+            pharmacistService.updateInfo(pharm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<String>("Uspesno ste promenili informacije", HttpStatus.OK);
     }
 
     @GetMapping("/get-all")
@@ -192,5 +228,13 @@ public class PharmacistController {
             patientDTOS.add(pharmacistPatientsMapper.toDto(patient));
         }
         return patientDTOS;
+    }
+
+    private List<ConsultationDTO> toConsultationDTOList(List<Consultation> consultations){
+        List<ConsultationDTO> consultationsDTOS = new ArrayList<>();
+        for (Consultation consultation : consultations) {
+            consultationsDTOS.add(consultationMapper.toDto(consultation));
+        }
+        return consultationsDTOS;
     }
 }

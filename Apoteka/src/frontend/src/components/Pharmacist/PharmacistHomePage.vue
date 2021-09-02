@@ -1,29 +1,29 @@
 <template>
   <div>
-    <div >
-      <h1>Pharmacist homepage</h1>
-      <button v-on:click="component ='pharmacist-profile'">Profile</button>
-      <button v-on:click="component ='patient-table'">Patient table</button>
-      <button v-on:click="component ='vacation'">Vacation</button>
+    <header>
+      <pharma-nav-bar v-on:change-main-component="changeMainComponent"></pharma-nav-bar>
+    </header>
 
-    </div>
-    <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
-
+    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
   </div>
-
 </template>
 
 <script>
 import axios from "axios";
-import PharmacistProfilPage from "@/components/Pharmacist/PharmacistProfilPage";
+
 import PharmacistPatientTable from "@/components/Tables/PharmacistPatientTable";
 import PharmacistVacation from "@/components/Pharmacist/PharmacistVacation";
+import PharmacistNavBar from "@/components/Pharmacist/PharmacistNavBar";
+import PharmacistProfile from "@/components/Profiles/PharmacistProfile";
+import PharmacistCalendar from "@/components/Graphical/PharmacistCalendar";
 export default {
   name: "PharmacistHomePage",
   components: {
-    'pharmacist-profile': PharmacistProfilPage,
+    'pharmacist-profile': PharmacistProfile,
     'patient-table': PharmacistPatientTable,
     'vacation': PharmacistVacation,
+    'pharma-nav-bar': PharmacistNavBar,
+    'calendar': PharmacistCalendar,
   },
   props: {
     userInfo: Object
@@ -43,10 +43,36 @@ export default {
         .then((response) => {
           this.apotecary_id = response.data;
         });
-  }
+  },
+  methods: {
+    changeMainComponent(value) {
+      if (value == 'profile') {
+        this.component = 'pharmacist-profile';
+      } else if (value == 'vacation') {
+        this.component = 'vacation'
+      }
+      else if (value == 'calendar') {
+        this.component = 'calendar';
+      } else {
+        this.component = 'patient-table';
+      }
+    },
+}
 }
 </script>
 
 <style scoped>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header{
+  width: 100vw;
+  background-color: #5f9ea0;
+  padding: 15px;
+}
 
 </style>

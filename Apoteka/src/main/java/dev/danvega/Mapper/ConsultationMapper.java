@@ -15,7 +15,13 @@ public class ConsultationMapper implements MapperInterface<Consultation, Consult
 
     @Override
     public ConsultationDTO toDto(Consultation entity) {
-        return new ConsultationDTO(entity.getId(),entity.getStartDate(),entity.getStartTime(),entity.getDuration(),entity.getPrice(),entity.getStatus().getValue(), entity.getReport(), entity.getPharmacist().getId(), entity.getPatient().getId(), entity.getApotecary().getId());
+        if (entity.getPatient() == null) {
+            return new ConsultationDTO(entity.getId(), entity.getStartDate(), entity.getStartTime(), entity.getDuration(), entity.getPrice(), entity.getStatus().getValue(), entity.getReport(), entity.getPharmacist().getId(), null, entity.getApotecary().getId());
+
+        } else {
+            return new ConsultationDTO(entity.getId(), entity.getStartDate(), entity.getStartTime(), entity.getDuration(), entity.getPrice(), entity.getStatus().getValue(), entity.getReport(), entity.getPharmacist().getId(), entity.getPatient().getId(), entity.getApotecary().getId());
+
+        }
     }
 }
 

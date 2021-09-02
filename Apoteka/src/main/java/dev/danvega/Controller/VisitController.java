@@ -42,6 +42,7 @@ public class VisitController {
     {
 
         Dermatologist a = dermathologistService.findOne(vDTO.getDermatologis_id());
+        System.out.println(vDTO.getPatient_id());
         Apotecary c = apotecaryService.findOne(vDTO.getApotecary_id());
 
         Visit visit = new Visit(vDTO.getId(),vDTO.getStartDate(),vDTO.getStartTime(),vDTO.getDuration(),

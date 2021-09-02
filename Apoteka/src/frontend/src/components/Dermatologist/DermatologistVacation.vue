@@ -1,7 +1,7 @@
 <template>
   <div id="container"><div id="container-inner">
     <h1>Request vacation</h1>
-    <form>
+    <form >
       <fieldset>
         <div>
           <label for="startDate">Start Date</label>
@@ -46,10 +46,10 @@ export default {
     }
   },
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
   mounted() {
-    this.dermatologist_id = this.adminINFO.userId;
+    this.dermatologist_id = this.adminINF.userId;
 
   },
   methods:{

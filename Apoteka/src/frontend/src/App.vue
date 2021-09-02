@@ -34,9 +34,9 @@ import PharmacistHomePage from "@/components/Pharmacist/PharmacistHomePage";
 import AdminHomePage from "@/components/Administrator/AdminHomePage";
 import PatientHomePage from "@/components/Patient/PatientHomePage";
 import PatientProfileCard from "@/components/Patient/PatientProfileCard";
-import NewDermatologistHomePage from "@/components/Dermatologist/NewDermatologistHomePage";
 import ApotecaryTable from "@/components/Tables/ApotecaryTable";
 import UnsignedMedicationTable from "@/components/Tables/UnsignedMedicationTable";
+import DermatologistHomePage from "@/components/Dermatologist/DermatologistHomePage";
 
 export default {
   name: 'App',
@@ -46,7 +46,7 @@ export default {
     'first-login' : FirstLogIn,
     'pharmacist-homepage': PharmacistHomePage,
     'admin-homepage': AdminHomePage,
-    'dermatologist-homepage' : NewDermatologistHomePage,
+    'dermatologist-homepage' : DermatologistHomePage,
     'patient-homepage':PatientHomePage,
     'apotecary-table' : ApotecaryTable,
     'unsigned-medication-table':UnsignedMedicationTable,

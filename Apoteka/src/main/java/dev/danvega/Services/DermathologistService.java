@@ -75,17 +75,14 @@ public class DermathologistService implements ServiceInterface<Dermatologist> {
 
     }
 
-    public Dermatologist updatePassword(Dermatologist entity) throws Exception{
-        Dermatologist existingDermatologist=  dermatologistRepository.findById(entity.getId()).orElse(null);
+    public Dermatologist updatePassword(Long entity,String a) throws Exception{
+        Dermatologist existingDermatologist = dermatologistRepository.findById(entity).orElse(null);
         if(existingDermatologist == null){
             throw new Exception("Dermatologist with given id doesn't exist");
         }
 
-        existingDermatologist.setPassword(entity.getPassword());
+        existingDermatologist.setPassword(a);
 
-        if(dermatologistRepository.findByEmail(entity.getEmail()) != null){
-            throw new Exception("Dermatologist with given email already exists");
-        }
         return dermatologistRepository.save(existingDermatologist);
     }
 

@@ -15,4 +15,6 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findByDermatologist_Id(Long dermatologist_id);
 
     List<Visit> findByApotecary_Id(Long apotecary_id);
+
+    List<Visit> findByApotecary_IdAndDermatologist_Id(Long apotecary_id, Long dermatologist_id);
 }

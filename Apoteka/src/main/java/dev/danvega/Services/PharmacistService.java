@@ -67,17 +67,14 @@ public class PharmacistService implements ServiceInterface<Pharmacist> {
         }
         return pharmacistRepository.save(existingPharmacist);    }
 
-    public Pharmacist updatePassword(Pharmacist entity) throws Exception{
-        Pharmacist existingPharmacist=  pharmacistRepository.findById(entity.getId()).orElse(null);
+    public Pharmacist updatePassword(Long entity,String a) throws Exception{
+        Pharmacist existingPharmacist = pharmacistRepository.findById(entity).orElse(null);
         if(existingPharmacist == null){
-            throw new Exception("Pharmacist with given id doesn't exist");
+            throw new Exception("Dermatologist with given id doesn't exist");
         }
 
-        existingPharmacist.setPassword(entity.getPassword());
+        existingPharmacist.setPassword(a);
 
-        if(pharmacistRepository.findByEmail(entity.getEmail()) != null){
-            throw new Exception("Pharmacist with given email already exists");
-        }
         return pharmacistRepository.save(existingPharmacist);
     }
 

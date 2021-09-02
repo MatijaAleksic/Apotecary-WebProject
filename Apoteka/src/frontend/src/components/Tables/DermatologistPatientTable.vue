@@ -26,8 +26,9 @@
       <td> {{patient.country}}</td>
       <td> {{patient.phone}}</td>
       <td><button v-on:click="component ='visits'">Visits</button></td>
+
     </tr>
-    <component v-if="component != null" :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-if="component != null" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
   </table>
   <div>
     <h5>{{ msg }}</h5>
@@ -38,11 +39,13 @@
 <script>
 import axios from "axios";
 import NewVisit from "@/components/Dermatologist/NewVisit";
+import DermatologistCalendar from "@/components/Graphical/DermatologistCalendar";
 
 export default {
   name: "DermatologistPatientTable",
   components:{
     'visits':NewVisit,
+    'calendar': DermatologistCalendar,
   },
 
   data(){
@@ -65,12 +68,12 @@ export default {
   },
 
   props: {
-    adminINFO: Object
+    adminINF: Object
   },
 
   mounted() {
-    this.apotecary_id = this.adminINFO.apotecary_id;
-    this.userId = this.adminINFO.userId;
+    this.apotecary_id = this.adminINF.apotecary_id;
+    this.userId = this.adminINF.userId;
 
 
     axios.post("/api/dermatologist/view-patients", {id :this.userId})
@@ -88,7 +91,10 @@ export default {
           .then(response => {
             this.patients = response.data;
           })
-    }
+    },
+    sortBy(prop) {
+      this.patients.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+    },
   },
 
   computed: {
