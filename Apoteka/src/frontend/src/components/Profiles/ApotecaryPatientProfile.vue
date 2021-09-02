@@ -1,17 +1,22 @@
 <template>
 <div>
-        <v-btn>Medication Table</v-btn>
-        <v-btn>Calendar</v-btn>
-        <v-btn>Dermatologists</v-btn>
-        <v-btn>Pharmacists</v-btn>
+        <v-btn @click="component = 'medication-table'">Medication Table</v-btn>
+        <v-btn @click="component = 'calendar'">Calendar</v-btn>
+        <v-btn @click="component ='dermatologist-table'"> Dermatologists</v-btn>
+        <v-btn @click="component ='pharmacist-table'">Pharmacists</v-btn>
+        <v-btn @click="component = 'event-table'"> My Events </v-btn>
 
-        <component v-on:refresh-component="refreshComponent" :apotecaryID ="{userId : userId, apotecary_id : this.selectApotecary}" v-bind:is="component"> </component>
+        <component v-on:refresh-component="refreshComponent" :apotecaryID ="{userId : this.userId, apotecary_id : this.selectedApotecary}" v-bind:is="component"> </component>
 </div>
 </template>
 
 <script>
 
 import UnsignedMedicationTable from '@/components/Tables/UnsignedMedicationTable.vue';
+import PatientDermatologistTable from '@/components/Tables/PatientDermatologistTable.vue';
+import PatientPharmacistTable from '@/components/Tables/PatientPharmacistTable.vue';
+import Calendar from '@/components/Graphical/PatientCalendar.vue';
+import PatientEventTable from '@/components/Tables/PatientEventTable.vue';
 
 //import axios from "axios";
 // <v-btn v-on:click="component ='apotecary-table'">Apotecary Table</v-btn>
@@ -25,6 +30,10 @@ export default {
 
   components:{
     'medication-table' : UnsignedMedicationTable,
+    'dermatologist-table' : PatientDermatologistTable,
+    'pharmacist-table' :PatientPharmacistTable,
+    'calendar' : Calendar,
+    'event-table' : PatientEventTable
   },
 
 
@@ -40,7 +49,7 @@ export default {
 
   mounted() {
     this.userId = this.patiINFO.userId;
-    this.selectedApotecary = this.patiInfo.apotecary_id;
+    this.selectedApotecary = this.patiINFO.apotecary_id;
     },
 
     methods: {

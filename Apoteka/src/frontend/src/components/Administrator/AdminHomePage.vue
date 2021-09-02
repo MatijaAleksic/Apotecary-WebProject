@@ -16,7 +16,7 @@ import axios from "axios";
 
 import AdminNavBar from "./AdminNavBar";
 import AdminProfile from "@/components/Profiles/AdminProfile.vue";
-import ApotecaryProfile from "@/components/Profiles/ApotecaryProfile.vue";
+import ApotecaryProfile from "@/components/Profiles/ApotecaryAdminProfile.vue";
 
 export default {
   name: "AdminHomePage",

@@ -52,7 +52,7 @@ import AdminDermatologistVacationTableVue from '@/components/Tables/AdminDermato
 import AdminMedicationInquiryTable from '@/components/Tables/AdminMedicationInquiryTable.vue';
 import AdminMedicationActionTable from '@/components/Tables/AdminMedicationActionTable.vue';
 
-import Calendar from '@/components/Graphical/Calendar.vue';
+import Calendar from '@/components/Graphical/AdminCalendar.vue';
 
 import ChangeApotecaryInfo from '@/components/Administrator/ChangeApotecaryInfo.vue';
 

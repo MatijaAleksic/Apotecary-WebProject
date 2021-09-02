@@ -15,6 +15,7 @@
             <th><div @click="sortBy('replacement')" class="sortBy">Replacement</div></th>
             <th><div @click="sortBy('inStorage')" class="sortBy">In Storage</div></th>
             <th><div @click="sortBy('price')" class="sortBy">Price</div></th>
+            <th><div @click="sortBy('procentage')" class="sortBy">Action</div></th>
             <th><div @click="sortBy('apotecary_id')" class="sortBy">ApotecaryID</div></th>
             <th><div @click="sortBy('priceDurationEndDate')" class="sortBy">Price Duration EndDate</div></th>
             <th><div @click="sortBy('priceDurationEndTime')" class="sortBy">Price Duration EndTime</div></th>
@@ -30,6 +31,7 @@
             <td> {{medication.replacement}}</td>
             <td> {{medication.inStorage}}</td>
             <td> {{medication.price}}</td>
+            <td> {{medication.procentage}} %</td>
             <td> {{medication.apotecary_id}}</td>
             <td> {{medication.priceDurationEndDate}}</td>
             <td> {{medication.priceDurationEndTime}}</td>
@@ -75,7 +77,7 @@ export default {
         this.apotecary_id = this.apotecaryID.apotecary_id;
 
         axios.post("/api/medication-info/get-all", {id : this.apotecary_id})
-            .then(response => {
+            .then(response => { 
                 this.medications = response.data;
             })
     },

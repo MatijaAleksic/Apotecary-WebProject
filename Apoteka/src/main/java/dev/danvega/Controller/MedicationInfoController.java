@@ -31,6 +31,7 @@ public class MedicationInfoController {
     @Autowired
     MedicationService medicationService = new MedicationService();
 
+
     @Autowired
     ApotecaryService apotecaryService = new ApotecaryService();
 
@@ -274,6 +275,7 @@ public class MedicationInfoController {
             Medication medTemp = new Medication();
             MedicationSpecification medSpecTemp = new MedicationSpecification();
             MedicationInfo medInfoTemp = new MedicationInfo();
+            MedicationAction medActionTemp;
 
             List<MedicationAdminDTO> medsReturn = new ArrayList<>();
 
@@ -286,6 +288,9 @@ public class MedicationInfoController {
 
                     medTemp = med;
                     medSpecTemp = medicationSpecificationService.findByMedication_Id(med.getId());
+
+                    medActionTemp = medicationActionService.findAllByMedicationInfo_id(medInfoTemp.getId());
+
 
                     temp.setId(medTemp.getId());
                     temp.setType(medTemp.getMedicationType().toString());
@@ -302,6 +307,10 @@ public class MedicationInfoController {
                     temp.setPriceDurationEndDate(medInfoTemp.getPriceDurationEndDate());
 
                     temp.setApotecary_id(apotecaryIDDTO.getId());
+
+                    if(medActionTemp != null) {
+                        temp.setProcentage(medActionTemp.getProcentage());
+                    }
 
                     medsReturn.add(temp);
                 }

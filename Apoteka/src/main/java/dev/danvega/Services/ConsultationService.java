@@ -35,6 +35,10 @@ public class ConsultationService implements ServiceInterface<Consultation>{
         return consultationRepository.findByApotecary_IdAndPharmacist_Id(apotecary_id,dermatologist_id);
     }
 
+    public List<Consultation> findByPatient_Id(Long patient_id){
+        return consultationRepository.findByPatient_Id(patient_id);
+    }
+
     @Override
     public Consultation findOne(Long id) {
         return consultationRepository.findById(id).orElse(null);
@@ -58,10 +62,8 @@ public class ConsultationService implements ServiceInterface<Consultation>{
         existingConsultation.setStartDate(entity.getStartDate());
         existingConsultation.setStartTime(entity.getStartTime());
         existingConsultation.setStatus(entity.getStatus());
+        existingConsultation.setPatient(entity.getPatient());
 
-        if(consultationRepository.findByApotecary_IdAndPatient_IdAndPharmacist_Id(entity.getApotecary().getId(),entity.getPatient().getId(),entity.getPharmacist().getId()) != null){
-            throw new Exception("Consultation for given patient, pharmacist, apotecary already exists");
-        }
         return consultationRepository.save(existingConsultation);
     }
 
