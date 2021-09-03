@@ -56,7 +56,9 @@ export default {
       city: '',
       country: '',
 
-      userId : Number
+      userId : Number,
+
+      accessToken : null
     }
   },
 
@@ -65,15 +67,19 @@ export default {
   },
 
   mounted() {
-    alert(this.patientINF.userId)
       this.userId = this.patientINF.userId;
-      alert(this.userId);
+      this.accessToken = this.patientINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/patient/change-information", {id: this.userId, firstname: this.firstname, lastname: this.lastname,
-      address: this.address, city: this.city, country: this.country, phone: this.phone})
+      address: this.address, city: this.city, country: this.country, phone: this.phone},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh-component');

@@ -63,6 +63,7 @@ export default {
         searchLastname: "",
 
         apotecary_id : null,
+        accessToken : null,
 
         msg: ""
         }
@@ -75,7 +76,14 @@ export default {
     created() {
 
         this.apotecary_id = this.apotecaryID.apotecary_id;
-        axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.apotecaryID.accessToken;
+        
+        axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
             .then(response => {
                 this.dermatologists = response.data;
             })
@@ -84,7 +92,12 @@ export default {
     methods: {
 
         refresh(){
-            axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
             .then(response => {
                 this.dermatologists = response.data;
             })

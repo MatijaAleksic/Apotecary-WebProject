@@ -212,7 +212,9 @@ export default ({
         apotecary_id : Number,
 
         selected_staff: '',
-        status: ''
+        status: '',
+
+        accessToken : null
 
     }),
     props: {
@@ -223,12 +225,23 @@ export default ({
 
       this.apotecary_id = this.apotecaryID.apotecary_id;
       this.user_id = this.apotecaryID.userId;
+      this.accessToken = this.apotecaryID.accessToken;
 
-      axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
+      axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.consultations = response.data;
 
-            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id})
+            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
               .then((response) => {
                 this.visits = response.data;
 
@@ -286,11 +299,21 @@ export default ({
         this.selectedElement = null,
         this.selectedOpen = false,
 
-        axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id})
+        axios.post("/api/consultation/get-all-consultations", {id: this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.consultations = response.data;
 
-            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id})
+            axios.post("/api/visit/get-all-visits", {id: this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
               .then((response) => {
                 this.visits = response.data;
 
@@ -341,7 +364,12 @@ export default ({
 
       bookEvent(){
 
-          axios.post("/api/patient/book-event", {patId: new Number(this.user_id), eventId : this.selectedEvent.id, kategorija : this.selectedEvent.name })
+          axios.post("/api/patient/book-event", {patId: new Number(this.user_id), eventId : this.selectedEvent.id, kategorija : this.selectedEvent.name },
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(() => {
 
                 this.refreshCalendar();
@@ -378,12 +406,22 @@ export default ({
           }
 
           if(this.selectedEvent.name == "Konsultacija"){
-            axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id})
+            axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
                         .then(response => {
                             this.selected_staff = response.data;
                         })
         }else if(this.selectedEvent.name == "Poseta"){
-            axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id})
+            axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
                   .then(response => {
                         this.selected_staff = response.data;
                       })     

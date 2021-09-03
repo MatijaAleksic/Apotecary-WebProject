@@ -64,7 +64,9 @@ export default {
 
         apotecary_id : null,
 
-        msg: ""
+        msg: "",
+
+        accessToken : null
         }
     },
 
@@ -74,7 +76,14 @@ export default {
 
     mounted() {
         this.apotecary_id = this.apotecaryID.apotecary_id;
-        axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.apotecaryID.accessToken;
+
+        axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
             .then(response => {
                 this.pharmacists = response.data;
             })
@@ -84,7 +93,12 @@ export default {
     methods: {
 
         refresh(){
-            axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
             .then(response => {
                 this.pharmacists = response.data;
             })

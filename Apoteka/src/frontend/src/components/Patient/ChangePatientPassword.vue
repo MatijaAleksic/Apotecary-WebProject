@@ -37,7 +37,8 @@ export default {
       newPassword: '',
       reNewPassword: '',
 
-      userId: null
+      userId: null,
+      accessToken : null
     }
   },
 
@@ -47,12 +48,18 @@ export default {
 
   mounted() {
       this.userId = this.patientINF.userId;
+      this.accessToken = this.patientINF.accessToken;
   },
 
   methods:{
     submit(){
         if(this.reNewPassword == this.newPassword){
-            axios.post("/api/patient/change-password", {id : this.userId, newPassword: this.newPassword})
+            axios.post("/api/patient/change-password", {id : this.userId, newPassword: this.newPassword},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
                 .then((response) => {
                     this.msg = response.data;
                 });

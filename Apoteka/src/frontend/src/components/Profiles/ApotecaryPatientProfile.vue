@@ -6,7 +6,7 @@
         <v-btn @click="component ='pharmacist-table'">Pharmacists</v-btn>
         <v-btn @click="component = 'event-table'"> My Events </v-btn>
 
-        <component v-on:refresh-component="refreshComponent" :apotecaryID ="{userId : this.userId, apotecary_id : this.selectedApotecary}" v-bind:is="component"> </component>
+        <component v-on:refresh-component="refreshComponent" :apotecaryID ="{userId : this.userId, apotecary_id : this.selectedApotecary, accessToken : this.accessToken}" v-bind:is="component"> </component>
 </div>
 </template>
 
@@ -42,7 +42,8 @@ export default {
       component: null,
 
       userId : Number,
-      selectedApotecary : null
+      selectedApotecary : null,
+      accessToken : null
       
     }
   },
@@ -50,6 +51,7 @@ export default {
   mounted() {
     this.userId = this.patiINFO.userId;
     this.selectedApotecary = this.patiINFO.apotecary_id;
+    this.accessToken = this.patiINFO.accessToken;
     },
 
     methods: {

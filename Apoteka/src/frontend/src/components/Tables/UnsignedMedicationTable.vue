@@ -85,12 +85,6 @@ export default {
 
     methods: {
 
-        /*refresh(){
-            axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
-            .then(response => {
-                this.medications = response.data;
-            })
-        },*/
 
         sortBy(prop) {
             this.medications.sort((a, b) => a[prop] < b[prop] ? -1 : 1)

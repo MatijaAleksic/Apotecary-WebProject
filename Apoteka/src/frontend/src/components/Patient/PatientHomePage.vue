@@ -4,7 +4,7 @@
       <patient-nav-bar v-on:change-main-component="changeMainComponent"></patient-nav-bar>
     </header>
 
-      <component v-on:refresh-component="refreshComponent" v-on:selected-apotecary="selectApotecary" :patiINFO ="{userId : this.userId, apotecary_id : this.selectedApotecary}" v-bind:is="component"> </component>
+      <component v-on:refresh-component="refreshComponent" v-on:selected-apotecary="selectApotecary" :patiINFO ="{userId : this.userId, apotecary_id : this.selectedApotecary, accessToken : this.accessToken}" v-bind:is="component"> </component>
 
   </div>
     
@@ -43,6 +43,8 @@ components:{
 
       component: '',
       selectedApotecary: null,
+
+      accessToken : null
       
     }
   },
@@ -50,6 +52,7 @@ components:{
   mounted() {
     this.userId = this.userInfo.userId;
     this.component = 'apotecary-table';
+    this.accessToken = this.userInfo.accessToken;
     },
     
 

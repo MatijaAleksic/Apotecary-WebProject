@@ -55,6 +55,8 @@ export default {
         msg: "",
 
         userId : null,
+
+        accessToken : null
         }
     },
 
@@ -65,8 +67,14 @@ export default {
     mounted() {
 
         this.userId = this.apotecaryID.userId;
+        this.accessToken = this.apotecaryID.accessToken;
 
-        axios.post("/api/patient/get-events", {id : this.userId})
+        axios.post("/api/patient/get-events", {id : this.userId},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
             .then(response => {
                 this.events = response.data;
             })
