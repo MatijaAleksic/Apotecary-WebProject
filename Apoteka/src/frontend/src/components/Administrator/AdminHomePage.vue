@@ -4,7 +4,7 @@
       <admin-nav-bar v-on:change-main-component="changeMainComponent"></admin-nav-bar>
     </header>
 
-      <component :adminINFO ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+      <component :adminINFO ="{userId : userId, apotecary_id : this.apotecary_id, accessToken: this.accessToken}" v-bind:is="component"> </component>
 
   </div>
     
@@ -39,14 +39,22 @@ components:{
       apotecary_id : null,
 
       component: '',
+      accessToken: null
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.userId = this.userInfo.userId;
+    this.accessToken = this.userInfo.accessToken;
 
-    axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
+    axios.post("/api/administrator/get-apotecary-id", {id : this.userId}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
+            alert(response.data)
             this.apotecary_id = response.data;
             this.component = 'apotecary-profile';
           });

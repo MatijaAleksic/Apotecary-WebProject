@@ -33,13 +33,14 @@ export default {
   data() {
     return {
       username: '',
+      
       password: ''
     }
   },
   methods:{
     loggin_event : function(){
-      //axios.post("/api/auth/login", {username: this.username, password: this.password})
-      axios.post("/api/unsigned/login", {username: this.username, password: this.password})
+      axios.post("/api/auth/login", {username: this.username, password: this.password})
+      //axios.post("/api/unsigned/login", {username: this.username, password: this.password})
           .then((response) => //{this.logged_user = response.data;this.$emit('userlogged', this.logged_user);}
           { 
             this.$emit('update-logged-user', response.data);

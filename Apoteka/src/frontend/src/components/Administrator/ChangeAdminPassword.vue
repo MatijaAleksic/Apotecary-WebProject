@@ -47,12 +47,19 @@ export default {
 
   mounted() {
       this.userId = this.adminINF.userId;
+      this.accessToken = this.adminINF.accessToken;
+      alert(this.accessToken)
   },
 
   methods:{
     submit(){
         if(this.reNewPassword == this.newPassword){
-            axios.post("/api/administrator/change-password", {id : this.userId, newPassword: this.newPassword})
+            axios.post("/api/administrator/change-password", {id : this.userId, newPassword: this.newPassword}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
                 .then((response) => {
                     this.msg = response.data;
                 });

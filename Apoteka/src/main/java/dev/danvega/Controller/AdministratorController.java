@@ -12,6 +12,7 @@ import dev.danvega.Services.ApotecaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,6 +99,7 @@ public class AdministratorController {
         return new ResponseEntity<>(b, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/get-apotecary-id")
     public ResponseEntity<Long> get_apotecary(@RequestBody UserIDDTO userIDDTO)
     {

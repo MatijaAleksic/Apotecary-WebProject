@@ -96,14 +96,20 @@ export default {
 
       userId : Number,
       apotecary_id : null,
+      accessToken: null
     }
   },
 
   mounted() {
     this.userId = this.adminINFO.userId;
     this.apotecary_id = this.adminINFO.apotecary_id;
+    this.accessToken = this.adminINFO.accessToken;
 
-    axios.post("/api/apotecary/get-info", {id : this.adminINFO.apotecary_id})
+    axios.post("/api/apotecary/get-info", {id : this.adminINFO.apotecary_id},
+    {
+      headers: {
+        'Authorization': `Bearer ${this.adminINFO.accessToken}`
+      }, })
             .then(response => {
                 this.name = response.data.name;
                 this.adress= response.data.adress;
@@ -115,7 +121,11 @@ export default {
     methods: {
 
         refresh(){
-            axios.post("/api/apotecary/get-info", {id : this.apotecary_id})
+            axios.post("/api/apotecary/get-info", {id : this.apotecary_id},
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      }, })
             .then(response => {
                 this.name = response.data.name;
                 this.adress= response.data.adress;

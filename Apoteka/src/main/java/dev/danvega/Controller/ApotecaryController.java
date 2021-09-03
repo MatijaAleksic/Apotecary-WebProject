@@ -10,6 +10,7 @@ import dev.danvega.Services.ApotecaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ApotecaryController {
         return ResponseEntity.ok(toApothecaryDTOList(apothecaries));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/get-info")
     public ResponseEntity<ApotecaryDTO> get_info(@RequestBody ApotecaryIDDTO apotecaryIDDTO)
     {
@@ -43,7 +45,7 @@ public class ApotecaryController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+    
         ApotecaryDTO apoDTO = apothecaryMapper.toDto(apotecary);
         apoDTO.setRating(apothecaryService.findRatingByApotecary(apotecaryIDDTO.getId()));
         return new ResponseEntity<>(apoDTO, HttpStatus.OK);

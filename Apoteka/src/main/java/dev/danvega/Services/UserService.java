@@ -177,22 +177,20 @@ public class UserService implements ServiceInterface<User>  {
 
     @Transactional
     public User findByUsername(String username) throws Exception {
-        User found_user = null;
 
         if(patientRepository.findByUsername(username) != null){
-            found_user = patientRepository.findByUsername(username);
+            return patientRepository.findByUsername(username);
         }
         if(administratorRepository.findByUsername(username) != null) {
-            found_user = administratorRepository.findByUsername(username);
+            return administratorRepository.findByUsername(username);
         }
         if(dermatologistRepository.findByUsername(username) != null) {
-            found_user = dermatologistRepository.findByUsername(username);
+            return dermatologistRepository.findByUsername(username);
         }
         if(pharmacistRepository.findByUsername(username) != null){
-            found_user = pharmacistRepository.findByUsername(username);
+            return pharmacistRepository.findByUsername(username);
         }
-
-        return found_user;
+        return null;
     }
 
 

@@ -1,8 +1,7 @@
 package dev.danvega.Controller;
 
-import dev.danvega.Model.User;
-import dev.danvega.Model.UserRequest;
-import dev.danvega.Model.UserTokenState;
+import dev.danvega.DTO.LoginResponseDTO;
+import dev.danvega.Model.*;
 import dev.danvega.Services.CustomUserDetailsService;
 import dev.danvega.Services.UserService;
 import dev.danvega.exception.ResourceConflictException;
@@ -18,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 /*
@@ -52,11 +52,12 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
+
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
 	@PostMapping("/login")
 	public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
-																	HttpServletResponse response) {
+																	HttpServletResponse response) throws Exception {
 		// 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
@@ -70,9 +71,29 @@ public class AuthenticationController {
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
 
+		User found_user = null;
+		try {
+			found_user = userService.findByUsername(authenticationRequest.getUsername());
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		String ret = null;
+		if(found_user.getClass() == Patient.class){
+			ret = "patient";
+		}else if(found_user.getClass() == Administrator.class){
+			ret = "administrator";
+		}if(found_user.getClass() == Pharmacist.class){
+			ret = "pharmacist";
+		}if(found_user.getClass() == Dermatologist.class){
+			ret = "dermatologist";
+		}
+
+		LoginResponseDTO respo = new LoginResponseDTO(ret,Boolean.toString(found_user.getFirstTimeLogin()),found_user.getId());
+		UserTokenState token = new UserTokenState(jwt, expiresIn, respo);
 
 		// Vrati token kao odgovor na uspesnu autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		return ResponseEntity.ok(token);
 	}
 
 	// Endpoint za registraciju novog korisnika
