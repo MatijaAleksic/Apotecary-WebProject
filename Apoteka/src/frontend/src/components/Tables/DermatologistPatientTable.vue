@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3> Patient Table </h3>
+  <h3> Visit Table </h3>
 
   <input type="text" v-model="searchFirstname" placeholder="Firstname"/>
   <input type="text" v-model="searchLastname" placeholder="Lastname"/>
@@ -28,10 +28,10 @@
       <td> {{visit.price}}</td>
       <td> {{visit.status}}</td>
       <td> {{visit.report}}</td>
-      <td><button v-on:click="selectedApotecary(visit.patientId)">Start report</button></td>
+      <td><button v-on:click="selectedApotecary(visit.patientId,visit.id)">Start report</button></td>
 
     </tr>
-    <component v-if="component != null" :adminINF ="{userId : patientId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-if="component != null" :adminINF ="{visitId: visitId ,userId : patientId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
   </table>
   <div>
     <h5>{{ msg }}</h5>
@@ -66,7 +66,9 @@ export default {
       userId : null,
       patientId : null,
       component:null,
-      msg: ""
+      msg: "",
+
+      visitId: null,
     }
   },
 
@@ -89,9 +91,11 @@ export default {
 
   methods: {
 
-    selectedApotecary(id){
+    selectedApotecary(id, visitid){
       this.patientId = id;
+      this.visitId = visitid;
       this.component = 'visits'
+
     },
 
     refresh(){

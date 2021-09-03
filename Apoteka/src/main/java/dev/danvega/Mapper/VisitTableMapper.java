@@ -14,7 +14,7 @@ public class VisitTableMapper implements MapperInterface<Visit, VisitTableDTO>{
     public VisitTableDTO toDto(Visit entity) {
 
         if (entity.getPatient() == null) {
-            return new VisitTableDTO(entity.getId(), entity.getStartDate(), entity.getStartTime(), entity.getDuration(), entity.getPrice(), entity.getStatus().getValue(), entity.getReport(), "", "",entity.getPatient().getId());
+            return new VisitTableDTO(entity.getId(), entity.getStartDate(), entity.getStartTime(), entity.getDuration(), entity.getPrice(), entity.getStatus().getValue(), entity.getReport(), "", "");
 
         }
         else {

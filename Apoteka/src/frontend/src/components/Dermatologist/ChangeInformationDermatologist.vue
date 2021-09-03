@@ -5,7 +5,7 @@
       <fieldset>
         <div>
           <label for="name">First Name</label>
-          <input type="text" name="name" id="name" v-model="name"/>
+          <input  type="text" name="name" id="name" v-model="name" required>
         </div>
         <div>
           <label for="lastname">Last Name</label>
@@ -76,6 +76,35 @@ export default {
             this.msg = response.data;
             this.$emit('refresh-component');
           });
-    }
+    },
+
+    checkForm: function (e) {
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push("Name required.");
+      }
+      if (!this.lastName) {
+        this.errors.push('lastName required.');
+      }
+      if (!this.phone) {
+        this.errors.push("phone required.");
+      }
+      if (!this.address) {
+        this.errors.push('address required.');
+      }
+      if (!this.city) {
+        this.errors.push("city required.");
+      }
+      if (!this.country) {
+        this.errors.push('country required.');
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      e.preventDefault();
+    },
   }}
 </script>

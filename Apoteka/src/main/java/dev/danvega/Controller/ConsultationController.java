@@ -3,6 +3,7 @@ package dev.danvega.Controller;
 import dev.danvega.DTO.ApotecaryIDDTO;
 import dev.danvega.DTO.ConsultationDTO;
 import dev.danvega.DTO.VisitDTO;
+import dev.danvega.DTO.VisitInfoDTO;
 import dev.danvega.Mapper.ConsultationMapper;
 import dev.danvega.Mapper.VisitMapper;
 import dev.danvega.Model.*;
@@ -35,6 +36,27 @@ public class ConsultationController {
     MedicationReservationService medicationReservationService = new MedicationReservationService();
 
     private final ConsultationMapper consultationMapper = new ConsultationMapper();
+
+    @PostMapping("/change-information")
+    @Transactional
+    public ResponseEntity<String> changeInformation(@RequestBody VisitInfoDTO visitInfoDTO)  {
+
+        Consultation consultation = consultationService.findOne(visitInfoDTO.getVisitID());
+
+        consultation.setPrice(visitInfoDTO.getPrice());
+        consultation.setReport(visitInfoDTO.getReport());
+
+        try{
+            consultationService.updateReport(consultation, consultation.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Uspesno ste promenili informacije", HttpStatus.OK);
+
+
+
+    }
 
 
     @PostMapping("new-consultation")

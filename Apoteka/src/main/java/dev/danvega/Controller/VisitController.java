@@ -83,6 +83,7 @@ public class VisitController {
     @Transactional
     public ResponseEntity<String> changeInformation(@RequestBody VisitInfoDTO visitInfoDTO)  {
 
+        System.out.println(visitInfoDTO.getVisitID());
         Visit visit = visitService.findOne(visitInfoDTO.getVisitID());
 
             visit.setPrice(visitInfoDTO.getPrice());

@@ -5,9 +5,12 @@ import dev.danvega.Model.MedicationReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MedicationReservationRepository extends JpaRepository<MedicationReservation, Long> {
 
     MedicationReservation findByApotecary_IdAndPatient_IdAndMedicationInfo_Id(Long apotecary_id, Long patient_id, Long medication_info_id);
 
+    List<MedicationReservation> findByApotecary_Id(Long apotecary_id);
 }

@@ -72,9 +72,6 @@ public class VisitService implements ServiceInterface<Visit>{
         existingVisit.setPrice(entity.getPrice());
         existingVisit.setReport(entity.getReport());
 
-        if(visitRepository.findByApotecary_IdAndPatient_IdAndDermatologist_Id(entity.getApotecary().getId(),entity.getPatient().getId(),entity.getDermatologist().getId()) != null){
-            throw new Exception("Visit for given patient, dermatologist, apotecary already exists");
-        }
         return visitRepository.save(existingVisit);
     }
 
