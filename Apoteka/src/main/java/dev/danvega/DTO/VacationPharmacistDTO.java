@@ -24,6 +24,10 @@ public class VacationPharmacistDTO {
         this.approdved = approdved;
     }
 
+    public VacationPharmacistDTO(){
+
+    }
+
     public Long getId() {
         return id;
     }

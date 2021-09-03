@@ -34,6 +34,9 @@ public class VisitDTO {
         this.apotecary_id = apotecary_id;
     }
 
+    public VisitDTO(){
+
+    }
     public Long getId() {
         return id;
     }

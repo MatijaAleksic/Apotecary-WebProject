@@ -12,6 +12,10 @@ public class VisitInfoDTO {
         this.visitID = visitID;
     }
 
+    public VisitInfoDTO(){
+
+    }
+
 
     public double getPrice() {
         return price;

@@ -69,7 +69,13 @@ export default {
 
 
 
-    axios.post("/api/medication/medication-alergies", {id: this.user_id})
+    axios.post("/api/medication/medication-alergies", {id: this.user_id}
+        ,
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.items = response.data;
         });
@@ -78,8 +84,13 @@ export default {
     text: item => item.name,
 
     submit(){
-      alert(this.patientId);
-      axios.post("/api/consultation/change-information", {price: this.price, report: this.report, visitID: this.consultationId})
+      axios.post("/api/consultation/change-information", {price: this.price, report: this.report, visitID: this.consultationId}
+          ,
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
             this.$emit('close-component');
