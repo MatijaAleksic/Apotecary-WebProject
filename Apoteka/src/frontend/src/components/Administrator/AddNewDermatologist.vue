@@ -106,15 +106,10 @@ export default {
 
   methods:{
     submit(){
-      axios.post("/api/dermatologist/register-new", {firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/auth/signup", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
-       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
-       startHours: this.startHours, endHours:this.endHours}, 
-    {
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`
-      },
-      })
+       city: this.city,country: this.country, phone: this.phone,role: "dermatologist", apotecary_id: this.apotecary_id,
+       startHours: this.startHours, endHours:this.endHours})
           .then((response) => {
             this.msg = response.data;
           });

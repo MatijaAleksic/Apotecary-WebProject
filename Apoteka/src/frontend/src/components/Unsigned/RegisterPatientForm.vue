@@ -80,8 +80,8 @@ export default {
   },
   methods:{
     submit(){
-      axios.post("/api/unsigned/register-new", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
-      email: this.email, adress: this.adress, city: this.city, country: this.country, phone: this.phone})
+      axios.post("/api/auth/signup", {firstname: this.firstname, lastname: this.lastname, username: this.username, password: this.password,
+      email: this.email, adress: this.adress, city: this.city, country: this.country, phone: this.phone, role : "patient"})
           .then((response) => {
             this.status = response.data;
           });

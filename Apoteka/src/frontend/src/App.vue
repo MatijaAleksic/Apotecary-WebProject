@@ -15,7 +15,7 @@
     <dermatologist-homepage :userInfo ="{userId : this.user_id, accessToken : this.accessToken}" v-if="logged_user == 'dermatologist' && this.first_time_login == 'false'"></dermatologist-homepage>
     <patient-homepage :userInfo ="{ logged_user : this.logged_user, userId : this.user_id, accessToken : this.accessToken }" v-if="logged_user == 'patient' && this.first_time_login == 'false'"> </patient-homepage>
 
-    <first-login :userInfo ="{ logged_user : this.logged_user, userId : this.user_id }" v-if="logged_user != '' && this.first_time_login == 'true'" v-on:updateinfo="updateInformation"></first-login>
+    <first-login :userInfo ="{ logged_user : this.logged_user, userId : this.user_id, accessToken : this.accessToken }" v-if="logged_user != '' && this.first_time_login == 'true'" v-on:updateinfo="updateInformation"></first-login>
 
     <apotecary-table v-if="logged_user == '' && this.component == '' && this.selectedApotecary == ''" v-on:selected-apotecary="selectApotecary"> </apotecary-table>
     <unsigned-medication-table v-if="logged_user == '' && this.component == '' && this.selectedApotecary != ''" :apotecaryID ="{apotecary_id : this.selectedApotecary}"> </unsigned-medication-table>
@@ -68,6 +68,7 @@ export default {
       this.logged_user = value.user_info.userType;
       this.first_time_login = value.user_info.firstTimeLogin;
       this.user_id = value.user_info.userId;
+
       this.component = null;
 
       this.accessToken = value.accessToken;

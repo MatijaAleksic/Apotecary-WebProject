@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
 
 				/////////////////////////////////////////////
-				.authorizeRequests().antMatchers("/api/auth/**").permitAll() //.antMatchers("/h2-console/**").permitAll().antMatchers("/api/foo").permitAll()
+				.authorizeRequests().antMatchers("/api/auth/**").permitAll().antMatchers("/api/auth/login").permitAll().antMatchers("/api/auth/first-login").permitAll() //.antMatchers("/h2-console/**").permitAll().antMatchers("/h2-console/**").permitAll().antMatchers("/api/foo").permitAll()
 				//.authorizeRequests().anyRequest().permitAll().and()
 				/////////////////////////////////////////////
 
@@ -96,6 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/login");
 		web.ignoring().antMatchers(HttpMethod.GET,"/api/apotecary/get-all");
 		web.ignoring().antMatchers(HttpMethod.POST,"/api/medication-info/get-all");
+		web.ignoring().antMatchers(HttpMethod.POST,"/api/auth/first-login");
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
 				"/**/*.css", "/**/*.js");
 	}

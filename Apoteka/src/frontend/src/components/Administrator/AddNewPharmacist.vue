@@ -106,9 +106,9 @@ export default {
 
   methods:{
     submit(){
-      axios.post("/api/pharmacist/register-new", {firstname: this.firstname, lastname: this.lastname,
+      axios.post("/api/auth/signup", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
-       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
+       city: this.city,country: this.country, phone: this.phone, role: "pharmacist", apotecary_id: this.apotecary_id,
        startHours: this.startHours, endHours:this.endHours}, 
     {
       headers: {

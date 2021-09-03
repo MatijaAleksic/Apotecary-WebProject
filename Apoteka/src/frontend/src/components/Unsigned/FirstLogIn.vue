@@ -41,6 +41,8 @@ export default {
       re_new_password: '',
       userType: '',
       userId: Number,
+
+      accessToken : null
     }
   },
   methods:{
@@ -49,6 +51,7 @@ export default {
 
       this.userType = this.userInfo.logged_user;
       this.userId = this.userInfo.userId;
+      this.accessToken = this.userInfo.accessToken;
 
       if(this.new_password != '' && this.re_new_password != '')
       {
@@ -57,7 +60,12 @@ export default {
           alert("Passwordi se ne poklapaju!")
         }
         else{
-            axios.post("/api/unsigned/first-login", {userId : this.userId, userType: this.userType, newPassword: this.new_password})
+            axios.post("/api/auth/first-login", {userId : this.userId, userType: this.userType, newPassword: this.new_password},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
                 .then((response) => {
                   this.msg = response.data;
                   this.$emit('updateinfo', 'false');

@@ -89,9 +89,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		// ne zelimo da u bazi cuvamo lozinke u plain text formatu
 		user.setPassword(passwordEncoder.encode(newPassword));
 
-		Administrator adminTemp;
-
-
 
 		if(user instanceof Administrator){
 			administratorRepository.save((Administrator) user);
