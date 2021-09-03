@@ -95,7 +95,12 @@ export default {
     },
 
     refresh(){
-      axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id,dermaID :this.userId})
+      axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id,dermaID :this.userId},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(response => {
             this.visits = response.data;
           })

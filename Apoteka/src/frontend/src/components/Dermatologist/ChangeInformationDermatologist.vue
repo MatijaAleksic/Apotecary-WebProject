@@ -1,10 +1,7 @@
 <template>
   <div id="container"><div id="container-inner">
     <h1>Change Information</h1>
-    <form id="app"
-          @submit="checkForm"
-          action="https://vuejs.org/"
-          method="post">
+    <form>
       <fieldset>
         <div>
           <label for="name">First Name</label>
@@ -48,7 +45,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'Change Information Pharmacist',
+  name: 'ChangeInformationPharmacist',
   el: '#app',
   data() {
     return {

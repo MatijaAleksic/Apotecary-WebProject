@@ -45,6 +45,8 @@ export default {
 
     this.userId = this.userInfo.userId;
     this.accessToken = this.userInfo.accessToken;
+    this.component = 'derma-profile';
+    
     axios.post("/api/dermatologist/get-apotecary-id", {id : this.userId},
         {
           headers: {

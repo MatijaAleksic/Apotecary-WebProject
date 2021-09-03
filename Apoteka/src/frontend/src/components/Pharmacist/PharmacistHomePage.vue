@@ -41,7 +41,6 @@ export default {
   beforeMount() {
     this.userId = this.userInfo.userId;
     this.accessToken = this.userInfo.accessToken;
-    alert(this.accessToken)
     axios.post("/api/pharmacist/get-apotecary-id", {id : this.userId},
         {
           headers: {

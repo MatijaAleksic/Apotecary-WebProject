@@ -67,7 +67,6 @@ export default {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
     this.accessToken = this.adminINF.accessToken;
-    alert(this.accessToken);
 
     axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id},
         {

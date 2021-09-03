@@ -74,7 +74,6 @@ export default {
     this.userId = this.adminINF.userId;
     this.apotecary_id = this.adminINF.apotecary_id;
     this.accessToken = this.adminINF.accessToken;
-    alert(this.accessToken);
 
     axios.post("/api/pharmacist/get-personal-info", {id : this.userId},
         {

@@ -99,12 +99,10 @@ export default {
   methods: {
 
     selectedApotecary(id, consultationId){
-      alert(this.patientId);
       this.patientId = id;
       this.consultationId = consultationId;
       this.component = 'visits'
 
-      alert(this.patientId);
     },
 
   },
