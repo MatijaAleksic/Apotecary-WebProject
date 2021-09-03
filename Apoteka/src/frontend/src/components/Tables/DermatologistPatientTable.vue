@@ -31,7 +31,7 @@
       <td><button v-on:click="selectedApotecary(visit.patientId,visit.id)">Start report</button></td>
 
     </tr>
-    <component v-if="component != null" :adminINF ="{visitId: visitId ,userId : patientId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-if="component != null" :adminINF ="{visitId: visitId ,userId : patientId, apotecary_id : apotecary_id,accessToken: accessToken}" v-bind:is="component"> </component>
   </table>
   <div>
     <h5>{{ msg }}</h5>
@@ -69,6 +69,7 @@ export default {
       msg: "",
 
       visitId: null,
+      accessToken: null
     }
   },
 
@@ -79,9 +80,16 @@ export default {
   mounted() {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.userId = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
 
-    axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id, dermaID :this.userId})
+    axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id, dermaID :this.userId}
+        ,
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then(response => {
           this.visits = response.data;
         })
@@ -99,7 +107,13 @@ export default {
     },
 
     refresh(){
-      axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id,dermaID :this.userId})
+      axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id,dermaID :this.userId}
+          ,
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(response => {
             this.visits = response.data;
           })

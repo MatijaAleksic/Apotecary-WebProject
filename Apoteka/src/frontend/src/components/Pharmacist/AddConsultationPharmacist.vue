@@ -53,7 +53,7 @@ export default {
 
       apotecary_id: Number,
       user_id : Number,
-
+      accessToken: null,
 
       select: null,
     }
@@ -66,8 +66,15 @@ export default {
   mounted() {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
-    axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
+    axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id}
+        ,
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.items = response.data;
         });
@@ -77,7 +84,13 @@ export default {
 
     submit(){
       axios.post("/api/consultation/new-consultation", {startDate: this.startDate, startTime: this.startTime, duration : this.duration, price : this.price,
-        pharmacist_id: this.user_id, apotecary_id : this.apotecary_id })
+        pharmacist_id: this.user_id, apotecary_id : this.apotecary_id }
+          ,
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh');

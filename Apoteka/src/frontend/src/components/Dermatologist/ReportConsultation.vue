@@ -54,6 +54,7 @@ export default {
       apotecary_id: Number,
       user_id : Number,
       consultationId : Number,
+      accessToken: null,
     }
   },
   props: {
@@ -64,6 +65,7 @@ export default {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
     this.consultationId = this.adminINF.consultationId;
+    this.accessToken = this.adminINF.accessToken;
 
 
 

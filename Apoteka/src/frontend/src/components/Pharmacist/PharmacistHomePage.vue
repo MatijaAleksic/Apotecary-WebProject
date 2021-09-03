@@ -4,7 +4,7 @@
       <pharma-nav-bar v-on:change-main-component="changeMainComponent"></pharma-nav-bar>
     </header>
 
-    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id,accessToken: accessToken}" v-bind:is="component"> </component>
   </div>
 </template>
 
@@ -34,12 +34,20 @@ export default {
       apotecary_id : null,
 
       component:null,
+      accessToken: null
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.userId = this.userInfo.userId;
-    axios.post("/api/pharmacist/get-apotecary-id", {id : this.userId})
+    this.accessToken = this.userInfo.accessToken;
+    alert(this.accessToken)
+    axios.post("/api/pharmacist/get-apotecary-id", {id : this.userId},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.apotecary_id = response.data;
         });

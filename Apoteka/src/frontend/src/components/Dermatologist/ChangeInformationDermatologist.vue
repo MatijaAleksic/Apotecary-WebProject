@@ -61,7 +61,8 @@ export default {
       country: null,
 
       userId : null,
-      errors: []
+      errors: [],
+      accessToken: null
     }
   },
 
@@ -71,12 +72,18 @@ export default {
 
   mounted() {
     this.userId = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/dermatologist/change-information", {id: this.userId, name: this.name, lastName: this.lastName,
-        address: this.address, city: this.city, country: this.country, phone: this.phone})
+        address: this.address, city: this.city, country: this.country, phone: this.phone},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh-component');

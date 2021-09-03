@@ -41,7 +41,8 @@ export default {
       startDate : '',
       finishDate: '',
       description:'',
-      dermatologist_id: null
+      dermatologist_id: null,
+      accessToken: null
 
     }
   },
@@ -50,12 +51,18 @@ export default {
   },
   mounted() {
     this.dermatologist_id = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
   },
   methods:{
     submit(){
       axios.post(axios.post("/api/dermatologist/vacation",{startDate : this.startDate, finishDate : this.finishDate,
-        description:this.description, dermatologist_id: this.dermatologist_id, approdved:false})
+        description:this.description, dermatologist_id: this.dermatologist_id, approdved:false},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
           }));

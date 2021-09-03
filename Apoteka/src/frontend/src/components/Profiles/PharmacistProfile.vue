@@ -31,7 +31,7 @@
     <v-btn v-on:click="component ='change-information'">Change Personal Information</v-btn>
     <v-btn v-on:click="component ='change-password'">Change Password</v-btn>
 
-    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id,accessToken: accessToken}" v-bind:is="component"> </component>
   </div>
 </template>
 
@@ -66,14 +66,22 @@ export default {
 
       userId : Number,
       apotecary_id : null,
+      accessToken: null
     }
   },
 
   mounted() {
     this.userId = this.adminINF.userId;
     this.apotecary_id = this.adminINF.apotecary_id;
+    this.accessToken = this.adminINF.accessToken;
+    alert(this.accessToken);
 
-    axios.post("/api/pharmacist/get-personal-info", {id : this.userId})
+    axios.post("/api/pharmacist/get-personal-info", {id : this.userId},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then(response => {
           this.firstname = response.data.firstname;
           this.lastname= response.data.lastname;
@@ -89,7 +97,12 @@ export default {
   methods: {
 
     refresh(){
-      axios.post("/api/pharmacist/get-personal-info", {id : this.userId})
+      axios.post("/api/pharmacist/get-personal-info", {id : this.userId},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(response => {
             this.firstname = response.data.firstname;
             this.lastname= response.data.lastname;

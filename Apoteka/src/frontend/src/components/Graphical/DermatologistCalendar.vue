@@ -149,7 +149,7 @@
       </v-col>
     </v-row>
 
-    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component"> </component>
+    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id, accessToken: accessToken}"  v-bind:is="component"> </component>
 
   </v-app>
 </template>
@@ -215,7 +215,8 @@ export default {
     apotecary_id : Number,
 
     selected_staff: '',
-    status: ''
+    status: '',
+    accessToken: null
 
   }),
   props: {
@@ -226,8 +227,14 @@ export default {
 
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
-    axios.post("/api/dermatologist/get-all-visits", {apotecaryID: this.apotecary_id, dermaID: this.user_id})
+    axios.post("/api/dermatologist/get-all-visits", {apotecaryID: this.apotecary_id, dermaID: this.user_id},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.visits = response.data;
           for (let visit of this.visits) {
@@ -277,12 +284,22 @@ export default {
     }
 
     if(this.selectedEvent.name == "Konsultacija"){
-      axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id})
+      axios.post("/api/pharmacist/get-one", {id : this.selectedEvent.staff_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(response => {
             this.selected_staff = response.data;
           })
     }else if(this.selectedEvent.name == "Poseta"){
-      axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id})
+      axios.post("/api/dermatologist/get-one", {id : this.selectedEvent.staff_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then(response => {
             this.selected_staff = response.data;
           })

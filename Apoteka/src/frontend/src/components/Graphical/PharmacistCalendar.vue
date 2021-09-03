@@ -149,7 +149,7 @@
       </v-col>
     </v-row>
 
-    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id}"  v-bind:is="component" > </component>
+    <component :adminINF ="{userId : user_id, apotecary_id : apotecary_id, accessToken: accessToken}"  v-bind:is="component" > </component>
 
   </v-app>
 </template>
@@ -210,7 +210,8 @@ export default {
     apotecary_id : Number,
 
     selected_staff: '',
-    status: ''
+    status: '',
+    accessToken: null
 
   }),
   props: {
@@ -221,8 +222,14 @@ export default {
 
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
-    axios.post("/api/pharmacist/get-all-consultations", {apotecaryId: this.apotecary_id, pharmaId: this.user_id})
+    axios.post("/api/pharmacist/get-all-consultations", {apotecaryId: this.apotecary_id, pharmaId: this.user_id},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.consultations = response.data;
                 for (let consultation of this.consultations) {

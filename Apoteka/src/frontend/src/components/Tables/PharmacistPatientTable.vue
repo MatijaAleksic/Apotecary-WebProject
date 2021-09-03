@@ -31,7 +31,7 @@
         <td><button v-on:click="selectedApotecary(patient.patientId,patient.id)">Start report</button></td>
 
       </tr>
-      <component v-if="component != null" :adminINF ="{consultationId: consultationId ,userId : patientId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+      <component v-if="component != null" :adminINF ="{consultationId: consultationId ,userId : patientId, apotecary_id : apotecary_id,accessToken: accessToken}" v-bind:is="component"> </component>
     </table>
     <div>
       <h5>{{ msg }}</h5>
@@ -68,7 +68,9 @@ export default {
       consultationId: null,
       patientId : null,
       component:null,
-      msg: ""
+      msg: "",
+      accessToken: null
+
     }
   },
 
@@ -80,8 +82,14 @@ export default {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.userId = this.adminINF.userId;
     this.consultationId = this.adminINF.consultationId;
+    this.accessToken = this.adminINF.accessToken;
 
-    axios.post("api/pharmacist/get-all-consultations", {pharmaId : this.userId, apotecaryId : this.apotecary_id})
+    axios.post("api/pharmacist/get-all-consultations", {pharmaId : this.userId, apotecaryId : this.apotecary_id},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then(response => {
           this.patients = response.data;
         })

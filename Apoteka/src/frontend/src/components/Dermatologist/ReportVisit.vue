@@ -54,6 +54,7 @@ export default {
       apotecary_id: Number,
       user_id : Number,
       visitId : Number,
+      accessToken: null
     }
   },
   props: {
@@ -64,8 +65,14 @@ export default {
     this.apotecary_id = this.adminINF.apotecary_id;
     this.user_id = this.adminINF.userId;
     this.visitId = this.adminINF.visitId;
+    this.accessToken = this.adminINF.accessToken;
 
-    axios.post("/api/medication/medication-alergies", {id: this.user_id})
+    axios.post("/api/medication/medication-alergies", {id: this.user_id},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.items = response.data;
         });
@@ -74,7 +81,12 @@ export default {
     text: item => item.name,
 
     submit(){
-      axios.post("/api/visit/change-information", {price: this.price, report: this.report, visitID: this.visitId})
+      axios.post("/api/visit/change-information", {price: this.price, report: this.report, visitID: this.visitId},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
             this.$emit('close-component');

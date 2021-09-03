@@ -67,7 +67,7 @@ export default {
       dermatologis_id: null,
       apotecary_id: null,
 
-
+      accessToken: null
     }
   },
   props: {
@@ -76,12 +76,18 @@ export default {
   mounted() {
     this.dermatologis_id = this.adminINFO.userId;
     this.apotecary_id = this.adminINFO.apotecary_id;
+    this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/visit/new-visit", {id: this.id,startDate : this.startDate, startTime: this.startTime, duration: this.duration, price: this.price,
-        status: this.status, report: this.report,dermatologis_id: this.dermatologis_id, patient_id: this.patient_id, apotecary_id : this.apotecary_id})
+        status: this.status, report: this.report,dermatologis_id: this.dermatologis_id, patient_id: this.patient_id, apotecary_id : this.apotecary_id},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
           });

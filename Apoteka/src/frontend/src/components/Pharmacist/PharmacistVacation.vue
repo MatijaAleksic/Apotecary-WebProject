@@ -41,7 +41,8 @@ export default {
       startDate : '',
       finishDate: '',
       description:'',
-      pharmacist_id: null
+      pharmacist_id: null,
+      accessToken: null
 
     }
   },
@@ -50,12 +51,18 @@ export default {
   },
   mounted() {
     this.pharmacist_id = this.adminINF.userId;
+    this.accessToken = this.adminINF.accessToken;
 
   },
   methods:{
     submit(){
       axios.post(axios.post("/api/pharmacist/vacation",{startDate : this.startDate, finishDate : this.finishDate,
-        description:this.description, pharmacist_id: this.pharmacist_id, approdved:false})
+        description:this.description, pharmacist_id: this.pharmacist_id, approdved:false},
+          {
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+          })
           .then((response) => {
             this.msg = response.data;
           }));

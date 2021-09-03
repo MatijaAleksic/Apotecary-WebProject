@@ -4,7 +4,7 @@
       <derma-nav-bar v-on:change-main-component="changeMainComponent"></derma-nav-bar>
     </header>
 
-    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component :adminINF ="{userId : userId, apotecary_id : apotecary_id, accessToken: accessToken}" v-bind:is="component"> </component>
   </div>
 </template>
 
@@ -37,13 +37,20 @@ export default {
       apotecary_id : Number,
 
       component: '',
+      accessToken: null
     }
   },
 
-  mounted() {
+  beforeMount() {
 
     this.userId = this.userInfo.userId;
-    axios.post("/api/dermatologist/get-apotecary-id", {id : this.userId})
+    this.accessToken = this.userInfo.accessToken;
+    axios.post("/api/dermatologist/get-apotecary-id", {id : this.userId},
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+        })
         .then((response) => {
           this.apotecary_id = response.data;
         });
