@@ -46,7 +46,7 @@
 import axios from "axios";
 export default {
   name: 'ChangeInformationPharmacist',
-  el: '#app',
+
   data() {
     return {
       msg: '',
@@ -83,7 +83,6 @@ export default {
           })
           .then((response) => {
             this.msg = response.data;
-            this.$emit('refresh-component');
           });
     },
 
