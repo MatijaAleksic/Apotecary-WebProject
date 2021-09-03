@@ -22,5 +22,6 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 
     Dermatologist findByUsernameAndPassword(String username, String password);
 
+    Dermatologist findByUsername(String username);
 
 }

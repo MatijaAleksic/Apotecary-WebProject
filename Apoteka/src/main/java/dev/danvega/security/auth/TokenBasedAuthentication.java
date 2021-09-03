@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.informatika.spring.security.security.auth;
+package dev.danvega.security.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

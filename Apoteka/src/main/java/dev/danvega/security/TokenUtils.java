@@ -1,17 +1,15 @@
-package rs.ac.uns.ftn.informatika.spring.security.security;
+package dev.danvega.security;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
+import dev.danvega.Model.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import rs.ac.uns.ftn.informatika.spring.security.model.User;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 // Utility klasa za rad sa JSON Web Tokenima
 @Component

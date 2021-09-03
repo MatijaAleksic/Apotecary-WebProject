@@ -1,5 +1,6 @@
 package dev.danvega.config;
 
+import dev.danvega.Services.CustomUserDetailsService;
 import dev.danvega.security.TokenUtils;
 import dev.danvega.security.auth.RestAuthenticationEntryPoint;
 import dev.danvega.security.auth.TokenAuthenticationFilter;
@@ -67,10 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
 				// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
-				.authorizeRequests().antMatchers("/auth/**").permitAll().antMatchers("/h2-console/**").permitAll().antMatchers("/api/foo").permitAll()
-				
+
+				//.authorizeRequests().antMatchers("/auth/**").permitAll() //.antMatchers("/h2-console/**").permitAll().antMatchers("/api/foo").permitAll()
+				.authorizeRequests().anyRequest().permitAll().and()
+				/////////////////////////////////////////////
+
 				// za svaki drugi zahtev korisnik mora biti autentifikovan
-				.anyRequest().authenticated().and()
+				//.anyRequest().authenticated().and()
+				/////////////////////////////////////////////
+
 				// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
 				.cors().and()
 
@@ -85,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
-		web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
+		web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/login");
 		web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
 				"/**/*.css", "/**/*.js");
 	}

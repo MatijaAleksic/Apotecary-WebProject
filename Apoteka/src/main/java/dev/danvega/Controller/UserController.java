@@ -1,10 +1,7 @@
-package rs.ac.uns.ftn.informatika.spring.security.controller;
+package dev.danvega.Controller;
 
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import dev.danvega.Model.User;
+import dev.danvega.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.uns.ftn.informatika.spring.security.model.User;
-import rs.ac.uns.ftn.informatika.spring.security.service.UserService;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // Primer kontrolera cijim metodama mogu pristupiti samo autorizovani korisnici
 @RestController
@@ -28,20 +27,20 @@ public class UserController {
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
 	@GetMapping("/user/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public User loadById(@PathVariable Long userId) {
 		return this.userService.findById(userId);
 	}
 
 	@GetMapping("/user/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public List<User> loadAll() {
 		return this.userService.findAll();
 	}
 
 	@GetMapping("/whoami")
-	@PreAuthorize("hasRole('USER')")
-	public User user(Principal user) {
+	//@PreAuthorize("hasRole('USER')")
+	public User user(Principal user) throws Exception {
 		return this.userService.findByUsername(user.getName());
 	}
 	
