@@ -1,11 +1,14 @@
 <template>
   <div id="container"><div id="container-inner">
     <h1>Change Information</h1>
-    <form >
+    <form id="app"
+          @submit="checkForm"
+          action="https://vuejs.org/"
+          method="post">
       <fieldset>
         <div>
           <label for="name">First Name</label>
-          <input  type="text" name="name" id="name" v-model="name" required>
+          <input  type="text" name="name" id="name" v-model="name" />
         </div>
         <div>
           <label for="lastname">Last Name</label>
@@ -31,7 +34,7 @@
 
         <!-- Controls -->
         <div class="controls">
-          <input id="submit" name="submit" type="button" @click="submit" value="Change info" />
+          <input id="submit" name="submit" type="submit" @click="submit" value="Change info" />
         </div>
         <div>
           <h1>{{ msg }}</h1>
@@ -46,17 +49,19 @@
 import axios from "axios";
 export default {
   name: 'Change Information Pharmacist',
+  el: '#app',
   data() {
     return {
       msg: '',
-      name: '',
-      lastName: '',
-      phone: '',
-      address: '',
-      city: '',
-      country: '',
+      name: null,
+      lastName: null,
+      phone: null,
+      address: null,
+      city: null,
+      country: null,
 
-      userId : null
+      userId : null,
+      errors: []
     }
   },
 
