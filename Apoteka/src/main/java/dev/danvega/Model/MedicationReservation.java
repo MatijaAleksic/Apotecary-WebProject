@@ -64,6 +64,9 @@ public class MedicationReservation {
         this.medicationInfo = medicationInfo;
     }
 
+    public MedicationReservation(Long id, LocalDate endDate, LocalTime endTime, int duration, int status) {
+    }
+
     public Long getId() {
         return id;
     }

@@ -50,6 +50,17 @@ public class ConsultationService implements ServiceInterface<Consultation>{
         return consultationRepository.save(entity);
     }
 
+    public Consultation updateReport(Consultation entity, Long id) throws Exception {
+        Consultation existingConsulation =  consultationRepository.findById(id).orElse(null);
+        if(existingConsulation == null){
+            throw new Exception("Visit with given id doesn't exist");
+        }
+        existingConsulation.setPrice(entity.getPrice());
+        existingConsulation.setReport(entity.getReport());
+
+        return consultationRepository.save(existingConsulation);
+    }
+
     @Override
     public Consultation update(Consultation entity, Long id) throws Exception {
         Consultation existingConsultation =  consultationRepository.findById(id).orElse(null);

@@ -64,6 +64,17 @@ public class VisitService implements ServiceInterface<Visit>{
         return visitRepository.save(existingVisit);
     }
 
+    public Visit updateReport(Visit entity, Long id) throws Exception {
+        Visit existingVisit =  visitRepository.findById(id).orElse(null);
+        if(existingVisit == null){
+            throw new Exception("Visit with given id doesn't exist");
+        }
+        existingVisit.setPrice(entity.getPrice());
+        existingVisit.setReport(entity.getReport());
+
+        return visitRepository.save(existingVisit);
+    }
+
     @Override
     public void delete(Long id) throws Exception {
         Visit existingVisit = visitRepository.findById(id).orElse(null);
@@ -87,4 +98,5 @@ public class VisitService implements ServiceInterface<Visit>{
         }
         return patients;
     }
+
 }

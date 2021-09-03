@@ -26,6 +26,10 @@ public class MedicationReservationService implements ServiceInterface<Medication
         return medicationReservationRepository.findAll(pageable);
     }
 
+    public List<MedicationReservation> findByApotecaryId(Long id){
+        return medicationReservationRepository.findByApotecary_Id(id);
+    }
+
     @Override
     public MedicationReservation findOne(Long id) {
         return medicationReservationRepository.findById(id).orElse(null);

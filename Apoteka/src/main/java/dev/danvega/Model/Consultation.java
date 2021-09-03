@@ -39,7 +39,7 @@ public class Consultation {
     @JoinColumn(name = "pharmacist_id")
     private Pharmacist pharmacist;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 

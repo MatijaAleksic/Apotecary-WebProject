@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3> Patient Table </h3>
+  <h3> Visit Table </h3>
 
   <input type="text" v-model="searchFirstname" placeholder="Firstname"/>
   <input type="text" v-model="searchLastname" placeholder="Lastname"/>
@@ -8,26 +8,30 @@
   <table>
     <tr bgcolor='lightgrey'>
       <th><div @click="sortBy('id')" class="sortBy">ID</div></th>
-      <th><div @click="sortBy('firstname')" class="sortBy">Firstname</div></th>
-      <th><div @click="sortBy('lastname')" class="sortBy">Lastname</div></th>
-      <th><div @click="sortBy('address')" class="sortBy">Address</div></th>
-      <th><div @click="sortBy('city')" class="sortBy">City</div></th>
-      <th><div @click="sortBy('country')" class="sortBy">Country</div></th>
-      <th><div @click="sortBy('phone')" class="sortBy">Phone</div></th>
+      <th><div @click="sortBy('firstname')" class="sortBy">First Name</div></th>
+      <th><div @click="sortBy('lastname')" class="sortBy">Last Name</div></th>
+      <th><div @click="sortBy('startDate')" class="sortBy">startDate</div></th>
+      <th><div @click="sortBy('startTime')" class="sortBy">startTime</div></th>
+      <th><div @click="sortBy('duration')" class="sortBy">duration</div></th>
+      <th><div @click="sortBy('price')" class="sortBy">price</div></th>
+      <th><div @click="sortBy('status')" class="sortBy">status</div></th>
+      <th><div @click="sortBy('report')" class="sortBy">report</div></th>
     </tr>
 
-    <tr v-for="patient in fillteredDermatologist"  v-bind:key="patient.id">
-      <td> {{patient.id}}</td>
-      <td> {{patient.firstname}}</td>
-      <td> {{patient.lastname}}</td>
-      <td> {{patient.address}}</td>
-      <td> {{patient.city}}</td>
-      <td> {{patient.country}}</td>
-      <td> {{patient.phone}}</td>
-      <td><button v-on:click="component ='visits'">Visits</button></td>
+    <tr v-for="visit in fillteredDermatologist"  v-bind:key="visit.id">
+      <td> {{visit.id}}</td>
+      <td> {{visit.firstname}}</td>
+      <td> {{visit.lastname}}</td>
+      <td> {{visit.startDate}}</td>
+      <td> {{visit.startTime}}</td>
+      <td> {{visit.duration}}</td>
+      <td> {{visit.price}}</td>
+      <td> {{visit.status}}</td>
+      <td> {{visit.report}}</td>
+      <td><button v-on:click="selectedApotecary(visit.patientId,visit.id)">Start report</button></td>
 
     </tr>
-    <component v-if="component != null" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+    <component v-if="component != null" :adminINF ="{visitId: visitId ,userId : patientId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
   </table>
   <div>
     <h5>{{ msg }}</h5>
@@ -37,19 +41,19 @@
 
 <script>
 import axios from "axios";
-import NewVisit from "@/components/Dermatologist/NewVisit";
 import DermatologistCalendar from "@/components/Graphical/DermatologistCalendar";
+import ReportVisit from "@/components/Dermatologist/ReportVisit";
 
 export default {
   name: "DermatologistPatientTable",
   components:{
-    'visits':NewVisit,
+    'visits':ReportVisit,
     'calendar': DermatologistCalendar,
   },
 
   data(){
     return{
-      patients : [],
+      visits : [],
 
       mode: "BROWSE",
       selectedPharmacist: {},
@@ -60,9 +64,11 @@ export default {
 
       apotecary_id : null,
       userId : null,
-
+      patientId : null,
       component:null,
-      msg: ""
+      msg: "",
+
+      visitId: null,
     }
   },
 
@@ -75,30 +81,37 @@ export default {
     this.userId = this.adminINF.userId;
 
 
-    axios.post("/api/dermatologist/view-patients", {id :this.userId})
+    axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id, dermaID :this.userId})
         .then(response => {
-          this.patients = response.data;
+          this.visits = response.data;
         })
 
   },
 
+
   methods: {
 
+    selectedApotecary(id, visitid){
+      this.patientId = id;
+      this.visitId = visitid;
+      this.component = 'visits'
+
+    },
 
     refresh(){
-      axios.post("/api/dermatologist/view-patients", {id : this.userId})
+      axios.post("/api/dermatologist/get-all-visits-table", { apotecaryID:this.apotecary_id,dermaID :this.userId})
           .then(response => {
-            this.patients = response.data;
+            this.visits = response.data;
           })
     },
     sortBy(prop) {
-      this.patients.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+      this.visits.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
     },
   },
 
   computed: {
     fillteredDermatologist: function() {
-      return this.patients.filter( (elem) => {
+      return this.visits.filter( (elem) => {
         return elem.firstname.toLowerCase().match(this.searchFirstname) && elem.lastname.toLowerCase().match(this.searchLastname)
       });
     }

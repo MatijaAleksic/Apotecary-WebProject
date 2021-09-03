@@ -1,6 +1,7 @@
 package dev.danvega.Mapper;
 
 import dev.danvega.DTO.VisitDTO;
+import dev.danvega.DTO.VisitTableDTO;
 import dev.danvega.Model.Visit;
 
 
@@ -22,6 +23,8 @@ public class VisitMapper implements MapperInterface<Visit, VisitDTO>{
             return new VisitDTO(entity.getId(),entity.getStartDate(),entity.getStartTime(),entity.getDuration(),entity.getPrice(),entity.getStatus().getValue(), entity.getReport(), entity.getDermatologist().getId(), entity.getPatient().getId(), entity.getApotecary().getId());
         }
     }
+
+
 
 }
 
