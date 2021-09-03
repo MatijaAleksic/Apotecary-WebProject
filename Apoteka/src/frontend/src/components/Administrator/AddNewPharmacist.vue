@@ -88,7 +88,9 @@ export default {
       country: '',
       phone: '',
       startHours : '',
-      endHours : ''
+      endHours : '',
+
+      accessToken : null,
     }
   },
 
@@ -98,6 +100,7 @@ export default {
 
   mounted() {
       this.apotecary_id = this.adminINF.apotecary_id;
+      this.accessToken = this.adminINF.accessToken;
   },
 
 
@@ -106,7 +109,12 @@ export default {
       axios.post("/api/pharmacist/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
        city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id,
-       startHours: this.startHours, endHours:this.endHours})
+       startHours: this.startHours, endHours:this.endHours}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
           });

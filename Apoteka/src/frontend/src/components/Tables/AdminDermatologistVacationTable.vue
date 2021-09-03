@@ -58,7 +58,8 @@ export default {
         reason: null,
         vacation_id: null,
 
-        last_sort : null
+        last_sort : null,
+        accessToken : null
         }
     },
 
@@ -68,7 +69,14 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-        axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.adminINF.accessToken;
+
+        axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.vacations = response.data;
             })
@@ -79,7 +87,12 @@ export default {
 
         Accept()
         {
-            axios.post("/api/dermatologist-vacation/vacation-response", {answer: true, reason: this.reason, vacation_id : this.vacation_id})
+            axios.post("/api/dermatologist-vacation/vacation-response", {answer: true, reason: this.reason, vacation_id : this.vacation_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -88,7 +101,12 @@ export default {
 
         Decline()
         {
-           axios.post("/api/dermatologist-vacation/vacation-response", {answer: false, reason: this.reason, vacation_id : this.vacation_id})
+           axios.post("/api/dermatologist-vacation/vacation-response", {answer: false, reason: this.reason, vacation_id : this.vacation_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -115,7 +133,12 @@ export default {
         },
 
         refresh(){
-            axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/dermatologist-vacation/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.vacations = response.data;
                 this.sortBy(this.last_sort);

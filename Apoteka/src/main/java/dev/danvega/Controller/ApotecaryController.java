@@ -45,7 +45,7 @@ public class ApotecaryController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    
+
         ApotecaryDTO apoDTO = apothecaryMapper.toDto(apotecary);
         apoDTO.setRating(apothecaryService.findRatingByApotecary(apotecaryIDDTO.getId()));
         return new ResponseEntity<>(apoDTO, HttpStatus.OK);

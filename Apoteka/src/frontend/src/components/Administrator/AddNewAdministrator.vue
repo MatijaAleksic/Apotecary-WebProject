@@ -78,7 +78,8 @@ export default {
       city: '',
       country: '',
       phone: '',
-      apotecary_id: null
+      apotecary_id: null,
+      acessToken: null
     }
   },
 
@@ -88,13 +89,19 @@ export default {
 
   mounted() {
       this.apotecary_id = this.adminINF.apotecary_id;
+      this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/administrator/register-new", {firstname: this.firstname, lastname: this.lastname,
       username: this.username, password: this.password, email: this.email, adress : this.adress,
-       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id})
+       city: this.city,country: this.country, phone: this.phone, apotecary_id: this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
           });

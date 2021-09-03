@@ -50,7 +50,8 @@ export default {
       priceDurationEndTime: null,
       inStorage: null,
 
-      medInfoId : null
+      medInfoId : null,
+      accessToken : null
     }
   },
 
@@ -61,8 +62,14 @@ export default {
   mounted() {
       this.apotecary_id = this.apotecaryID.apotecary_id;
       this.medication_id = this.apotecaryID.medication_id;
+      this.accessToken = this.apotecaryID.accessToken;
 
-      axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id})
+      axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.price = response.data.price;
                 this.priceDurationEndDate= response.data.priceDurationEndDate;
@@ -75,7 +82,12 @@ export default {
   methods:{
     editMedication(){
       axios.post("/api/medication-info/change-information", {price: this.price, priceDurationEndDate : this.priceDurationEndDate,
-      priceDurationEndTime : this.priceDurationEndTime, inStorage : this.inStorage, medication_id : this.medication_id, apotecary_id : this.apotecary_id})
+      priceDurationEndTime : this.priceDurationEndTime, inStorage : this.inStorage, medication_id : this.medication_id, apotecary_id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
             this.$emit('close-component');

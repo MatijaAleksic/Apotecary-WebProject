@@ -34,7 +34,7 @@
             <v-btn v-on:click="component ='calendar'">Calendar</v-btn>
             <v-btn v-on:click="component ='medication-inquiry-table'">Medication Inquiry Table</v-btn>
             <v-btn v-on:click="component ='medication-action-table'">Medication Action Table</v-btn>
-        <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id}" v-bind:is="component"> </component>
+        <component v-on:refresh-component="refreshComponent" :adminINF ="{userId : userId, apotecary_id : apotecary_id, accessToken: accessToken}" v-bind:is="component"> </component>
 </div>
 </template>
 

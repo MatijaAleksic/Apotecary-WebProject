@@ -58,7 +58,8 @@ export default {
       procentage: null,
       medicationAction_id: null,
 
-      medInfoId : null
+      medInfoId : null,
+      accessToken: null
     }
   },
 
@@ -68,8 +69,14 @@ export default {
 
   mounted() {
       this.medInfoId = this.medInfoID.id;
+      this.accessToken = this.medInfoID.accessToken;
       
-      axios.post("/api/medication-action/get", {id: this.medInfoId})
+      axios.post("/api/medication-action/get", {id: this.medInfoId}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.medicationAction_id = response.data.id;
                 this.actionStartDate= response.data.actionStartDate;
@@ -84,7 +91,12 @@ export default {
   methods:{
     editAction(){
       axios.post("/api/medication-action/add-new", {id: this.medicationAction_id, actionStartDate : this.actionStartDate, actionStartTime: this.actionStartTime, actionEndDate: this.actionEndDate, 
-      actionEndTime: this.actionEndTime, medicationInfo_id: this.medInfoId, procentage: this.procentage})
+      actionEndTime: this.actionEndTime, medicationInfo_id: this.medInfoId, procentage: this.procentage}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
             this.$emit('close-component');

@@ -4,7 +4,7 @@
       <admin-nav-bar v-on:change-main-component="changeMainComponent"></admin-nav-bar>
     </header>
 
-      <component :adminINFO ="{userId : userId, apotecary_id : this.apotecary_id, accessToken: this.accessToken}" v-bind:is="component"> </component>
+      <component :adminINFO ="{userId : userId, apotecary_id : apotecary_id, accessToken: accessToken}" v-bind:is="component"> </component>
 
   </div>
     
@@ -54,7 +54,6 @@ components:{
       },
       })
           .then((response) => {
-            alert(response.data)
             this.apotecary_id = response.data;
             this.component = 'apotecary-profile';
           });

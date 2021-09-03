@@ -72,6 +72,7 @@ export default {
       dermatologists: [],
 
       select: null,
+      accessToken: null
     }
   },
 
@@ -82,8 +83,14 @@ export default {
   mounted() {
       this.apotecary_id = this.adminINF.apotecary_id;
       this.user_id = this.adminINF.userId;
+      this.accessToken = this.adminINF.accessToken;
       
-      axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+      axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id}, 
+      {
+        headers: {
+          'Authorization': `Bearer ${this.accessToken}`
+        },
+      })
           .then((response) => {
             this.items = response.data;
           });
@@ -95,7 +102,12 @@ export default {
     
     submit(){
       axios.post("/api/visit/new-visit", {startDate: this.startDate, startTime: this.startTime, duration : this.duration, price : this.price,
-                                          dermatologis_id: this.select.id, apotecary_id : this.apotecary_id })
+                                          dermatologis_id: this.select.id, apotecary_id : this.apotecary_id }, 
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+      })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh');

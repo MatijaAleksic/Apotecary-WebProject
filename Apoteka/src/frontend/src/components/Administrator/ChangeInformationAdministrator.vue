@@ -57,7 +57,8 @@ export default {
       city: '',
       country: '',
 
-      userId : null
+      userId : null,
+      accessToken : null,
     }
   },
 
@@ -67,12 +68,18 @@ export default {
 
   mounted() {
       this.userId = this.adminINF.userId;
+      this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/administrator/change-information", {id: this.userId, firstname: this.firstname, lastname: this.lastname,
-      address: this.address, city: this.city, country: this.country, phone: this.phone})
+      address: this.address, city: this.city, country: this.country, phone: this.phone}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh-component');

@@ -42,6 +42,8 @@ export default {
         apotecary_id : null,
         msg: "",
 
+        accessToken : null
+
         }
     },
 
@@ -51,8 +53,14 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
+        this.accessToken = this.adminINF.accessToken;
         
-        axios.get("/api/medication_inquiry/get-all")
+        axios.get("/api/medication_inquiry/get-all", 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.medicationInquiries = response.data;
             })
@@ -63,7 +71,12 @@ export default {
 
         Accept(medicationInquiry_id, medication_id, quantity)
         {
-            axios.post("/api/medication_inquiry/accept", {id : medicationInquiry_id,  medication_id: medication_id, apotecary_id: this.apotecary_id, quantity: quantity })
+            axios.post("/api/medication_inquiry/accept", {id : medicationInquiry_id,  medication_id: medication_id, apotecary_id: this.apotecary_id, quantity: quantity }, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -72,7 +85,12 @@ export default {
 
         Decline(medicationInquiry_id)
         {
-           axios.post("/api/medication_inquiry/delete", {id : medicationInquiry_id})
+           axios.post("/api/medication_inquiry/delete", {id : medicationInquiry_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -80,7 +98,13 @@ export default {
         },
 
         refresh(){
-            axios.get("/api/medication_inquiry/get-all")
+            axios.get("/api/medication_inquiry/get-all", 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
+
             .then(response => {
                 this.medicationInquiries = response.data;
             })

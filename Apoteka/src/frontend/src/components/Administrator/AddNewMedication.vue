@@ -92,7 +92,7 @@ export default {
       dailyIntake: null,
       replacementDrugs: null,
 
-  
+      accessToken : null,
     }
   },
 
@@ -102,19 +102,35 @@ export default {
 
   mounted() {
       this.apotecary_id = this.adminINF.apotecary_id;
+      this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
-      axios.post("/api/medication/add-new", {name : this.name, medicationType: this.medicationType})
+      axios.post("/api/medication/add-new", {name : this.name, medicationType: this.medicationType}, 
+      {
+        headers: {
+          'Authorization': `Bearer ${this.accessToken}`
+        },
+        })
           .then((response) => {
             this.medication_id = response.data;
 
             axios.post("/api/medication-info/add-new", {price : this.price, priceDurationEndDate: this.priceDurationEndDate, priceDurationEndTime: this.priceDurationEndTime,
-                                                 inStorage: this.inStorage, apotecary_id : this.apotecary_id, medication_id: response.data })
+                                                 inStorage: this.inStorage, apotecary_id : this.apotecary_id, medication_id: response.data }, 
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+          })
 
             axios.post("/api/medication-specifications/add-new", {contradictions : this.contradictions, composition: this.composition, dailyIntake: this.dailyIntake,
-                                                 replacementDrugs: this.replacementDrugs, medication_id: response.data })
+                                                 replacementDrugs: this.replacementDrugs, medication_id: response.data }, 
+        {
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+          })
             .then((response) => {
               this.msg = response.data;
             });

@@ -65,7 +65,8 @@ export default {
 
         apotecary_id : null,
 
-        msg: ""
+        msg: "",
+        accessToken : null
         }
     },
 
@@ -76,7 +77,13 @@ export default {
     created() {
 
         this.apotecary_id = this.adminINF.apotecary_id;
-        axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.adminINF.accessToken;
+        axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.dermatologists = response.data;
             })
@@ -85,7 +92,12 @@ export default {
     methods: {
 
         deleteDermatologist(identification){
-            axios.post("/api/dermatologist/delete", {id: identification})
+            axios.post("/api/dermatologist/delete", {id: identification}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -93,7 +105,12 @@ export default {
         },
 
         refresh(){
-            axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/dermatologist/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.dermatologists = response.data;
             })

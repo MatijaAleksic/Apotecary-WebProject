@@ -48,7 +48,6 @@ export default {
   mounted() {
       this.userId = this.adminINF.userId;
       this.accessToken = this.adminINF.accessToken;
-      alert(this.accessToken)
   },
 
   methods:{

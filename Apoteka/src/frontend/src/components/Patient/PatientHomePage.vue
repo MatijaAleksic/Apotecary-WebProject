@@ -50,11 +50,6 @@ components:{
   mounted() {
     this.userId = this.userInfo.userId;
     this.component = 'apotecary-table';
-    /*axios.post("/api/administrator/get-apotecary-id", {id : this.userId})
-          .then((response) => {
-            this.apotecary_id = response.data;
-            this.component = 'apotecary-profile';
-          });*/
     },
     
 

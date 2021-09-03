@@ -42,7 +42,8 @@ export default {
       adress: null,
       description: null,
 
-      userId : null
+      userId : null,
+      accessToken : null
     }
   },
 
@@ -53,12 +54,18 @@ export default {
   mounted() {
       this.userId = this.adminINF.userId;
       this.apotecary_id = this.adminINF.apotecary_id;
+      this.accessToken = this.adminINF.accessToken;
   },
 
   methods:{
     submit(){
       axios.post("/api/apotecary/change-information", {id: this.apotecary_id, name: this.name, adress: this.adress,
-      description: this.description})
+      description: this.description}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
           .then((response) => {
             this.msg = response.data;
             this.$emit('refresh-component');

@@ -66,7 +66,9 @@ export default {
 
         apotecary_id : null,
 
-        msg: ""
+        msg: "",
+
+        accessToken : null
         }
     },
 
@@ -76,7 +78,14 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-        axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.adminINF.accessToken;
+
+        axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.pharmacists = response.data;
             })
@@ -86,7 +95,12 @@ export default {
     methods: {
 
         deletePharmacist(identification){
-            axios.post("/api/pharmacist/delete", {id: identification})
+            axios.post("/api/pharmacist/delete", {id: identification}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.msg = response.data;
                 this.refresh();
@@ -94,7 +108,12 @@ export default {
         },
 
         refresh(){
-            axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/pharmacist/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.pharmacists = response.data;
             })

@@ -44,7 +44,7 @@
         <h5>{{ msg }}</h5>
     </div>
           
-    <component v-on:close-component="closeComponet" :apotecaryID ="{apotecary_id : apotecary_id,medication_id : medication_id }" v-bind:is="component"> </component>
+    <component v-on:close-component="closeComponet" :apotecaryID ="{apotecary_id : apotecary_id,medication_id : medication_id, accessToken: accessToken }" v-bind:is="component"> </component>
 </div>
 </template>
 
@@ -76,7 +76,8 @@ export default {
         medInfoId: null,
 
         msg: "",
-        component:null
+        component:null,
+        accessToken : null
         }
     },
 
@@ -86,7 +87,13 @@ export default {
 
     mounted() {
         this.apotecary_id = this.adminINF.apotecary_id;
-        axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
+        this.accessToken = this.adminINF.accessToken;
+        axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.medications = response.data;
             })
@@ -105,13 +112,23 @@ export default {
         {
             this.medication_id = medId;
 
-            axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id})
+            axios.post("/api/medication-info/get", {apotecary_id : this.apotecary_id, medication_id: this.medication_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.medInfoId = response.data.id;
 
                 if(this.medInfoId != null)
                 {
-                    axios.post("/api/medication-info/delete", {id : this.medInfoId})
+                    axios.post("/api/medication-info/delete", {id : this.medInfoId}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
                         .then(response => {
                             this.msg = response.data;
                             this.refresh();
@@ -125,7 +142,12 @@ export default {
         },
 
         refresh(){
-            axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id})
+            axios.post("/api/medication-info/get-all-admin", {id : this.apotecary_id}, 
+    {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      },
+      })
             .then(response => {
                 this.medications = response.data;
             })

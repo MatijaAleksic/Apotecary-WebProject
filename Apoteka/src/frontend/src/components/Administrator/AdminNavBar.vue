@@ -18,7 +18,6 @@ export default {
     methods:{
 
         ChangeComponent(value){
-            //alert(value);
             this.$emit('change-main-component', value);
         }
 
